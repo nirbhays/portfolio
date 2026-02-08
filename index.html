@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nirbhay Singh — Cloud &amp; AI Architect</title>
+  <meta name="description" content="Cloud & AI Architect with 11+ years across AWS, GCP, and Azure. Building secure multi-cloud platforms, MLOps pipelines, and AI-ready infrastructure." />
+  <meta name="keywords" content="Cloud Architect, AI, DevOps, MLOps, AWS, GCP, Azure, Kubernetes, Terraform, FinOps, Nirbhay Singh" />
+  <meta name="author" content="Nirbhay Singh" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Nirbhay Singh — Cloud & AI Architect" />
+  <meta property="og:description" content="11+ years building secure, scalable multi-cloud platforms and AI infrastructure." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cloudtoai.in" />
+  <meta property="og:image" content="https://cloudtoai.in/assets/portfolio_headshot_professional.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Nirbhay Singh — Cloud & AI Architect" />
+  <meta name="twitter:description" content="11+ years building secure, scalable multi-cloud platforms and AI infrastructure." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='20' width='100' height='100' fill='%230a0f1a'/><text x='50' y='68' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='50' fill='%2306d6a0'>NS</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Loader -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-text">NS</div>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Background Canvas -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <a class="nav-logo" href="#" aria-label="Back to top">
+      NS<span class="cursor-blink">_</span>
+    </a>
+
+    <nav class="nav-links" id="nav-links" role="navigation" aria-label="Main">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#experience" class="nav-link">Experience</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#writing" class="nav-link">Writing</a>
+      <a href="#certifications" class="nav-link">Certs</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="nav-end">
+      <a href="https://github.com/nirbhays" target="_blank" rel="noopener" class="nav-icon" aria-label="GitHub">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/nirbhaysingh1/" target="_blank" rel="noopener" class="nav-icon" aria-label="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="assets/resume.pdf" target="_blank" rel="noopener" class="btn-nav">Resume</a>
+    </div>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main>
+    <!-- ===================== HERO ===================== -->
+    <section id="hero" class="hero">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Open to consulting &amp; collaboration
+        </div>
+        <h1 class="hero-name">Nirbhay<br/>Singh</h1>
+        <div class="hero-role">
+          <span class="hero-role-prefix">&gt;</span>
+          <span id="typed-text"></span>
+          <span class="typed-cursor">|</span>
+        </div>
+        <p class="hero-desc">
+          I architect <strong>secure multi-cloud platforms</strong>, build
+          <strong>AI/ML deployment pipelines</strong>, and ship
+          <strong>open-source tools</strong> that save engineering teams real money.
+        </p>
+        <div class="hero-stats">
+          <div class="stat" data-target="11" data-suffix="+">
+            <span class="stat-number">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat" data-target="3">
+            <span class="stat-number">0</span>
+            <span class="stat-label">Cloud Platforms</span>
+          </div>
+          <div class="stat" data-target="14" data-suffix="+">
+            <span class="stat-number">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Certifications</span>
+          </div>
+          <div class="stat" data-target="4" data-suffix="M+">
+            <span class="stat-number euro-prefix">0</span><span class="stat-suffix">M+</span>
+            <span class="stat-label">Saved via FinOps</span>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a href="assets/resume.pdf" target="_blank" rel="noopener" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Resume
+          </a>
+          <a href="#projects" class="btn btn-outline">
+            View Projects
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-image-wrapper">
+          <img class="hero-image" src="assets/portfolio_headshot_professional.jpg" alt="Nirbhay Singh" loading="eager" />
+          <div class="hero-image-ring"></div>
+          <div class="hero-image-ring hero-image-ring-2"></div>
+        </div>
+        <div class="hero-terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot" style="background:#ff5f56"></span>
+            <span class="terminal-dot" style="background:#ffbd2e"></span>
+            <span class="terminal-dot" style="background:#27c93f"></span>
+            <span class="terminal-title">nirbhay@cloudtoai:~</span>
+          </div>
+          <div class="terminal-body" id="terminal-body"></div>
+        </div>
+      </div>
+
+      <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section id="about" class="section">
+      <div class="section-inner">
+        <div class="section-label reveal">About Me</div>
+        <div class="about-grid">
+          <div class="about-text reveal">
+            <h2>Building the infrastructure<br/>that powers AI at scale.</h2>
+            <p>
+              Cloud &amp; AI Architect with 11+ years designing production systems across
+              <strong>AWS</strong>, <strong>GCP</strong>, and <strong>Azure</strong>. I bring together
+              automation, observability, and FinOps to deliver platforms that are secure, scalable,
+              and cost-efficient.
+            </p>
+            <p>
+              Currently at <strong>Bosch Polska</strong>, I lead multi-cloud strategy and AI platform
+              delivery — integrating Prompt Engineering, LLMs, and Agentic AI into enterprise
+              search and automation systems using Vertex AI, BigQuery, and Cloud Run.
+            </p>
+            <p>
+              I'm also an active open-source contributor, building tools like
+              <a href="https://github.com/nirbhays/shieldiac">ShieldIaC</a>,
+              <a href="https://github.com/nirbhays/tokenmeter">TokenMeter</a>, and
+              <a href="https://github.com/nirbhays/infracents">InfraCents</a> — solving real
+              problems in cloud security, AI cost management, and infrastructure visibility.
+            </p>
+          </div>
+          <div class="about-details reveal">
+            <div class="about-detail">
+              <span class="about-detail-label">Location</span>
+              <span class="about-detail-value">Warsaw, Poland</span>
+            </div>
+            <div class="about-detail">
+              <span class="about-detail-label">Current Role</span>
+              <span class="about-detail-value">Cloud &amp; AI Architect @ Bosch</span>
+            </div>
+            <div class="about-detail">
+              <span class="about-detail-label">Focus</span>
+              <span class="about-detail-value">Multi-Cloud, MLOps, GenAI, FinOps</span>
+            </div>
+            <div class="about-detail">
+              <span class="about-detail-label">Education</span>
+              <span class="about-detail-value">MTech — Birla Institute of Technology</span>
+            </div>
+            <div class="about-detail">
+              <span class="about-detail-label">Languages</span>
+              <span class="about-detail-value">English, Hindi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SKILLS ===================== -->
+    <section id="skills" class="section section-alt">
+      <div class="section-inner">
+        <div class="section-label reveal">Technical Expertise</div>
+        <h2 class="section-title reveal">Skills &amp; Technologies</h2>
+        <div class="skills-grid">
+          <div class="skill-card reveal" data-delay="0">
+            <div class="skill-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9z"/></svg>
+            </div>
+            <h3>Cloud Platforms</h3>
+            <div class="skill-tags">
+              <span class="tag">AWS</span>
+              <span class="tag">GCP</span>
+              <span class="tag">Azure</span>
+              <span class="tag">VMware</span>
+              <span class="tag">Multi-Cloud</span>
+            </div>
+          </div>
+
+          <div class="skill-card reveal" data-delay="1">
+            <div class="skill-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25z"/></svg>
+            </div>
+            <h3>Infrastructure as Code</h3>
+            <div class="skill-tags">
+              <span class="tag">Terraform</span>
+              <span class="tag">CloudFormation</span>
+              <span class="tag">Ansible</span>
+              <span class="tag">Puppet</span>
+              <span class="tag">HCL</span>
+            </div>
+          </div>
+
+          <div class="skill-card reveal" data-delay="2">
+            <div class="skill-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
+            </div>
+            <h3>Containers &amp; Orchestration</h3>
+            <div class="skill-tags">
+              <span class="tag">Kubernetes</span>
+              <span class="tag">Docker</span>
+              <span class="tag">EKS</span>
+              <span class="tag">GKE</span>
+              <span class="tag">AKS</span>
+              <span class="tag">Anthos</span>
+            </div>
+          </div>
+
+          <div class="skill-card reveal" data-delay="3">
+            <div class="skill-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87a6.997 6.997 0 0 1 .985.57c.292.197.667.292 1.038.169l1.234-.425c.512-.177 1.09.05 1.36.522l1.297 2.247c.27.472.146 1.08-.306 1.374l-1.02.856a1.12 1.12 0 0 0-.412.997 6.7 6.7 0 0 1 0 1.14 1.12 1.12 0 0 0 .412.997l1.02.856c.452.294.576.902.306 1.374l-1.297 2.247c-.27.472-.848.7-1.36.522l-1.234-.425c-.371-.123-.746-.028-1.038.169a6.997 6.997 0 0 1-.985.57c-.332.184-.582.496-.645.87l-.213 1.281c-.09.543-.56.941-1.11.941h-2.593c-.55 0-1.02-.398-1.11-.94l-.213-1.282a1.123 1.123 0 0 0-.645-.87 6.998 6.998 0 0 1-.985-.569 1.123 1.123 0 0 0-1.038-.17l-1.234.426c-.512.177-1.09-.05-1.36-.522L2.723 15.5c-.27-.472-.146-1.08.306-1.374l1.02-.856c.282-.237.432-.612.412-.997a6.7 6.7 0 0 1 0-1.14 1.12 1.12 0 0 0-.412-.997l-1.02-.857c-.452-.293-.576-.901-.306-1.373l1.297-2.247c.27-.472.848-.7 1.36-.522l1.234.425c.371.124.746.029 1.038-.169a6.997 6.997 0 0 1 .985-.57c.332-.183.582-.495.645-.869l.213-1.281z"/><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>
+            </div>
+            <h3>CI/CD &amp; DevOps</h3>
+            <div class="skill-tags">
+              <span class="tag">GitHub Actions</span>
+              <span class="tag">Jenkins</span>
+              <span class="tag">GitOps</span>
+              <span class="tag">ArgoCD</span>
+              <span class="tag">CI/CD</span>
+            </div>
+          </div>
+
+          <div class="skill-card reveal" data-delay="4">
+            <div class="skill-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 0 0-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423z"/></svg>
+            </div>
+            <h3>AI / ML / GenAI</h3>
+            <div class="skill-tags">
+              <span class="tag">Vertex AI</span>
+              <span class="tag">MLOps</span>
+              <span class="tag">LLMOps</span>
+              <span class="tag">RAG</span>
+              <span class="tag">Prompt Engineering</span>
+              <span class="tag">Agentic AI</span>
+              <span class="tag">SageMaker</span>
+            </div>
+          </div>
+
+          <div class="skill-card reveal" data-delay="5">
+            <div class="skill-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.292 4.338 5.31 7.5 10.066 7.5.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 0 1-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"/></svg>
+            </div>
+            <h3>Security &amp; Observability</h3>
+            <div class="skill-tags">
+              <span class="tag">IAM</span>
+              <span class="tag">Zero-Trust</span>
+              <span class="tag">Prometheus</span>
+              <span class="tag">Grafana</span>
+              <span class="tag">ELK</span>
+              <span class="tag">FinOps</span>
+            </div>
+          </div>
+
+          <div class="skill-card reveal" data-delay="6">
+            <div class="skill-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg>
+            </div>
+            <h3>Languages &amp; Scripting</h3>
+            <div class="skill-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Bash</span>
+              <span class="tag">YAML</span>
+              <span class="tag">JSON</span>
+              <span class="tag">HCL</span>
+              <span class="tag">PowerShell</span>
+            </div>
+          </div>
+
+          <div class="skill-card reveal" data-delay="7">
+            <div class="skill-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
+            </div>
+            <h3>Data &amp; Analytics</h3>
+            <div class="skill-tags">
+              <span class="tag">BigQuery</span>
+              <span class="tag">Redshift</span>
+              <span class="tag">EMR</span>
+              <span class="tag">Cloud Run</span>
+              <span class="tag">Enterprise Search</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPERIENCE ===================== -->
+    <section id="experience" class="section">
+      <div class="section-inner">
+        <div class="section-label reveal">Career</div>
+        <h2 class="section-title reveal">Work Experience</h2>
+        <div class="timeline">
+
+          <div class="timeline-item reveal">
+            <div class="timeline-marker"></div>
+            <div class="timeline-date">Dec 2022 &mdash; Present</div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <img src="assets/logos/bosch.png" alt="Bosch" class="timeline-logo" loading="lazy" />
+                <div>
+                  <h3>Cloud &amp; AI Architect</h3>
+                  <span class="timeline-company">Bosch Polska &middot; Warsaw, Poland</span>
+                </div>
+              </div>
+              <ul>
+                <li>Integrated Prompt Engineering, LLMs, and Agentic AI into enterprise search and automation, deploying workloads with Vertex AI, BigQuery, and Cloud Run</li>
+                <li>Designed LLM and enterprise search solutions adopted across multiple business units in Bosch Europe</li>
+                <li>Led strategic partnership between Google, AWS, and Bosch in Poland</li>
+                <li>Implemented FinOps at Bosch Europe, delivering &euro;4M+ in savings through optimization and governance</li>
+                <li>Mentoring senior developers and architects on multi-cloud strategy across global teams</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag-sm">GCP</span>
+                <span class="tag-sm">AWS</span>
+                <span class="tag-sm">Vertex AI</span>
+                <span class="tag-sm">LLMs</span>
+                <span class="tag-sm">FinOps</span>
+                <span class="tag-sm">BigQuery</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-marker"></div>
+            <div class="timeline-date">Jun 2021 &mdash; Nov 2022</div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <img src="assets/logos/mcafee.png" alt="McAfee" class="timeline-logo" loading="lazy" />
+                <div>
+                  <h3>Senior DevOps Consultant</h3>
+                  <span class="timeline-company">McAfee</span>
+                </div>
+              </div>
+              <ul>
+                <li>Automated infrastructure with Terraform (IaC), achieving 50%+ reduction in deployment time</li>
+                <li>Deployed and managed container platforms across GKE, EKS, AKS, and ECS</li>
+                <li>Built monitoring, logging, and alerting systems to proactively resolve incidents</li>
+                <li>Developed automation scripts in Python, Bash, YAML, and JSON for cloud infrastructure</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag-sm">Terraform</span>
+                <span class="tag-sm">AWS</span>
+                <span class="tag-sm">GCP</span>
+                <span class="tag-sm">Azure</span>
+                <span class="tag-sm">Kubernetes</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-marker"></div>
+            <div class="timeline-date">Dec 2018 &mdash; Jun 2021</div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <img src="assets/logos/deloitte.png" alt="Deloitte" class="timeline-logo" loading="lazy" />
+                <div>
+                  <h3>Senior DevOps Engineer / Data &amp; AI Architect</h3>
+                  <span class="timeline-company">Deloitte</span>
+                </div>
+              </div>
+              <ul>
+                <li>Reduced AWS costs by $45k and accelerated CI/CD pipeline speed by 30&times;</li>
+                <li>Orchestrated 1,000+ containers using AWS Batch, Spot Instances, and EKS</li>
+                <li>Built data &amp; AI platforms on EMR, Redshift, and SageMaker</li>
+                <li>Implemented multi-cloud security spanning GCP, AWS, Azure, and OCI</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag-sm">AWS</span>
+                <span class="tag-sm">EKS</span>
+                <span class="tag-sm">SageMaker</span>
+                <span class="tag-sm">Redshift</span>
+                <span class="tag-sm">CI/CD</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-marker"></div>
+            <div class="timeline-date">Nov 2015 &mdash; Dec 2018</div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <img src="assets/logos/ptc.png" alt="PTC" class="timeline-logo" loading="lazy" />
+                <div>
+                  <h3>Senior Cloud Infrastructure Engineer</h3>
+                  <span class="timeline-company">PTC</span>
+                </div>
+              </div>
+              <ul>
+                <li>Designed secure, fault-tolerant AWS architectures (EC2, RDS, S3, VPC)</li>
+                <li>Built disaster recovery strategies for cloud and on-premise environments</li>
+                <li>Managed 11,000+ server Windows infrastructure with Active Directory</li>
+                <li>Automated operations with PowerShell and led large-scale migrations</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag-sm">AWS</span>
+                <span class="tag-sm">Active Directory</span>
+                <span class="tag-sm">PowerShell</span>
+                <span class="tag-sm">DR</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-marker"></div>
+            <div class="timeline-date">Mar 2013 &mdash; Jul 2014</div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <img src="assets/logos/ibm.png" alt="IBM" class="timeline-logo" loading="lazy" />
+                <div>
+                  <h3>System Engineer</h3>
+                  <span class="timeline-company">IBM</span>
+                </div>
+              </div>
+              <ul>
+                <li>Infrastructure operations, migrations, and incident response (P1/P2)</li>
+                <li>Root cause analysis and resolution of critical production issues</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag-sm">Infrastructure</span>
+                <span class="tag-sm">Migrations</span>
+                <span class="tag-sm">Incident Response</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROJECTS ===================== -->
+    <section id="projects" class="section section-alt">
+      <div class="section-inner">
+        <div class="section-label reveal">Open Source</div>
+        <h2 class="section-title reveal">Featured Projects</h2>
+        <div class="projects-grid">
+
+          <article class="project-card reveal" data-tilt>
+            <div class="project-card-glow"></div>
+            <div class="project-card-inner">
+              <div class="project-header">
+                <div class="project-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/nirbhays/shieldiac" target="_blank" rel="noopener" aria-label="ShieldIaC on GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                  </a>
+                  <a href="https://medium.com/@nirbhaysingh1/how-i-built-an-ai-powered-iac-security-scanner-from-scratch-100-rules-9-compliance-frameworks-ae4cbf114f2a" target="_blank" rel="noopener" aria-label="ShieldIaC article">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <h3>ShieldIaC</h3>
+              <p class="project-tagline">AI-Powered IaC Security Scanner</p>
+              <p class="project-desc">
+                Catch security misconfigurations in Infrastructure-as-Code before they reach production.
+                100+ rules across 9 compliance frameworks (CIS, SOC 2, HIPAA, PCI-DSS, NIST, ISO 27001)
+                with AI-powered fix suggestions.
+              </p>
+              <div class="project-metrics">
+                <span><strong>100+</strong> Security Rules</span>
+                <span><strong>9</strong> Compliance Frameworks</span>
+                <span><strong>AI</strong> Fix Suggestions</span>
+              </div>
+              <div class="project-tech">
+                <span class="tag-sm">Python</span>
+                <span class="tag-sm">Terraform</span>
+                <span class="tag-sm">CloudFormation</span>
+                <span class="tag-sm">GPT-4.1</span>
+                <span class="tag-sm">GitHub Actions</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-tilt>
+            <div class="project-card-glow"></div>
+            <div class="project-card-inner">
+              <div class="project-header">
+                <div class="project-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/nirbhays/tokenmeter" target="_blank" rel="noopener" aria-label="TokenMeter on GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                  </a>
+                  <a href="https://medium.com/@nirbhaysingh1/our-ai-bill-was-4-800-last-month-nobody-knew-why-so-i-built-an-open-source-llm-cost-tracker-018cdbdf9a6b" target="_blank" rel="noopener" aria-label="TokenMeter article">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <h3>TokenMeter</h3>
+              <p class="project-tagline">Cost Intelligence Layer for LLM Apps</p>
+              <p class="project-desc">
+                Track every token. Optimize every dollar. One-line integration that replaces a single import —
+                automatically tracking cost, latency, and tokens across OpenAI, Anthropic, and Google.
+                Smart routing saves up to 60% by matching task complexity to model capability.
+              </p>
+              <div class="project-metrics">
+                <span><strong>&lt;5ms</strong> Overhead</span>
+                <span><strong>60%</strong> Cost Savings</span>
+                <span><strong>3</strong> Providers</span>
+              </div>
+              <div class="project-tech">
+                <span class="tag-sm">Python</span>
+                <span class="tag-sm">OpenAI</span>
+                <span class="tag-sm">Anthropic</span>
+                <span class="tag-sm">Smart Routing</span>
+                <span class="tag-sm">PyPI</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-tilt>
+            <div class="project-card-glow"></div>
+            <div class="project-card-inner">
+              <div class="project-header">
+                <div class="project-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/nirbhays/infracents" target="_blank" rel="noopener" aria-label="InfraCents on GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                  </a>
+                </div>
+              </div>
+              <h3>InfraCents</h3>
+              <p class="project-tagline">Terraform Cost Estimates on Every PR</p>
+              <p class="project-desc">
+                An open-source GitHub App that posts real-time cloud cost estimates directly on pull requests.
+                Parses Terraform changes, queries live pricing APIs from AWS and GCP, and tells your team
+                exactly how much a PR will cost before it merges. Zero config required.
+              </p>
+              <div class="project-metrics">
+                <span><strong>AWS+GCP</strong> Pricing</span>
+                <span><strong>Zero</strong> Config</span>
+                <span><strong>PR</strong> Integration</span>
+              </div>
+              <div class="project-tech">
+                <span class="tag-sm">Python</span>
+                <span class="tag-sm">Next.js</span>
+                <span class="tag-sm">Terraform</span>
+                <span class="tag-sm">GitHub App</span>
+                <span class="tag-sm">AWS API</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+        <div class="projects-cta reveal">
+          <a href="https://github.com/nirbhays" target="_blank" rel="noopener" class="btn btn-outline">
+            View All Repositories on GitHub
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WRITING ===================== -->
+    <section id="writing" class="section">
+      <div class="section-inner">
+        <div class="section-label reveal">Blog</div>
+        <h2 class="section-title reveal">Technical Writing</h2>
+        <div class="articles-grid">
+
+          <a href="https://medium.com/@nirbhaysingh1/how-i-built-an-ai-powered-iac-security-scanner-from-scratch-100-rules-9-compliance-frameworks-ae4cbf114f2a" target="_blank" rel="noopener" class="article-card reveal">
+            <div class="article-badge">ShieldIaC</div>
+            <h3>How I Built an AI-Powered IaC Security Scanner from Scratch</h3>
+            <p>
+              100+ rules, 9 compliance frameworks, and AI-generated fix suggestions — a deep dive
+              into building ShieldIaC to catch security misconfigurations before they reach production.
+            </p>
+            <span class="article-read">Read on Medium &rarr;</span>
+          </a>
+
+          <a href="https://medium.com/@nirbhaysingh1/our-ai-bill-was-4-800-last-month-nobody-knew-why-so-i-built-an-open-source-llm-cost-tracker-018cdbdf9a6b" target="_blank" rel="noopener" class="article-card reveal">
+            <div class="article-badge">TokenMeter</div>
+            <h3>Our AI Bill Was $4,800 Last Month — Nobody Knew Why</h3>
+            <p>
+              So I built an open-source LLM cost tracker. How TokenMeter provides per-feature,
+              per-team cost breakdowns with smart routing that saves up to 60% on AI spend.
+            </p>
+            <span class="article-read">Read on Medium &rarr;</span>
+          </a>
+
+        </div>
+        <div class="articles-cta reveal">
+          <a href="https://medium.com/@nirbhaysingh1" target="_blank" rel="noopener" class="btn btn-outline">
+            All Articles on Medium
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CERTIFICATIONS ===================== -->
+    <section id="certifications" class="section section-alt">
+      <div class="section-inner">
+        <div class="section-label reveal">Credentials</div>
+        <h2 class="section-title reveal">Certifications</h2>
+
+        <div class="certs-group reveal">
+          <h3 class="certs-provider">Google Cloud</h3>
+          <div class="certs-grid">
+            <div class="cert-card">
+              <div class="cert-badge gcp"></div>
+              <div>
+                <strong>Professional Machine Learning Engineer</strong>
+                <span>Valid through Dec 2027</span>
+              </div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-badge gcp"></div>
+              <div>
+                <strong>Professional Cloud DevOps Engineer</strong>
+                <span>Valid through Dec 2027</span>
+              </div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-badge gcp"></div>
+              <div>
+                <strong>Professional Cloud Architect</strong>
+                <span>Valid through Jun 2026</span>
+              </div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-badge gcp"></div>
+              <div>
+                <strong>Generative AI Leader</strong>
+                <span>Valid through Aug 2028</span>
+              </div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-badge gcp"></div>
+              <div>
+                <strong>Associate Cloud Engineer</strong>
+                <span>Earned Aug 2023</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="certs-group reveal">
+          <h3 class="certs-provider">Amazon Web Services</h3>
+          <div class="certs-grid">
+            <div class="cert-card">
+              <div class="cert-badge aws"></div>
+              <div>
+                <strong>Solutions Architect — Professional</strong>
+                <span>Earned Feb 2020</span>
+              </div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-badge aws"></div>
+              <div>
+                <strong>Solutions Architect — Associate</strong>
+                <span>Earned Jan 2021</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="certs-group reveal">
+          <h3 class="certs-provider">Other</h3>
+          <div class="certs-grid">
+            <div class="cert-card">
+              <div class="cert-badge k8s"></div>
+              <div>
+                <strong>CKAD — Certified Kubernetes Application Developer</strong>
+                <span>The Linux Foundation &middot; Valid through Sep 2026</span>
+              </div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-badge tf"></div>
+              <div>
+                <strong>Terraform Associate</strong>
+                <span>HashiCorp</span>
+              </div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-badge ms"></div>
+              <div>
+                <strong>MCSA — Microsoft Certified Solutions Associate</strong>
+                <span>Microsoft &middot; Earned Apr 2015</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="certs-cta reveal">
+          <a href="https://www.credly.com/users/nirbhaysingh/badges" target="_blank" rel="noopener" class="btn btn-outline">
+            View All Badges on Credly
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section id="contact" class="section">
+      <div class="section-inner contact-inner">
+        <div class="section-label reveal">Get in Touch</div>
+        <h2 class="section-title reveal contact-title">Let's Build Something Together</h2>
+        <p class="contact-desc reveal">
+          Whether it's cloud architecture consulting, AI/ML platform strategy, or open-source collaboration —
+          I'm always open to interesting conversations and new challenges.
+        </p>
+        <div class="contact-links reveal">
+          <a href="mailto:nirbhaysingh1@live.com" class="contact-card">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+            <div>
+              <strong>Email</strong>
+              <span>nirbhaysingh1@live.com</span>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/nirbhaysingh1/" target="_blank" rel="noopener" class="contact-card">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            <div>
+              <strong>LinkedIn</strong>
+              <span>in/nirbhaysingh1</span>
+            </div>
+          </a>
+          <a href="https://github.com/nirbhays" target="_blank" rel="noopener" class="contact-card">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            <div>
+              <strong>GitHub</strong>
+              <span>nirbhays</span>
+            </div>
+          </a>
+          <a href="https://medium.com/@nirbhaysingh1" target="_blank" rel="noopener" class="contact-card">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3z"/></svg>
+            <div>
+              <strong>Medium</strong>
+              <span>@nirbhaysingh1</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>&copy; 2026 Nirbhay Singh</span>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://cloudtoai.in" target="_blank" rel="noopener">cloudtoai.in</a>
+      <span class="footer-sep">&middot;</span>
+      <span>Built with purpose, deployed with confidence.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
