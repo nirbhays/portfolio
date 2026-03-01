@@ -210,6 +210,7 @@
       var numEl = stat.querySelector('.stat-number');
       if (!numEl || isNaN(target)) return;
 
+      numEl.textContent = '0';
       var current = 0;
       var duration = 1500;
       var startTime = null;
