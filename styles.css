@@ -590,6 +590,15 @@ strong { color: var(--text-0); font-weight: 600; }
 .projects-cta, .articles-cta, .certs-cta {
   text-align: center; margin-top: 40px;
 }
+.projects-more-label {
+  font-family: var(--font-mono); font-size: .75rem;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text-3); margin: 48px 0 24px;
+  display: flex; align-items: center; gap: 16px;
+}
+.projects-more-label::before, .projects-more-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
 
 /* ========================================================
    WRITING / BLOG
