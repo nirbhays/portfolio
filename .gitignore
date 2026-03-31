@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*~
+
+# Node (if any tooling added later)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build artifacts (if build step added)
+dist/
+.cache/
+
+# Netlify local dev
+.netlify/
