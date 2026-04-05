@@ -68,7 +68,7 @@ strong { color: var(--text-0); font-weight: 600; }
   background-clip: text;
 }
 .loader-bar {
-  width: 120px; height: 3px; background: var(--bg-3);
+  width: 120px; height: 4px; background: var(--bg-3);
   border-radius: 4px; margin: 16px auto 0; overflow: hidden;
 }
 .loader-fill {
@@ -192,7 +192,7 @@ strong { color: var(--text-0); font-weight: 600; }
   padding: 6px 16px; border-radius: 999px;
   font-size: .78rem; font-weight: 500; color: var(--accent);
   background: var(--accent-dim);
-  border: 1px solid rgba(6,214,160,.2);
+  border: 1px solid rgba(6,214,160,.35);
   margin-bottom: 20px;
 }
 .badge-dot {
@@ -245,7 +245,7 @@ strong { color: var(--text-0); font-weight: 600; }
   font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700;
   color: var(--text-0);
 }
-.euro-prefix::before { content: '\20AC'; font-size: .7em; opacity: .6; margin-right: 2px; }
+.euro-prefix::before { content: '\20AC'; font-size: .7em; margin-right: 2px; }
 .stat-suffix { font-family: var(--font-display); font-weight: 700; color: var(--text-0); font-size: clamp(1.6rem,3vw,2.2rem); }
 .stat-label {
   display: block; font-size: .72rem; color: var(--text-3);
@@ -509,7 +509,7 @@ strong { color: var(--text-0); font-weight: 600; }
   font-family: var(--font-display); font-size: 1.05rem;
   font-weight: 600; color: var(--text-0); margin: 0;
 }
-.timeline-company { font-size: .85rem; color: var(--text-3); }
+.timeline-company { font-size: .85rem; color: var(--text-2); }
 .timeline-content ul { margin: 12px 0; }
 .timeline-content li { font-size: .9rem; }
 .timeline-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
@@ -632,7 +632,7 @@ strong { color: var(--text-0); font-weight: 600; }
   font-weight: 600; color: var(--text-0); margin-bottom: 10px;
   line-height: 1.35;
 }
-.article-card p { font-size: .9rem; color: var(--text-2); flex: 1; }
+.article-card p { font-size: .9rem; color: var(--text-1); flex: 1; }
 .article-read {
   display: inline-block; margin-top: 16px;
   font-size: .85rem; font-weight: 500;
@@ -759,7 +759,7 @@ strong { color: var(--text-0); font-weight: 600; }
 }
 .footer-inner a { color: var(--text-2); }
 .footer-inner a:hover { color: var(--accent); }
-.footer-sep { opacity: .3; }
+.footer-sep { opacity: .5; }
 
 /* ========================================================
    RESPONSIVE
