@@ -12,7 +12,7 @@
   window.addEventListener('load', function () {
     setTimeout(function () {
       document.getElementById('loader').classList.add('hidden');
-    }, 1400);
+    }, 800);
   });
 
   /* ------------------------------------------------
@@ -25,12 +25,17 @@
   var PARTICLE_COUNT = 60;
   var CONNECTION_DIST = 150;
   var paused = false;
+  var canvasVisible = true;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
-  window.addEventListener('resize', resizeCanvas);
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resizeCanvas, 150);
+  });
   resizeCanvas();
 
   function Particle() {
@@ -71,8 +76,8 @@
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(p2.x, p2.y);
           var opacity = 1 - dist / CONNECTION_DIST;
-          ctx.strokeStyle = 'rgba(79, 143, 255, ' + (opacity * 0.15) + ')';
-          ctx.lineWidth = 0.5;
+          ctx.strokeStyle = 'rgba(90, 154, 255, ' + (opacity * 0.22) + ')';
+          ctx.lineWidth = 0.6;
           ctx.stroke();
         }
       }
@@ -81,10 +86,21 @@
   }
   drawParticles();
 
-  // Pause when tab is hidden
+  // Pause canvas when tab is hidden or hero is not visible
   document.addEventListener('visibilitychange', function () {
-    paused = document.hidden;
+    paused = document.hidden || !canvasVisible;
   });
+
+  if ('IntersectionObserver' in window) {
+    var heroEl = document.getElementById('hero');
+    if (heroEl) {
+      var canvasObserver = new IntersectionObserver(function (entries) {
+        canvasVisible = entries[0].isIntersecting;
+        paused = document.hidden || !canvasVisible;
+      }, { threshold: 0 });
+      canvasObserver.observe(heroEl);
+    }
+  }
 
   /* ------------------------------------------------
      PROJECT CARD GLOW (mouse follow)
@@ -261,7 +277,13 @@
   var isDeleting = false;
   var typeSpeed = 80;
 
+  var typingPaused = false;
+
   function typeRole() {
+    if (typingPaused) {
+      setTimeout(typeRole, 500);
+      return;
+    }
     var current = roles[roleIndex];
     if (isDeleting) {
       typedEl.textContent = current.substring(0, charIndex - 1);
@@ -284,6 +306,12 @@
 
     setTimeout(typeRole, typeSpeed);
   }
+
+  // Pause typing when tab is hidden
+  document.addEventListener('visibilitychange', function () {
+    typingPaused = document.hidden;
+  });
+
   typeRole();
 
   /* ------------------------------------------------
@@ -345,7 +373,7 @@
   }
 
   // Start terminal after loader
-  setTimeout(typeTerminal, 1800);
+  setTimeout(typeTerminal, 1200);
 
   /* ------------------------------------------------
      SMOOTH SCROLL for anchor links
