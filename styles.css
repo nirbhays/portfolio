@@ -330,6 +330,8 @@ strong { color: var(--text-0); font-weight: 600; }
 .stat {
   text-align: center;
   padding: 18px 22px;
+  min-width: 120px;
+  flex: 1;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -352,10 +354,14 @@ strong { color: var(--text-0); font-weight: 600; }
   box-shadow: var(--shadow-glow);
   border-color: var(--border-hover);
 }
+.stat-value {
+  display: flex; align-items: baseline; justify-content: center;
+  gap: 2px; white-space: nowrap;
+}
 .stat-number {
-  display: block; font-family: var(--font-display);
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700;
-  color: var(--text-0);
+  color: var(--text-0); line-height: 1.2;
 }
 .euro-prefix::before { content: '\20AC'; font-size: .7em; margin-right: 2px; }
 .stat-suffix {
@@ -365,6 +371,7 @@ strong { color: var(--text-0); font-weight: 600; }
 .stat-label {
   display: block; font-size: .68rem; color: var(--text-3);
   text-transform: uppercase; letter-spacing: .1em; margin-top: 4px;
+  white-space: nowrap;
 }
 
 /* CTA */
@@ -1223,8 +1230,8 @@ strong { color: var(--text-0); font-weight: 600; }
 
   .hero { padding-top: calc(68px + 40px); min-height: auto; }
   .hero-name { font-size: clamp(2.5rem, 12vw, 4rem); }
-  .hero-stats { gap: 10px; }
-  .stat { padding: 14px 16px; }
+  .hero-stats { gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .stat { padding: 14px 16px; min-width: 0; flex: 0 1 auto; }
   .hero-image-wrapper { width: 200px; height: 200px; }
 
   .timeline { padding-left: 30px; }
