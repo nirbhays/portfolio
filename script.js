@@ -43,7 +43,8 @@
     this.vy = (Math.random() - 0.5) * 0.5;
     this.radius = Math.random() * 2 + 0.5;
     this.baseRadius = this.radius;
-    this.color = Math.random() > 0.5 ? '0, 229, 255' : '255, 46, 151';
+    var r = Math.random();
+    this.color = r > 0.66 ? '99, 102, 241' : r > 0.33 ? '139, 92, 246' : '236, 72, 153';
   }
 
   for (var i = 0; i < PARTICLE_COUNT; i++) {
