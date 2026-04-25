@@ -1,8 +1,3 @@
-/* ========================================================
-   NIRBHAY SINGH — PORTFOLIO JS
-   Particle network, typing, scroll reveals, counters, nav
-   ======================================================== */
-
 (function () {
   'use strict';
 
@@ -12,20 +7,23 @@
   window.addEventListener('load', function () {
     setTimeout(function () {
       document.getElementById('loader').classList.add('hidden');
-    }, 800);
+    }, 1000);
   });
 
   /* ------------------------------------------------
-     PARTICLE NETWORK BACKGROUND
-     Lightweight canvas drawing connected nodes
+     ENHANCED PARTICLE NETWORK
+     More particles, colored connections, mouse interaction
   ------------------------------------------------ */
   var canvas = document.getElementById('bg-canvas');
   var ctx = canvas.getContext('2d');
   var particles = [];
-  var PARTICLE_COUNT = 60;
-  var CONNECTION_DIST = 150;
+  var PARTICLE_COUNT = 80;
+  var CONNECTION_DIST = 160;
+  var MOUSE_DIST = 200;
   var paused = false;
   var canvasVisible = true;
+  var mouseX = -1000;
+  var mouseY = -1000;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -41,14 +39,21 @@
   function Particle() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
-    this.vx = (Math.random() - 0.5) * 0.4;
-    this.vy = (Math.random() - 0.5) * 0.4;
-    this.radius = Math.random() * 1.5 + 0.5;
+    this.vx = (Math.random() - 0.5) * 0.5;
+    this.vy = (Math.random() - 0.5) * 0.5;
+    this.radius = Math.random() * 2 + 0.5;
+    this.baseRadius = this.radius;
+    this.color = Math.random() > 0.5 ? '0, 229, 255' : '255, 46, 151';
   }
 
   for (var i = 0; i < PARTICLE_COUNT; i++) {
     particles.push(new Particle());
   }
+
+  document.addEventListener('mousemove', function (e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
 
   function drawParticles() {
     if (paused) { requestAnimationFrame(drawParticles); return; }
@@ -56,15 +61,38 @@
 
     for (var i = 0; i < particles.length; i++) {
       var p = particles[i];
+
+      var dxM = mouseX - p.x;
+      var dyM = mouseY - p.y;
+      var distM = Math.sqrt(dxM * dxM + dyM * dyM);
+      if (distM < MOUSE_DIST) {
+        var force = (MOUSE_DIST - distM) / MOUSE_DIST;
+        p.vx -= (dxM / distM) * force * 0.02;
+        p.vy -= (dyM / distM) * force * 0.02;
+        p.radius = p.baseRadius + force * 2;
+      } else {
+        p.radius += (p.baseRadius - p.radius) * 0.05;
+      }
+
       p.x += p.vx;
       p.y += p.vy;
+      p.vx *= 0.99;
+      p.vy *= 0.99;
+
       if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
       if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(6, 214, 160, 0.5)';
+      ctx.fillStyle = 'rgba(' + p.color + ', 0.6)';
       ctx.fill();
+
+      if (p.radius > p.baseRadius * 1.2) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + p.color + ', 0.08)';
+        ctx.fill();
+      }
 
       for (var j = i + 1; j < particles.length; j++) {
         var p2 = particles[j];
@@ -76,8 +104,11 @@
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(p2.x, p2.y);
           var opacity = 1 - dist / CONNECTION_DIST;
-          ctx.strokeStyle = 'rgba(90, 154, 255, ' + (opacity * 0.22) + ')';
-          ctx.lineWidth = 0.6;
+          var gradient = ctx.createLinearGradient(p.x, p.y, p2.x, p2.y);
+          gradient.addColorStop(0, 'rgba(' + p.color + ', ' + (opacity * 0.25) + ')');
+          gradient.addColorStop(1, 'rgba(' + p2.color + ', ' + (opacity * 0.25) + ')');
+          ctx.strokeStyle = gradient;
+          ctx.lineWidth = 0.8;
           ctx.stroke();
         }
       }
@@ -86,7 +117,6 @@
   }
   drawParticles();
 
-  // Pause canvas when tab is hidden or hero is not visible
   document.addEventListener('visibilitychange', function () {
     paused = document.hidden || !canvasVisible;
   });
@@ -103,13 +133,39 @@
   }
 
   /* ------------------------------------------------
-     PROJECT CARD GLOW (mouse follow)
+     PROJECT CARD GLOW + 3D TILT
   ------------------------------------------------ */
   document.querySelectorAll('.project-card').forEach(function (card) {
     card.addEventListener('mousemove', function (e) {
       var rect = card.getBoundingClientRect();
-      card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
-      card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', x + 'px');
+      card.style.setProperty('--mouse-y', y + 'px');
+
+      var centerX = rect.width / 2;
+      var centerY = rect.height / 2;
+      var rotateX = ((y - centerY) / centerY) * -5;
+      var rotateY = ((x - centerX) / centerX) * 5;
+      card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-8px)';
+    });
+    card.addEventListener('mouseleave', function () {
+      card.style.transform = '';
+    });
+  });
+
+  /* ------------------------------------------------
+     MAGNETIC BUTTON HOVER
+  ------------------------------------------------ */
+  document.querySelectorAll('.btn').forEach(function (btn) {
+    btn.addEventListener('mousemove', function (e) {
+      var rect = btn.getBoundingClientRect();
+      var x = e.clientX - rect.left - rect.width / 2;
+      var y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = 'translate(' + (x * 0.15) + 'px, ' + (y * 0.15) + 'px) scale(1.02)';
+    });
+    btn.addEventListener('mouseleave', function () {
+      btn.style.transform = '';
     });
   });
 
@@ -139,7 +195,6 @@
       nav.classList.remove('scrolled');
     }
 
-    // Active link
     var current = '';
     sections.forEach(function (section) {
       var top = section.offsetTop - 150;
@@ -175,7 +230,6 @@
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
-  // Close on link click
   navLinksEl.querySelectorAll('.nav-link').forEach(function (link) {
     link.addEventListener('click', function () {
       navToggle.classList.remove('open');
@@ -187,7 +241,7 @@
   });
 
   /* ------------------------------------------------
-     SCROLL REVEAL (IntersectionObserver)
+     SCROLL REVEAL with staggered delays
   ------------------------------------------------ */
   var reveals = document.querySelectorAll('.reveal');
 
@@ -196,23 +250,22 @@
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           var delay = entry.target.getAttribute('data-delay');
-          var ms = delay ? parseInt(delay, 10) * 100 : 0;
+          var ms = delay ? parseInt(delay, 10) * 120 : 0;
           setTimeout(function () {
             entry.target.classList.add('visible');
           }, ms);
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
     reveals.forEach(function (el) { revealObserver.observe(el); });
   } else {
-    // Fallback: show everything
     reveals.forEach(function (el) { el.classList.add('visible'); });
   }
 
   /* ------------------------------------------------
-     STAT COUNTER ANIMATION
+     STAT COUNTER ANIMATION with glow effect
   ------------------------------------------------ */
   var stats = document.querySelectorAll('.stat');
   var statAnimated = false;
@@ -227,16 +280,14 @@
       if (!numEl || isNaN(target)) return;
 
       numEl.textContent = '0';
-      var current = 0;
-      var duration = 1500;
+      var duration = 2000;
       var startTime = null;
 
       function step(timestamp) {
         if (!startTime) startTime = timestamp;
         var progress = Math.min((timestamp - startTime) / duration, 1);
-        // ease out cubic
-        var eased = 1 - Math.pow(1 - progress, 3);
-        current = Math.round(eased * target);
+        var eased = 1 - Math.pow(1 - progress, 4);
+        var current = Math.round(eased * target);
         numEl.textContent = current;
         if (progress < 1) {
           requestAnimationFrame(step);
@@ -262,7 +313,7 @@
   }
 
   /* ------------------------------------------------
-     HERO TYPING ANIMATION
+     HERO TYPING ANIMATION with glow
   ------------------------------------------------ */
   var roles = [
     'Cloud & AI Architect',
@@ -276,7 +327,6 @@
   var charIndex = 0;
   var isDeleting = false;
   var typeSpeed = 80;
-
   var typingPaused = false;
 
   function typeRole() {
@@ -288,26 +338,25 @@
     if (isDeleting) {
       typedEl.textContent = current.substring(0, charIndex - 1);
       charIndex--;
-      typeSpeed = 40;
+      typeSpeed = 35;
     } else {
       typedEl.textContent = current.substring(0, charIndex + 1);
       charIndex++;
-      typeSpeed = 80;
+      typeSpeed = 70;
     }
 
     if (!isDeleting && charIndex === current.length) {
-      typeSpeed = 2000; // pause at end
+      typeSpeed = 2500;
       isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       roleIndex = (roleIndex + 1) % roles.length;
-      typeSpeed = 400; // pause before typing next
+      typeSpeed = 500;
     }
 
     setTimeout(typeRole, typeSpeed);
   }
 
-  // Pause typing when tab is hidden
   document.addEventListener('visibilitychange', function () {
     typingPaused = document.hidden;
   });
@@ -315,7 +364,7 @@
   typeRole();
 
   /* ------------------------------------------------
-     TERMINAL TYPING
+     TERMINAL TYPING with colored output
   ------------------------------------------------ */
   var terminalBody = document.getElementById('terminal-body');
   var terminalLines = [
@@ -326,12 +375,16 @@
   ];
   var tLineIndex = 0;
   var tCharIndex = 0;
-  var tPhase = 'prompt'; // 'prompt' | 'pause' | 'response' | 'wait'
+  var tPhase = 'prompt';
   var tCurrentText = '';
+  var completedTerminalText = '';
+
+  function buildTerminalText() {
+    return completedTerminalText;
+  }
 
   function typeTerminal() {
     if (tLineIndex >= terminalLines.length) return;
-
     var line = terminalLines[tLineIndex];
 
     if (tPhase === 'prompt') {
@@ -344,7 +397,7 @@
         setTimeout(typeTerminal, 400);
         return;
       }
-      setTimeout(typeTerminal, 50);
+      setTimeout(typeTerminal, 45);
     } else if (tPhase === 'pause') {
       tCurrentText += '\n';
       tPhase = 'response';
@@ -360,20 +413,34 @@
         tCharIndex = 0;
         tLineIndex++;
         tPhase = 'prompt';
-        setTimeout(typeTerminal, 600);
+        setTimeout(typeTerminal, 700);
         return;
       }
-      setTimeout(typeTerminal, 20);
+      setTimeout(typeTerminal, 18);
     }
   }
 
-  var completedTerminalText = '';
-  function buildTerminalText() {
-    return completedTerminalText;
-  }
+  setTimeout(typeTerminal, 1400);
 
-  // Start terminal after loader
-  setTimeout(typeTerminal, 1200);
+  /* ------------------------------------------------
+     PARALLAX EFFECT on background orbs
+  ------------------------------------------------ */
+  var orbs = document.querySelectorAll('.bg-orb');
+  var ticking = false;
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(function () {
+        var scroll = window.scrollY;
+        orbs.forEach(function (orb, i) {
+          var speed = (i + 1) * 0.05;
+          orb.style.transform = 'translateY(' + (scroll * speed) + 'px)';
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
 
   /* ------------------------------------------------
      SMOOTH SCROLL for anchor links
@@ -387,6 +454,59 @@
         var top = target.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top: top, behavior: 'smooth' });
       }
+    });
+  });
+
+  /* ------------------------------------------------
+     RIPPLE EFFECT on buttons
+  ------------------------------------------------ */
+  document.querySelectorAll('.btn').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      var rect = btn.getBoundingClientRect();
+      var ripple = document.createElement('span');
+      ripple.style.cssText = 'position:absolute;border-radius:50%;background:rgba(255,255,255,.25);transform:scale(0);animation:ripple .6s ease-out;pointer-events:none;';
+      var size = Math.max(rect.width, rect.height) * 2;
+      ripple.style.width = size + 'px';
+      ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+      btn.style.position = 'relative';
+      btn.style.overflow = 'hidden';
+      btn.appendChild(ripple);
+      setTimeout(function () { ripple.remove(); }, 600);
+    });
+  });
+
+  /* ------------------------------------------------
+     HERO PARALLAX (subtle depth on scroll)
+  ------------------------------------------------ */
+  var heroContent = document.querySelector('.hero-content');
+  var heroVisual = document.querySelector('.hero-visual');
+
+  window.addEventListener('scroll', function () {
+    if (window.scrollY < window.innerHeight) {
+      var scroll = window.scrollY;
+      if (heroContent) heroContent.style.transform = 'translateY(' + (scroll * 0.08) + 'px)';
+      if (heroVisual) heroVisual.style.transform = 'translateY(' + (scroll * 0.15) + 'px)';
+    }
+  }, { passive: true });
+
+  /* ------------------------------------------------
+     SKILL CARD TILT on hover
+  ------------------------------------------------ */
+  document.querySelectorAll('.skill-card').forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      var rect = card.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      var centerX = rect.width / 2;
+      var centerY = rect.height / 2;
+      var rotateX = ((y - centerY) / centerY) * -3;
+      var rotateY = ((x - centerX) / centerX) * 3;
+      card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-6px)';
+    });
+    card.addEventListener('mouseleave', function () {
+      card.style.transform = '';
     });
   });
 
