@@ -43,8 +43,7 @@
     this.vy = (Math.random() - 0.5) * 0.5;
     this.radius = Math.random() * 2 + 0.5;
     this.baseRadius = this.radius;
-    var r = Math.random();
-    this.color = r > 0.66 ? '91, 94, 247' : r > 0.33 ? '124, 77, 255' : '232, 67, 147';
+    this.color = Math.random() > 0.5 ? '34, 211, 238' : '244, 114, 182';
   }
 
   for (var i = 0; i < PARTICLE_COUNT; i++) {
@@ -146,9 +145,9 @@
 
       var centerX = rect.width / 2;
       var centerY = rect.height / 2;
-      var rotateX = ((y - centerY) / centerY) * -3;
-      var rotateY = ((x - centerX) / centerX) * 3;
-      card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-6px)';
+      var rotateX = ((y - centerY) / centerY) * -5;
+      var rotateY = ((x - centerX) / centerX) * 5;
+      card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-8px)';
     });
     card.addEventListener('mouseleave', function () {
       card.style.transform = '';
@@ -163,7 +162,7 @@
       var rect = btn.getBoundingClientRect();
       var x = e.clientX - rect.left - rect.width / 2;
       var y = e.clientY - rect.top - rect.height / 2;
-      btn.style.transform = 'translate(' + (x * 0.1) + 'px, ' + (y * 0.1) + 'px) scale(1.01)';
+      btn.style.transform = 'translate(' + (x * 0.15) + 'px, ' + (y * 0.15) + 'px) scale(1.02)';
     });
     btn.addEventListener('mouseleave', function () {
       btn.style.transform = '';
@@ -502,9 +501,9 @@
       var y = e.clientY - rect.top;
       var centerX = rect.width / 2;
       var centerY = rect.height / 2;
-      var rotateX = ((y - centerY) / centerY) * -2;
-      var rotateY = ((x - centerX) / centerX) * 2;
-      card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-4px)';
+      var rotateX = ((y - centerY) / centerY) * -3;
+      var rotateY = ((x - centerX) / centerX) * 3;
+      card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-6px)';
     });
     card.addEventListener('mouseleave', function () {
       card.style.transform = '';
