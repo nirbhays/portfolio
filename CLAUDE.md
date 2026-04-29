@@ -9,7 +9,7 @@ Source code for **Nirbhay Singh's professional portfolio website**, live at [clo
 | Attribute | Value |
 |---|---|
 | Name | Nirbhay Singh |
-| Role | Principal Platform Engineer @ Siemens (current) / Cloud & AI Architect @ Bosch |
+| Role | Cloud & AI Architect @ Bosch Polska |
 | Location | Warsaw, Poland |
 | Experience | 11+ years multi-cloud (GCP, AWS, Azure) |
 | Specialties | MLOps, GenAI, FinOps, Kubernetes, Terraform, Platform Engineering |
@@ -40,7 +40,7 @@ Source code for **Nirbhay Singh's professional portfolio website**, live at [clo
 | Writing | `#writing` | ~786–832 | Medium article links |
 | Certifications | `#certifications` | ~833–935 | Cert names, providers, validity dates |
 | Education | `#education` | ~936–977 | Degree, institution |
-| Contact | `#contact` | ~978–end | Social links, contact form |
+| Contact | `#contact` | ~978–end | Email, LinkedIn, GitHub, Medium cards (no form) |
 
 ## Deployment
 
@@ -100,8 +100,8 @@ No npm, no build tooling — pure static files.
 
 1. **Current role** in `#hero` typed-text animation and `#about`
 2. **New certifications** (GCP DevOps Engineer, PMLE) when earned — update `#certifications`
-3. **New projects** — ShieldIaC, TokenMeter already listed; add new open-source work
-4. **Work experience** — when leaving Siemens for new role, update `#experience`
+3. **New projects** — ShieldIaC, TokenMeter, InfraCents, AgentLoom, Airlock, DataMint, ModelLedger, TuneForge currently listed; add new open-source work
+4. **Work experience** — when leaving Bosch for new role, update `#experience`
 5. **Writing** — add Medium article links after each new post
 6. **Resume PDF** — keep in sync with LinkedIn and actual applications
 

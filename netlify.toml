@@ -26,8 +26,7 @@
   [headers.values]
     Cache-Control = "public, max-age=604800"
 
-# SPA fallback — serve index.html but return 404 for truly unknown paths
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Static site: Netlify serves files directly and returns a real 404 for
+# unknown paths. No SPA fallback needed (single-page anchor links resolve
+# client-side without any routing).
+
