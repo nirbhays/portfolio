@@ -32,7 +32,7 @@
   --radius-xs: 6px;
   --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
   --font-display: 'Syne', var(--font-sans);
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Code', 'Consolas', monospace;
   --section-pad: clamp(80px, 12vw, 140px) clamp(24px, 8vw, 120px);
   --max-w: 1200px;
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
