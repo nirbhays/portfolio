@@ -20,3 +20,6 @@ dist/
 
 # Netlify local dev
 .netlify/
+
+# Local Copilot/Superpowers workspace output
+.superpowers/
