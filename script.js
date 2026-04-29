@@ -5,9 +5,9 @@
      LOADER
   ------------------------------------------------ */
   window.addEventListener('load', function () {
-    setTimeout(function () {
+    requestAnimationFrame(function () {
       document.getElementById('loader').classList.add('hidden');
-    }, 1000);
+    });
   });
 
   /* ------------------------------------------------
@@ -17,9 +17,10 @@
   var canvas = document.getElementById('bg-canvas');
   var ctx = canvas.getContext('2d');
   var particles = [];
-  var PARTICLE_COUNT = 80;
-  var CONNECTION_DIST = 160;
-  var MOUSE_DIST = 200;
+  var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var PARTICLE_COUNT = 52;
+  var CONNECTION_DIST = 132;
+  var MOUSE_DIST = 170;
   var paused = false;
   var canvasVisible = true;
   var mouseX = -1000;
@@ -50,10 +51,12 @@
     particles.push(new Particle());
   }
 
-  document.addEventListener('mousemove', function (e) {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
+  if (supportsHover) {
+    document.addEventListener('mousemove', function (e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+  }
 
   function drawParticles() {
     if (paused) { requestAnimationFrame(drawParticles); return; }
@@ -65,7 +68,7 @@
       var dxM = mouseX - p.x;
       var dyM = mouseY - p.y;
       var distM = Math.sqrt(dxM * dxM + dyM * dyM);
-      if (distM < MOUSE_DIST) {
+      if (distM > 0 && distM < MOUSE_DIST) {
         var force = (MOUSE_DIST - distM) / MOUSE_DIST;
         p.vx -= (dxM / distM) * force * 0.02;
         p.vy -= (dyM / distM) * force * 0.02;
@@ -135,39 +138,43 @@
   /* ------------------------------------------------
      PROJECT CARD GLOW + 3D TILT
   ------------------------------------------------ */
-  document.querySelectorAll('.project-card').forEach(function (card) {
-    card.addEventListener('mousemove', function (e) {
-      var rect = card.getBoundingClientRect();
-      var x = e.clientX - rect.left;
-      var y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', x + 'px');
-      card.style.setProperty('--mouse-y', y + 'px');
+  if (supportsHover) {
+    document.querySelectorAll('.project-card').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', x + 'px');
+        card.style.setProperty('--mouse-y', y + 'px');
 
-      var centerX = rect.width / 2;
-      var centerY = rect.height / 2;
-      var rotateX = ((y - centerY) / centerY) * -5;
-      var rotateY = ((x - centerX) / centerX) * 5;
-      card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-8px)';
+        var centerX = rect.width / 2;
+        var centerY = rect.height / 2;
+        var rotateX = ((y - centerY) / centerY) * -2.5;
+        var rotateY = ((x - centerX) / centerX) * 2.5;
+        card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-4px)';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = '';
+      });
     });
-    card.addEventListener('mouseleave', function () {
-      card.style.transform = '';
-    });
-  });
+  }
 
   /* ------------------------------------------------
      MAGNETIC BUTTON HOVER
   ------------------------------------------------ */
-  document.querySelectorAll('.btn').forEach(function (btn) {
-    btn.addEventListener('mousemove', function (e) {
-      var rect = btn.getBoundingClientRect();
-      var x = e.clientX - rect.left - rect.width / 2;
-      var y = e.clientY - rect.top - rect.height / 2;
-      btn.style.transform = 'translate(' + (x * 0.15) + 'px, ' + (y * 0.15) + 'px) scale(1.02)';
+  if (supportsHover) {
+    document.querySelectorAll('.btn').forEach(function (btn) {
+      btn.addEventListener('mousemove', function (e) {
+        var rect = btn.getBoundingClientRect();
+        var x = e.clientX - rect.left - rect.width / 2;
+        var y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = 'translate(' + (x * 0.08) + 'px, ' + (y * 0.08) + 'px) scale(1.01)';
+      });
+      btn.addEventListener('mouseleave', function () {
+        btn.style.transform = '';
+      });
     });
-    btn.addEventListener('mouseleave', function () {
-      btn.style.transform = '';
-    });
-  });
+  }
 
   /* ------------------------------------------------
      SCROLL PROGRESS BAR
@@ -494,20 +501,22 @@
   /* ------------------------------------------------
      SKILL CARD TILT on hover
   ------------------------------------------------ */
-  document.querySelectorAll('.skill-card').forEach(function (card) {
-    card.addEventListener('mousemove', function (e) {
-      var rect = card.getBoundingClientRect();
-      var x = e.clientX - rect.left;
-      var y = e.clientY - rect.top;
-      var centerX = rect.width / 2;
-      var centerY = rect.height / 2;
-      var rotateX = ((y - centerY) / centerY) * -3;
-      var rotateY = ((x - centerX) / centerX) * 3;
-      card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-6px)';
+  if (supportsHover) {
+    document.querySelectorAll('.skill-card').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var centerX = rect.width / 2;
+        var centerY = rect.height / 2;
+        var rotateX = ((y - centerY) / centerY) * -1.8;
+        var rotateY = ((x - centerX) / centerX) * 1.8;
+        card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-4px)';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = '';
+      });
     });
-    card.addEventListener('mouseleave', function () {
-      card.style.transform = '';
-    });
-  });
+  }
 
 })();

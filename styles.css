@@ -69,7 +69,7 @@ strong { color: var(--text-0); font-weight: 600; }
   position: absolute;
   border-radius: 50%;
   filter: blur(100px);
-  opacity: .2;
+  opacity: .14;
   animation: orbFloat 20s ease-in-out infinite alternate;
   will-change: transform;
 }
@@ -103,7 +103,7 @@ strong { color: var(--text-0); font-weight: 600; }
 /* --- Canvas Background --- */
 #bg-canvas {
   position: fixed; inset: 0; z-index: 1;
-  pointer-events: none; opacity: .45;
+  pointer-events: none; opacity: .24;
 }
 
 /* --- Noise Texture Overlay (very subtle) --- */
@@ -304,11 +304,15 @@ body::before {
    ======================================================== */
 .hero {
   position: relative; z-index: 3;
-  display: grid; grid-template-columns: 1.15fr 1fr;
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
   gap: clamp(30px, 5vw, 80px);
   padding: calc(68px + clamp(50px,8vw,100px)) clamp(24px,8vw,120px) clamp(50px,6vw,80px);
   min-height: 100vh; align-items: center;
   max-width: 1400px; margin: 0 auto;
+}
+
+.hero-content {
+  max-width: 620px;
 }
 
 .hero-badge {
@@ -318,7 +322,7 @@ body::before {
   background: var(--cyan-dim);
   border: 1px solid rgba(34,211,238,.2);
   margin-bottom: 24px;
-  animation: badgeGlow 4s ease-in-out infinite alternate;
+  box-shadow: 0 0 12px rgba(34,211,238,.08);
 }
 @keyframes badgeGlow {
   0% { box-shadow: 0 0 8px rgba(34,211,238,.08); }
@@ -338,18 +342,18 @@ body::before {
 .hero-name {
   font-family: var(--font-display);
   font-size: clamp(3rem, 6.4vw, 5.4rem);
-  font-weight: 800; line-height: 1;
-  letter-spacing: -.03em;
+  font-weight: 800; line-height: .96;
+  letter-spacing: -.025em;
   margin-bottom: 20px;
   position: relative;
 }
 .hero-name-line {
   display: block;
-  background: linear-gradient(135deg, var(--text-0) 40%, var(--cyan) 75%, var(--magenta));
+  background: linear-gradient(135deg, #f6f8fc 32%, #d8f7fd 68%, #9ce9f8 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
   background-size: 200% 200%;
-  animation: nameGradient 8s ease infinite;
+  animation: nameGradient 14s ease infinite;
 }
 @keyframes nameGradient {
   0%, 100% { background-position: 0% 50%; }
@@ -370,8 +374,8 @@ body::before {
 @keyframes cursorBlink { 50% { opacity: 0; } }
 
 .hero-desc {
-  color: var(--text-1); font-size: clamp(.95rem, 1.2vw, 1.08rem);
-  max-width: 520px; line-height: 1.8; margin-bottom: 32px;
+  color: var(--text-1); font-size: clamp(.98rem, 1.08vw, 1.08rem);
+  max-width: 560px; line-height: 1.82; margin-bottom: 32px;
 }
 
 /* Hero Stats */
@@ -463,7 +467,7 @@ body::before {
 
 /* Hero Visual */
 .hero-visual {
-  display: flex; flex-direction: column; gap: 28px; align-items: center;
+  display: flex; flex-direction: column; gap: 24px; align-items: center;
   position: relative;
 }
 
@@ -474,13 +478,13 @@ body::before {
   width: 100%; height: 100%; object-fit: cover;
   border-radius: 50%; position: relative; z-index: 2;
   border: 3px solid rgba(34,211,238,.5);
-  box-shadow: 0 0 40px rgba(34,211,238,.2), 0 0 80px rgba(244,114,182,.1), inset 0 0 20px rgba(0,0,0,.3);
+  box-shadow: 0 0 28px rgba(34,211,238,.16), 0 0 52px rgba(244,114,182,.08), inset 0 0 20px rgba(0,0,0,.3);
   animation: imageGlow 6s ease-in-out infinite alternate;
 }
 @keyframes imageGlow {
-  0%   { box-shadow: 0 0 30px rgba(34,211,238,.2), 0 0 60px rgba(244,114,182,.08); border-color: rgba(34,211,238,.5); }
-  50%  { box-shadow: 0 0 40px rgba(244,114,182,.2), 0 0 80px rgba(34,211,238,.1);  border-color: rgba(244,114,182,.4); }
-  100% { box-shadow: 0 0 35px rgba(167,139,250,.2), 0 0 70px rgba(34,211,238,.08); border-color: rgba(167,139,250,.4); }
+  0%   { box-shadow: 0 0 24px rgba(34,211,238,.18), 0 0 46px rgba(244,114,182,.06); border-color: rgba(34,211,238,.45); }
+  50%  { box-shadow: 0 0 32px rgba(244,114,182,.16), 0 0 56px rgba(34,211,238,.08);  border-color: rgba(244,114,182,.36); }
+  100% { box-shadow: 0 0 28px rgba(167,139,250,.16), 0 0 52px rgba(34,211,238,.06); border-color: rgba(167,139,250,.34); }
 }
 .hero-image-ring {
   position: absolute; inset: -14px; border-radius: 50%;
@@ -529,18 +533,18 @@ body::before {
 
 /* Terminal */
 .hero-terminal {
-  width: 100%; max-width: 400px;
-  background: var(--glass);
+  width: 100%; max-width: 380px;
+  background: rgba(12,18,36,.72);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
   backdrop-filter: blur(16px);
-  box-shadow: 0 12px 50px rgba(0,0,0,.4), 0 0 30px rgba(34,211,238,.03);
+  box-shadow: 0 12px 40px rgba(0,0,0,.34), 0 0 24px rgba(34,211,238,.03);
   transition: all .5s var(--ease-expo);
 }
 .hero-terminal:hover {
   border-color: rgba(34,211,238,.12);
-  box-shadow: 0 12px 50px rgba(0,0,0,.4), 0 0 45px rgba(34,211,238,.08);
+  box-shadow: 0 14px 42px rgba(0,0,0,.36), 0 0 28px rgba(34,211,238,.06);
 }
 .terminal-bar {
   display: flex; align-items: center; gap: 7px;
@@ -908,7 +912,7 @@ body::before {
 .project-card:hover {
   border-color: transparent;
   box-shadow: 0 25px 60px rgba(34,211,238,.08), 0 0 40px rgba(34,211,238,.05);
-  transform: translateY(-8px);
+  transform: translateY(-5px);
 }
 
 .project-card-glow {
@@ -1297,19 +1301,6 @@ body::before {
   .reveal { opacity: 1; transform: none; }
   #bg-canvas { display: none; }
   .bg-orb { animation: none; }
-}
-
-/* --- Glitch Effect for Hero Name on Hover --- */
-.hero-name:hover .hero-name-line {
-  animation: glitch 0.3s ease-in-out;
-}
-@keyframes glitch {
-  0%   { transform: translate(0); }
-  20%  { transform: translate(-2px, 2px); }
-  40%  { transform: translate(2px, -2px); }
-  60%  { transform: translate(-1px, -1px); }
-  80%  { transform: translate(1px, 1px); }
-  100% { transform: translate(0); }
 }
 
 /* --- Tag hover variety by skill category --- */
