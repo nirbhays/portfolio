@@ -1210,7 +1210,7 @@ body::before {
 .footer-inner {
   display: flex; align-items: center; justify-content: center;
   gap: 12px; flex-wrap: wrap;
-  font-size: .78rem; color: var(--text-3);
+  font-size: .78rem; color: var(--text-2);
 }
 .footer-inner a { color: var(--text-2); }
 .footer-inner a:hover { color: var(--cyan); }
