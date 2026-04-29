@@ -1234,6 +1234,17 @@ body::before {
 .footer-inner a { color: var(--text-2); }
 .footer-inner a:hover { color: var(--cyan); }
 .footer-sep { opacity: .4; }
+.site-version {
+  cursor: pointer; font-family: var(--font-mono);
+  font-size: .72rem; color: var(--text-3);
+  transition: color .2s;
+}
+.site-version:hover { color: var(--text-2); }
+.version-date {
+  display: none; margin-left: 4px;
+  color: var(--text-2); font-size: .68rem;
+}
+.site-version.show-date .version-date { display: inline; }
 
 /* ========================================================
    RESPONSIVE
