@@ -519,4 +519,16 @@
     });
   }
 
+  /* ------------------------------------------------
+     VERSION BADGE TOGGLE
+  ------------------------------------------------ */
+  var versionBadge = document.querySelector('.site-version');
+  if (versionBadge) {
+    function toggleVersion() { versionBadge.classList.toggle('show-date'); }
+    versionBadge.addEventListener('click', toggleVersion);
+    versionBadge.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleVersion(); }
+    });
+  }
+
 })();
