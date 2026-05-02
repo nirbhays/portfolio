@@ -34,7 +34,7 @@
   <link rel="preload" href="assets/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/syne-latin.woff2" as="font" type="font/woff2" crossorigin />
 
-  <link rel="stylesheet" href="styles.css?v=20260429f" />
+  <link rel="stylesheet" href="styles.css?v=20260502a" />
   <link rel="canonical" href="https://cloudtoai.in/" />
 
   <!-- Structured Data -->
@@ -58,6 +58,11 @@
 </head>
 <body>
 
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <div class="cursor-spotlight" aria-hidden="true"></div>
+
   <!-- Skip to content -->
   <a href="#hero" class="skip-link">Skip to content</a>
 
@@ -65,10 +70,12 @@
   <noscript>
     <style>
       #loader { display: none !important; }
-      .reveal { opacity: 1 !important; transform: none !important; }
+      .reveal, .reveal-card, .reveal-timeline, .reveal-pop { opacity: 1 !important; transform: none !important; }
       #bg-canvas { display: none; }
       .bg-mesh { display: none; }
       .typed-cursor { display: none; }
+      .cursor-dot, .cursor-ring, .cursor-spotlight, .cursor-trail-container { display: none; }
+      .aurora-divider { display: none; }
     </style>
   </noscript>
 
@@ -216,7 +223,7 @@
     <!-- ===================== ABOUT ===================== -->
     <section id="about" class="section">
       <div class="section-inner">
-        <div class="section-label reveal">About Me</div>
+        <div class="section-label reveal" data-text="About Me">About Me</div>
         <div class="about-grid">
           <div class="about-text reveal">
             <h2>Building the infrastructure<br/>that powers AI at scale.</h2>
@@ -265,10 +272,12 @@
       </div>
     </section>
 
+    <div class="aurora-divider" aria-hidden="true"></div>
+
     <!-- ===================== SKILLS ===================== -->
     <section id="skills" class="section section-alt">
       <div class="section-inner">
-        <div class="section-label reveal">Technical Expertise</div>
+        <div class="section-label reveal" data-text="Technical Expertise">Technical Expertise</div>
         <h2 class="section-title reveal">Skills &amp; Technologies</h2>
         <div class="skills-grid">
           <div class="skill-card reveal" data-delay="0">
@@ -391,14 +400,16 @@
       </div>
     </section>
 
+    <div class="aurora-divider" aria-hidden="true"></div>
+
     <!-- ===================== EXPERIENCE ===================== -->
     <section id="experience" class="section">
       <div class="section-inner">
-        <div class="section-label reveal">Career</div>
+        <div class="section-label reveal" data-text="Career">Career</div>
         <h2 class="section-title reveal">Work Experience</h2>
         <div class="timeline">
 
-          <div class="timeline-item reveal">
+          <div class="timeline-item reveal reveal-timeline">
             <div class="timeline-marker"></div>
             <div class="timeline-date">Dec 2022 &mdash; Present</div>
             <div class="timeline-content">
@@ -427,7 +438,7 @@
             </div>
           </div>
 
-          <div class="timeline-item reveal">
+          <div class="timeline-item reveal reveal-timeline">
             <div class="timeline-marker"></div>
             <div class="timeline-date">Jun 2021 &mdash; Nov 2022</div>
             <div class="timeline-content">
@@ -454,7 +465,7 @@
             </div>
           </div>
 
-          <div class="timeline-item reveal">
+          <div class="timeline-item reveal reveal-timeline">
             <div class="timeline-marker"></div>
             <div class="timeline-date">Dec 2018 &mdash; Jun 2021</div>
             <div class="timeline-content">
@@ -481,7 +492,7 @@
             </div>
           </div>
 
-          <div class="timeline-item reveal">
+          <div class="timeline-item reveal reveal-timeline">
             <div class="timeline-marker"></div>
             <div class="timeline-date">Nov 2015 &mdash; Dec 2018</div>
             <div class="timeline-content">
@@ -507,7 +518,7 @@
             </div>
           </div>
 
-          <div class="timeline-item reveal">
+          <div class="timeline-item reveal reveal-timeline">
             <div class="timeline-marker"></div>
             <div class="timeline-date">Mar 2013 &mdash; Jul 2014</div>
             <div class="timeline-content">
@@ -534,14 +545,16 @@
       </div>
     </section>
 
+    <div class="aurora-divider" aria-hidden="true"></div>
+
     <!-- ===================== PROJECTS ===================== -->
     <section id="projects" class="section section-alt">
       <div class="section-inner">
-        <div class="section-label reveal">Open Source</div>
+        <div class="section-label reveal" data-text="Open Source">Open Source</div>
         <h2 class="section-title reveal">Featured Projects</h2>
         <div class="projects-grid">
 
-          <article class="project-card reveal">
+          <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
               <div class="project-header">
@@ -579,7 +592,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
               <div class="project-header">
@@ -617,7 +630,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
               <div class="project-header">
@@ -660,7 +673,7 @@
         <div class="projects-more-label reveal">More Open Source</div>
         <div class="projects-grid">
 
-          <article class="project-card reveal">
+          <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
               <div class="project-header">
@@ -695,7 +708,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
               <div class="project-header">
@@ -730,7 +743,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
               <div class="project-header">
@@ -765,7 +778,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
               <div class="project-header">
@@ -800,7 +813,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
               <div class="project-header">
@@ -845,14 +858,16 @@
       </div>
     </section>
 
+    <div class="aurora-divider" aria-hidden="true"></div>
+
     <!-- ===================== WRITING ===================== -->
     <section id="writing" class="section">
       <div class="section-inner">
-        <div class="section-label reveal">Blog</div>
+        <div class="section-label reveal" data-text="Blog">Blog</div>
         <h2 class="section-title reveal">Technical Writing</h2>
         <div class="articles-grid">
 
-          <a href="https://medium.com/@nirbhaysingh1/how-i-built-an-ai-powered-iac-security-scanner-from-scratch-100-rules-9-compliance-frameworks-ae4cbf114f2a" target="_blank" rel="noopener" class="article-card reveal">
+          <a href="https://medium.com/@nirbhaysingh1/how-i-built-an-ai-powered-iac-security-scanner-from-scratch-100-rules-9-compliance-frameworks-ae4cbf114f2a" target="_blank" rel="noopener" class="article-card reveal reveal-card">
             <div class="article-badge">ShieldIaC</div>
             <h3>How I Built an AI-Powered IaC Security Scanner from Scratch</h3>
             <p>
@@ -862,7 +877,7 @@
             <span class="article-read">Read on Medium &rarr;</span>
           </a>
 
-          <a href="https://medium.com/@nirbhaysingh1/our-ai-bill-was-4-800-last-month-nobody-knew-why-so-i-built-an-open-source-llm-cost-tracker-018cdbdf9a6b" target="_blank" rel="noopener" class="article-card reveal">
+          <a href="https://medium.com/@nirbhaysingh1/our-ai-bill-was-4-800-last-month-nobody-knew-why-so-i-built-an-open-source-llm-cost-tracker-018cdbdf9a6b" target="_blank" rel="noopener" class="article-card reveal reveal-card">
             <div class="article-badge">TokenMeter</div>
             <h3>Our AI Bill Was $4,800 Last Month — Nobody Knew Why</h3>
             <p>
@@ -872,7 +887,7 @@
             <span class="article-read">Read on Medium &rarr;</span>
           </a>
 
-          <a href="https://medium.com/@nirbhaysingh1/i-built-a-bot-that-killed-147-000-in-wasted-cloud-spend-before-it-shipped-d25175df9e42" target="_blank" rel="noopener" class="article-card reveal">
+          <a href="https://medium.com/@nirbhaysingh1/i-built-a-bot-that-killed-147-000-in-wasted-cloud-spend-before-it-shipped-d25175df9e42" target="_blank" rel="noopener" class="article-card reveal reveal-card">
             <div class="article-badge">InfraCents</div>
             <h3>I Built a Bot That Killed $147,000 in Wasted Cloud Spend Before It Shipped</h3>
             <p>
@@ -892,10 +907,12 @@
       </div>
     </section>
 
+    <div class="aurora-divider" aria-hidden="true"></div>
+
     <!-- ===================== CERTIFICATIONS ===================== -->
     <section id="certifications" class="section section-alt">
       <div class="section-inner">
-        <div class="section-label reveal">Credentials</div>
+        <div class="section-label reveal" data-text="Credentials">Credentials</div>
         <h2 class="section-title reveal">Certifications</h2>
 
         <div class="certs-group reveal">
@@ -995,14 +1012,16 @@
       </div>
     </section>
 
+    <div class="aurora-divider" aria-hidden="true"></div>
+
     <!-- ===================== EDUCATION ===================== -->
     <section id="education" class="section">
       <div class="section-inner">
-        <div class="section-label reveal">Academics</div>
+        <div class="section-label reveal" data-text="Academics">Academics</div>
         <h2 class="section-title reveal">Education</h2>
         <div class="education-grid">
 
-          <div class="education-card reveal">
+          <div class="education-card reveal reveal-card">
             <div class="education-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15v-3.75m0 0h-.008v.008H6.75v-.008z"/></svg>
             </div>
@@ -1013,7 +1032,7 @@
             </div>
           </div>
 
-          <div class="education-card reveal">
+          <div class="education-card reveal reveal-card">
             <div class="education-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15v-3.75m0 0h-.008v.008H6.75v-.008z"/></svg>
             </div>
@@ -1023,7 +1042,7 @@
             </div>
           </div>
 
-          <div class="education-card reveal">
+          <div class="education-card reveal reveal-card">
             <div class="education-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15v-3.75m0 0h-.008v.008H6.75v-.008z"/></svg>
             </div>
@@ -1037,10 +1056,12 @@
       </div>
     </section>
 
+    <div class="aurora-divider" aria-hidden="true"></div>
+
     <!-- ===================== CONTACT ===================== -->
     <section id="contact" class="section section-alt">
       <div class="section-inner contact-inner">
-        <div class="section-label reveal">Get in Touch</div>
+        <div class="section-label reveal" data-text="Get in Touch">Get in Touch</div>
         <h2 class="section-title reveal contact-title">Let's Build Something Together</h2>
         <p class="contact-desc reveal">
           Whether it's cloud architecture consulting, AI/ML platform strategy, or open-source collaboration —
@@ -1090,10 +1111,10 @@
       <span class="footer-sep">&middot;</span>
       <span>Built with purpose, deployed with confidence.</span>
       <span class="footer-sep">&middot;</span>
-      <span class="site-version" title="Click to see last update" role="button" tabindex="0">v2.5 <span class="version-date">Apr 29, 2026 · 23:30 CET</span></span>
+      <span class="site-version" title="Click to see last update" role="button" tabindex="0">v3.0 <span class="version-date">May 02, 2026 · Visual Spectacle Update</span></span>
     </div>
   </footer>
 
-  <script src="script.js?v=20260429c"></script>
+  <script src="script.js?v=20260502a"></script>
 </body>
 </html>

@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
   /* ------------------------------------------------
      LOADER
   ------------------------------------------------ */
@@ -11,18 +13,154 @@
   });
 
   /* ------------------------------------------------
-     ENHANCED PARTICLE NETWORK
-     More particles, colored connections, mouse interaction
+     CUSTOM CURSOR SYSTEM
+  ------------------------------------------------ */
+  var cursorDot = document.querySelector('.cursor-dot');
+  var cursorRing = document.querySelector('.cursor-ring');
+  var cursorSpotlight = document.querySelector('.cursor-spotlight');
+  var dotX = -100, dotY = -100;
+  var ringX = -100, ringY = -100;
+  var cursorVisible = false;
+
+  if (supportsHover && cursorDot && cursorRing) {
+    document.body.classList.add('custom-cursor');
+
+    document.addEventListener('mousemove', function (e) {
+      dotX = e.clientX;
+      dotY = e.clientY;
+      if (!cursorVisible) {
+        cursorVisible = true;
+        cursorDot.style.opacity = '1';
+        cursorRing.style.opacity = '1';
+      }
+    });
+
+    document.addEventListener('mouseleave', function () {
+      cursorVisible = false;
+      cursorDot.style.opacity = '0';
+      cursorRing.style.opacity = '0';
+    });
+
+    document.addEventListener('mousedown', function () {
+      cursorRing.classList.add('clicking');
+    });
+    document.addEventListener('mouseup', function () {
+      cursorRing.classList.remove('clicking');
+    });
+
+    function updateCursorHoverState(e) {
+      var target = e.target;
+      var isLink = target.closest('a, button, .btn, .nav-link, .nav-icon, .tag, .tag-sm, [role="button"]');
+      var isCard = target.closest('.project-card, .article-card, .contact-card, .education-card, .cert-card, .skill-card, .stat');
+
+      cursorRing.classList.toggle('hover-link', !!isLink && !isCard);
+      cursorRing.classList.toggle('hover-card', !!isCard);
+      cursorDot.classList.toggle('hidden', !!isLink);
+    }
+    document.addEventListener('mouseover', updateCursorHoverState);
+
+    (function animateCursor() {
+      ringX += (dotX - ringX) * 0.12;
+      ringY += (dotY - ringY) * 0.12;
+      cursorDot.style.left = dotX + 'px';
+      cursorDot.style.top = dotY + 'px';
+      cursorRing.style.left = ringX + 'px';
+      cursorRing.style.top = ringY + 'px';
+      requestAnimationFrame(animateCursor);
+    })();
+  }
+
+  /* ------------------------------------------------
+     CURSOR SPOTLIGHT
+  ------------------------------------------------ */
+  if (supportsHover && cursorSpotlight) {
+    var spotColors = [
+      { r: 34, g: 211, b: 238 },
+      { r: 244, g: 114, b: 182 },
+      { r: 167, g: 139, b: 250 }
+    ];
+    var currentSpotColor = spotColors[0];
+
+    document.addEventListener('mousemove', function (e) {
+      cursorSpotlight.style.background =
+        'radial-gradient(600px circle at ' + e.clientX + 'px ' + e.clientY + 'px, ' +
+        'rgba(' + currentSpotColor.r + ',' + currentSpotColor.g + ',' + currentSpotColor.b + ',0.04), transparent 60%)';
+    });
+
+    function updateSpotlightColor() {
+      var scrollY = window.scrollY;
+      var vh = window.innerHeight;
+      if (scrollY < vh * 1.5) currentSpotColor = spotColors[0];
+      else if (scrollY < vh * 3.5) currentSpotColor = spotColors[1];
+      else currentSpotColor = spotColors[2];
+    }
+    window.addEventListener('scroll', updateSpotlightColor, { passive: true });
+  }
+
+  /* ------------------------------------------------
+     CURSOR PARTICLE TRAIL
+  ------------------------------------------------ */
+  if (supportsHover) {
+    var TRAIL_MAX = 30;
+    var trailContainer = document.createElement('div');
+    trailContainer.className = 'cursor-trail-container';
+    trailContainer.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(trailContainer);
+
+    var trailPool = [];
+    for (var ti = 0; ti < TRAIL_MAX; ti++) {
+      var td = document.createElement('div');
+      td.className = 'trail-dot';
+      trailContainer.appendChild(td);
+      trailPool.push({ el: td, active: false });
+    }
+
+    var lastTrailX = 0, lastTrailY = 0, lastTrailTime = 0;
+    var trailColors = ['34,211,238', '244,114,182', '167,139,250'];
+
+    document.addEventListener('mousemove', function (e) {
+      var dx = e.clientX - lastTrailX;
+      var dy = e.clientY - lastTrailY;
+      if (Math.sqrt(dx * dx + dy * dy) < 4) return;
+      var now = Date.now();
+      if (now - lastTrailTime < 35) return;
+      lastTrailTime = now;
+      lastTrailX = e.clientX;
+      lastTrailY = e.clientY;
+
+      var available = null;
+      for (var i = 0; i < trailPool.length; i++) {
+        if (!trailPool[i].active) { available = trailPool[i]; break; }
+      }
+      if (!available) available = trailPool[0];
+
+      var color = trailColors[Math.floor(Math.random() * trailColors.length)];
+      var size = 3 + Math.random() * 3;
+      var el = available.el;
+      el.style.cssText = 'left:' + e.clientX + 'px;top:' + e.clientY + 'px;width:' + size + 'px;height:' + size + 'px;background:rgba(' + color + ',0.5);opacity:1;transform:translate(-50%,-50%) scale(1);';
+      available.active = true;
+
+      requestAnimationFrame(function () {
+        var driftX = (Math.random() - 0.5) * 30;
+        var driftY = (Math.random() - 0.5) * 30;
+        el.style.opacity = '0';
+        el.style.transform = 'translate(calc(-50% + ' + driftX + 'px), calc(-50% + ' + driftY + 'px)) scale(0)';
+      });
+
+      setTimeout(function () { available.active = false; }, 600);
+    });
+  }
+
+  /* ------------------------------------------------
+     ENHANCED PARTICLE NETWORK + FLOATING SHAPES
   ------------------------------------------------ */
   var canvas = document.getElementById('bg-canvas');
   var ctx = canvas.getContext('2d');
   var particles = [];
-  var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  var PARTICLE_COUNT = 52;
+  var PARTICLE_COUNT = 100;
   var CONNECTION_DIST = 132;
-  var MOUSE_DIST = 170;
+  var MOUSE_DIST = 220;
   var paused = false;
-  var canvasVisible = true;
   var mouseX = -1000;
   var mouseY = -1000;
 
@@ -37,6 +175,8 @@
   });
   resizeCanvas();
 
+  var particleColors = ['34,211,238', '244,114,182', '167,139,250'];
+
   function Particle() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
@@ -44,7 +184,10 @@
     this.vy = (Math.random() - 0.5) * 0.5;
     this.radius = Math.random() * 2 + 0.5;
     this.baseRadius = this.radius;
-    this.color = Math.random() > 0.5 ? '34, 211, 238' : '244, 114, 182';
+    this.color = particleColors[Math.floor(Math.random() * particleColors.length)];
+    this.isStar = Math.random() < 0.2;
+    this.ttl = -1;
+    this.baseOpacity = 0.6;
   }
 
   for (var i = 0; i < PARTICLE_COUNT; i++) {
@@ -58,21 +201,123 @@
     });
   }
 
+  var floatingShapes = [];
+  var shapeTypes = ['triangle', 'hexagon', 'cross'];
+
+  function FloatingShape() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.2;
+    this.vy = (Math.random() - 0.5) * 0.15;
+    this.rotation = Math.random() * Math.PI * 2;
+    this.rotationSpeed = (Math.random() - 0.5) * 0.005;
+    this.size = 15 + Math.random() * 15;
+    this.type = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+    this.color = particleColors[Math.floor(Math.random() * particleColors.length)];
+    this.opacity = 0.03 + Math.random() * 0.04;
+  }
+
+  for (var si = 0; si < 10; si++) {
+    floatingShapes.push(new FloatingShape());
+  }
+
+  function drawShape(shape) {
+    ctx.save();
+    ctx.translate(shape.x, shape.y);
+    ctx.rotate(shape.rotation);
+    ctx.strokeStyle = 'rgba(' + shape.color + ',' + shape.opacity + ')';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+
+    if (shape.type === 'triangle') {
+      for (var i = 0; i < 3; i++) {
+        var angle = (i * 2 * Math.PI / 3) - Math.PI / 2;
+        var px = Math.cos(angle) * shape.size;
+        var py = Math.sin(angle) * shape.size;
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+    } else if (shape.type === 'hexagon') {
+      for (var j = 0; j < 6; j++) {
+        var ha = (j * Math.PI / 3) - Math.PI / 6;
+        var hx = Math.cos(ha) * shape.size;
+        var hy = Math.sin(ha) * shape.size;
+        if (j === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy);
+      }
+      ctx.closePath();
+    } else {
+      var s = shape.size * 0.4;
+      ctx.moveTo(-s, 0); ctx.lineTo(s, 0);
+      ctx.moveTo(0, -s); ctx.lineTo(0, s);
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawStar(x, y, r, color, opacity) {
+    ctx.beginPath();
+    for (var i = 0; i < 4; i++) {
+      var angle = (i * Math.PI / 2);
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + Math.cos(angle) * r * 2, y + Math.sin(angle) * r * 2);
+    }
+    ctx.strokeStyle = 'rgba(' + color + ',' + opacity + ')';
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+  }
+
+  var explosionParticles = [];
+
   function drawParticles() {
     if (paused) { requestAnimationFrame(drawParticles); return; }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    var scrollFade = window.scrollY > window.innerHeight ? 0.55 : 1;
+
+    for (var si = 0; si < floatingShapes.length; si++) {
+      var shape = floatingShapes[si];
+      shape.x += shape.vx;
+      shape.y += shape.vy;
+      shape.rotation += shape.rotationSpeed;
+      if (shape.x < -shape.size) shape.x = canvas.width + shape.size;
+      if (shape.x > canvas.width + shape.size) shape.x = -shape.size;
+      if (shape.y < -shape.size) shape.y = canvas.height + shape.size;
+      if (shape.y > canvas.height + shape.size) shape.y = -shape.size;
+      drawShape(shape);
+    }
+
     for (var i = 0; i < particles.length; i++) {
       var p = particles[i];
+
+      if (p.ttl > 0) {
+        p.ttl--;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.04;
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+        var ttlOpacity = (p.ttl / 50) * 0.8;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + p.color + ',' + ttlOpacity + ')';
+        ctx.fill();
+        if (p.ttl <= 0) { particles.splice(i, 1); i--; }
+        continue;
+      }
 
       var dxM = mouseX - p.x;
       var dyM = mouseY - p.y;
       var distM = Math.sqrt(dxM * dxM + dyM * dyM);
       if (distM > 0 && distM < MOUSE_DIST) {
         var force = (MOUSE_DIST - distM) / MOUSE_DIST;
-        p.vx -= (dxM / distM) * force * 0.02;
-        p.vy -= (dyM / distM) * force * 0.02;
-        p.radius = p.baseRadius + force * 2;
+        if (distM < 120) {
+          p.vx += (dxM / distM) * force * 0.008;
+          p.vy += (dyM / distM) * force * 0.008;
+        } else {
+          p.vx -= (dxM / distM) * force * 0.02;
+          p.vy -= (dyM / distM) * force * 0.02;
+        }
+        p.radius = p.baseRadius + force * 2.5;
       } else {
         p.radius += (p.baseRadius - p.radius) * 0.05;
       }
@@ -85,31 +330,50 @@
       if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
       if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + p.color + ', 0.6)';
-      ctx.fill();
+      var pOpacity = p.baseOpacity * scrollFade;
+
+      if (p.isStar) {
+        drawStar(p.x, p.y, p.radius, p.color, pOpacity);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 0.5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + p.color + ',' + pOpacity + ')';
+        ctx.fill();
+      } else {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + p.color + ',' + pOpacity + ')';
+        ctx.fill();
+      }
 
       if (p.radius > p.baseRadius * 1.2) {
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius * 2, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(' + p.color + ', 0.08)';
+        ctx.arc(p.x, p.y, p.radius * 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + p.color + ',' + (pOpacity * 0.1) + ')';
         ctx.fill();
       }
 
       for (var j = i + 1; j < particles.length; j++) {
         var p2 = particles[j];
+        if (p2.ttl > 0) continue;
         var dx = p.x - p2.x;
         var dy = p.y - p2.y;
         var dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < CONNECTION_DIST) {
+          var opacity = 1 - dist / CONNECTION_DIST;
+          var nearCursorBoost = 1;
+          var midX = (p.x + p2.x) / 2;
+          var midY = (p.y + p2.y) / 2;
+          var distToCursor = Math.sqrt((midX - mouseX) * (midX - mouseX) + (midY - mouseY) * (midY - mouseY));
+          if (distToCursor < MOUSE_DIST) {
+            nearCursorBoost = 1 + (1 - distToCursor / MOUSE_DIST) * 1.5;
+          }
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(p2.x, p2.y);
-          var opacity = 1 - dist / CONNECTION_DIST;
           var gradient = ctx.createLinearGradient(p.x, p.y, p2.x, p2.y);
-          gradient.addColorStop(0, 'rgba(' + p.color + ', ' + (opacity * 0.25) + ')');
-          gradient.addColorStop(1, 'rgba(' + p2.color + ', ' + (opacity * 0.25) + ')');
+          var lineOpacity = opacity * 0.25 * nearCursorBoost * scrollFade;
+          gradient.addColorStop(0, 'rgba(' + p.color + ',' + lineOpacity + ')');
+          gradient.addColorStop(1, 'rgba(' + p2.color + ',' + lineOpacity + ')');
           ctx.strokeStyle = gradient;
           ctx.lineWidth = 0.8;
           ctx.stroke();
@@ -121,19 +385,58 @@
   drawParticles();
 
   document.addEventListener('visibilitychange', function () {
-    paused = document.hidden || !canvasVisible;
+    paused = document.hidden;
   });
 
-  if ('IntersectionObserver' in window) {
-    var heroEl = document.getElementById('hero');
-    if (heroEl) {
-      var canvasObserver = new IntersectionObserver(function (entries) {
-        canvasVisible = entries[0].isIntersecting;
-        paused = document.hidden || !canvasVisible;
-      }, { threshold: 0 });
-      canvasObserver.observe(heroEl);
-    }
+  /* ------------------------------------------------
+     CLICK PARTICLE EXPLOSIONS
+  ------------------------------------------------ */
+  var activeExplosions = 0;
+  var sectionColors = {
+    hero: '34,211,238',
+    about: '34,211,238',
+    skills: '96,165,250',
+    experience: '244,114,182',
+    projects: '244,114,182',
+    writing: '167,139,250',
+    certifications: '167,139,250',
+    education: '96,165,250',
+    contact: '34,211,238'
+  };
+
+  function getSectionColor() {
+    var scrollY = window.scrollY + window.innerHeight / 2;
+    var sections = document.querySelectorAll('main .section, .hero');
+    var color = '34,211,238';
+    sections.forEach(function (s) {
+      if (scrollY >= s.offsetTop) {
+        color = sectionColors[s.id] || '34,211,238';
+      }
+    });
+    return color;
   }
+
+  document.addEventListener('click', function (e) {
+    if (activeExplosions >= 3) return;
+    activeExplosions++;
+    var color = getSectionColor();
+    var count = 15 + Math.floor(Math.random() * 6);
+    for (var i = 0; i < count; i++) {
+      var angle = (Math.PI * 2 / count) * i + (Math.random() - 0.5) * 0.5;
+      var speed = 2 + Math.random() * 4;
+      var ep = new Particle();
+      ep.x = e.clientX + window.scrollX;
+      ep.y = e.clientY;
+      ep.vx = Math.cos(angle) * speed;
+      ep.vy = Math.sin(angle) * speed;
+      ep.radius = 1.5 + Math.random() * 3;
+      ep.color = color;
+      ep.ttl = 30 + Math.floor(Math.random() * 20);
+      ep.isStar = false;
+      particles.push(ep);
+    }
+    setTimeout(function () { activeExplosions--; }, 800);
+  });
 
   /* ------------------------------------------------
      PROJECT CARD GLOW + 3D TILT
@@ -160,18 +463,50 @@
   }
 
   /* ------------------------------------------------
-     MAGNETIC BUTTON HOVER
+     UNIVERSAL 3D CARD TILT (all other cards)
   ------------------------------------------------ */
   if (supportsHover) {
-    document.querySelectorAll('.btn').forEach(function (btn) {
-      btn.addEventListener('mousemove', function (e) {
-        var rect = btn.getBoundingClientRect();
+    var tiltConfigs = [
+      { selector: '.article-card', maxTilt: 2.2 },
+      { selector: '.contact-card', maxTilt: 2.0 },
+      { selector: '.education-card', maxTilt: 2.0 },
+      { selector: '.cert-card', maxTilt: 1.5 },
+      { selector: '.stat', maxTilt: 1.8 }
+    ];
+
+    tiltConfigs.forEach(function (config) {
+      document.querySelectorAll(config.selector).forEach(function (card) {
+        card.addEventListener('mousemove', function (e) {
+          var rect = card.getBoundingClientRect();
+          var x = e.clientX - rect.left;
+          var y = e.clientY - rect.top;
+          var centerX = rect.width / 2;
+          var centerY = rect.height / 2;
+          var rotateX = ((y - centerY) / centerY) * -config.maxTilt;
+          var rotateY = ((x - centerX) / centerX) * config.maxTilt;
+          card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-3px)';
+        });
+        card.addEventListener('mouseleave', function () {
+          card.style.transform = '';
+        });
+      });
+    });
+  }
+
+  /* ------------------------------------------------
+     MAGNETIC ELEMENT HOVER (expanded)
+  ------------------------------------------------ */
+  if (supportsHover) {
+    var magneticSelectors = '.btn, .nav-link, .nav-icon, .tag, .tag-sm, .project-links a, .timeline-marker, .contact-card svg';
+    document.querySelectorAll(magneticSelectors).forEach(function (el) {
+      el.addEventListener('mousemove', function (e) {
+        var rect = el.getBoundingClientRect();
         var x = e.clientX - rect.left - rect.width / 2;
         var y = e.clientY - rect.top - rect.height / 2;
-        btn.style.transform = 'translate(' + (x * 0.08) + 'px, ' + (y * 0.08) + 'px) scale(1.01)';
+        el.style.transform = 'translate(' + (x * 0.08) + 'px, ' + (y * 0.08) + 'px) scale(1.02)';
       });
-      btn.addEventListener('mouseleave', function () {
-        btn.style.transform = '';
+      el.addEventListener('mouseleave', function () {
+        el.style.transform = '';
       });
     });
   }
@@ -269,6 +604,53 @@
     reveals.forEach(function (el) { revealObserver.observe(el); });
   } else {
     reveals.forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  /* ------------------------------------------------
+     TEXT SCRAMBLE REVEAL
+  ------------------------------------------------ */
+  var scrambleChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+  function scrambleReveal(el) {
+    var finalText = el.getAttribute('data-text');
+    if (!finalText) return;
+
+    var length = finalText.length;
+    var resolved = 0;
+    var current = [];
+    for (var i = 0; i < length; i++) {
+      current.push(scrambleChars[Math.floor(Math.random() * scrambleChars.length)]);
+    }
+    el.textContent = current.join('');
+
+    var interval = setInterval(function () {
+      for (var i = resolved; i < length; i++) {
+        current[i] = scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+      }
+      if (resolved < length) {
+        current[resolved] = finalText[resolved];
+        resolved++;
+      }
+      el.textContent = current.join('');
+      if (resolved >= length) {
+        clearInterval(interval);
+        el.textContent = finalText;
+      }
+    }, 40);
+  }
+
+  if ('IntersectionObserver' in window) {
+    var scrambleLabels = document.querySelectorAll('.section-label[data-text]');
+    var scrambleObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          scrambleReveal(entry.target);
+          scrambleObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    scrambleLabels.forEach(function (el) { scrambleObserver.observe(el); });
   }
 
   /* ------------------------------------------------
@@ -485,16 +867,39 @@
   });
 
   /* ------------------------------------------------
-     HERO PARALLAX (subtle depth on scroll)
+     HERO CURSOR PARALLAX (mouse-driven depth)
   ------------------------------------------------ */
   var heroContent = document.querySelector('.hero-content');
   var heroVisual = document.querySelector('.hero-visual');
+  var heroName = document.querySelector('.hero-name');
+  var heroDesc = document.querySelector('.hero-desc');
+  var heroStats = document.querySelector('.hero-stats');
+  var heroSection = document.getElementById('hero');
+
+  if (supportsHover && heroSection) {
+    heroSection.addEventListener('mousemove', function (e) {
+      var rect = heroSection.getBoundingClientRect();
+      var mx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+      var my = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+
+      if (heroName) heroName.style.transform = 'translate(' + (mx * -8) + 'px, ' + (my * -5) + 'px)';
+      if (heroDesc) heroDesc.style.transform = 'translate(' + (mx * -4) + 'px, ' + (my * -3) + 'px)';
+      if (heroStats) heroStats.style.transform = 'translate(' + (mx * -6) + 'px, ' + (my * -4) + 'px)';
+      if (heroVisual) heroVisual.style.transform = 'translate(' + (mx * 12) + 'px, ' + (my * 8) + 'px)';
+    });
+
+    heroSection.addEventListener('mouseleave', function () {
+      if (heroName) heroName.style.transform = '';
+      if (heroDesc) heroDesc.style.transform = '';
+      if (heroStats) heroStats.style.transform = '';
+      if (heroVisual) heroVisual.style.transform = '';
+    });
+  }
 
   window.addEventListener('scroll', function () {
     if (window.scrollY < window.innerHeight) {
       var scroll = window.scrollY;
-      if (heroContent) heroContent.style.transform = 'translateY(' + (scroll * 0.08) + 'px)';
-      if (heroVisual) heroVisual.style.transform = 'translateY(' + (scroll * 0.15) + 'px)';
+      if (heroContent) heroContent.style.opacity = 1 - scroll / (window.innerHeight * 0.8);
     }
   }, { passive: true });
 
@@ -517,6 +922,86 @@
         card.style.transform = '';
       });
     });
+  }
+
+  /* ------------------------------------------------
+     SCROLL-SYNCED TIMELINE GLOW
+  ------------------------------------------------ */
+  var experienceSection = document.getElementById('experience');
+  var timeline = experienceSection ? experienceSection.querySelector('.timeline') : null;
+
+  if (timeline) {
+    var timelineAfterStyle = document.createElement('style');
+    timelineAfterStyle.id = 'timeline-scroll-style';
+    document.head.appendChild(timelineAfterStyle);
+
+    window.addEventListener('scroll', function () {
+      var rect = experienceSection.getBoundingClientRect();
+      var sectionTop = rect.top;
+      var sectionHeight = rect.height;
+      var viewH = window.innerHeight;
+
+      var progress = Math.max(0, Math.min(1, (viewH - sectionTop) / (sectionHeight + viewH)));
+      var topPercent = progress * 100;
+
+      timelineAfterStyle.textContent =
+        '.timeline::after { animation: none !important; top: ' + topPercent + '% !important; opacity: 1 !important; }';
+    }, { passive: true });
+  }
+
+  /* ------------------------------------------------
+     BACKGROUND SCROLL COLOR SHIFT
+  ------------------------------------------------ */
+  var bgColors = [
+    { pos: 0, r: 6, g: 11, b: 24 },
+    { pos: 0.2, r: 6, g: 13, b: 30 },
+    { pos: 0.4, r: 10, g: 11, b: 24 },
+    { pos: 0.6, r: 8, g: 9, b: 30 },
+    { pos: 0.8, r: 6, g: 11, b: 28 },
+    { pos: 1.0, r: 6, g: 11, b: 24 }
+  ];
+
+  function lerpColor(a, b, t) {
+    return {
+      r: Math.round(a.r + (b.r - a.r) * t),
+      g: Math.round(a.g + (b.g - a.g) * t),
+      b: Math.round(a.b + (b.b - a.b) * t)
+    };
+  }
+
+  window.addEventListener('scroll', function () {
+    var scrollFraction = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    scrollFraction = Math.max(0, Math.min(1, scrollFraction));
+
+    var lower = bgColors[0], upper = bgColors[1];
+    for (var i = 0; i < bgColors.length - 1; i++) {
+      if (scrollFraction >= bgColors[i].pos && scrollFraction <= bgColors[i + 1].pos) {
+        lower = bgColors[i];
+        upper = bgColors[i + 1];
+        break;
+      }
+    }
+
+    var range = upper.pos - lower.pos;
+    var t = range > 0 ? (scrollFraction - lower.pos) / range : 0;
+    var c = lerpColor(lower, upper, t);
+    document.body.style.background = 'rgb(' + c.r + ',' + c.g + ',' + c.b + ')';
+  }, { passive: true });
+
+  /* ------------------------------------------------
+     HERO NAME GLITCH EFFECT
+  ------------------------------------------------ */
+  var heroNameEl = document.querySelector('.hero-name');
+  if (heroNameEl) {
+    function triggerGlitch() {
+      heroNameEl.classList.add('glitch');
+      setTimeout(function () {
+        heroNameEl.classList.remove('glitch');
+      }, 200);
+      var nextDelay = 8000 + Math.random() * 4000;
+      setTimeout(triggerGlitch, nextDelay);
+    }
+    setTimeout(triggerGlitch, 5000);
   }
 
   /* ------------------------------------------------

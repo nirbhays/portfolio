@@ -650,11 +650,32 @@ body::before {
 
 /* --- Reveal Animation --- */
 .reveal {
-  opacity: 0; transform: translateY(30px);
+  opacity: 0; transform: translateY(40px) scale(0.96);
   transition: opacity .7s var(--ease-expo), transform .7s var(--ease-expo);
 }
 .reveal.visible {
-  opacity: 1; transform: translateY(0);
+  opacity: 1; transform: translateY(0) scale(1);
+}
+.reveal.reveal-card {
+  transform: translateY(50px) rotateX(4deg) scale(0.92);
+  transition: opacity .8s var(--ease-expo), transform .8s var(--ease-expo);
+}
+.reveal.reveal-card.visible {
+  transform: translateY(0) rotateX(0) scale(1);
+}
+.reveal.reveal-timeline {
+  transform: translateX(-30px) translateY(0) scale(1);
+  transition: opacity .7s var(--ease-expo), transform .7s var(--ease-expo);
+}
+.reveal.reveal-timeline.visible {
+  transform: translateX(0) translateY(0) scale(1);
+}
+.reveal.reveal-pop {
+  transform: scale(0) translateY(0);
+  transition: opacity .5s var(--ease-spring), transform .5s var(--ease-spring);
+}
+.reveal.reveal-pop.visible {
+  transform: scale(1) translateY(0);
 }
 
 /* ========================================================
@@ -1336,9 +1357,12 @@ body::before {
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
-  .reveal { opacity: 1; transform: none; }
+  .reveal, .reveal.reveal-card, .reveal.reveal-timeline, .reveal.reveal-pop { opacity: 1; transform: none; }
   #bg-canvas { display: none; }
   .bg-orb { animation: none; }
+  .cursor-dot, .cursor-ring, .cursor-spotlight, .cursor-trail-container { display: none !important; }
+  .aurora-divider { display: none; }
+  .hero-name.glitch { animation: none; }
 }
 
 /* --- Tag hover variety by skill category --- */
@@ -1430,4 +1454,168 @@ a:focus-visible, .btn:focus-visible, .nav-link:focus-visible, .nav-icon:focus-vi
 }
 .hero-visual {
   animation: pageEnter .8s var(--ease-expo) .5s both;
+}
+
+/* ========================================================
+   CUSTOM CURSOR
+   ======================================================== */
+.cursor-dot {
+  position: fixed; top: 0; left: 0;
+  width: 8px; height: 8px;
+  background: var(--cyan);
+  border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: opacity .15s, width .2s var(--ease-spring), height .2s var(--ease-spring), background .2s;
+  box-shadow: 0 0 6px var(--cyan), 0 0 12px var(--cyan-glow);
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  position: fixed; top: 0; left: 0;
+  width: 40px; height: 40px;
+  border: 2px solid rgba(34,211,238,.3);
+  border-radius: 50%;
+  pointer-events: none; z-index: 9997;
+  transform: translate(-50%, -50%);
+  transition: width .25s var(--ease-spring), height .25s var(--ease-spring),
+              border-color .25s, background .25s, border-radius .25s, opacity .2s;
+  box-shadow: 0 0 10px rgba(34,211,238,.08);
+}
+body.custom-cursor { cursor: none; }
+body.custom-cursor a,
+body.custom-cursor button,
+body.custom-cursor [role="button"],
+body.custom-cursor input,
+body.custom-cursor .tag,
+body.custom-cursor .tag-sm,
+body.custom-cursor .nav-link { cursor: none; }
+.cursor-dot.hidden { opacity: 0; }
+.cursor-ring.hover-link {
+  width: 60px; height: 60px;
+  background: rgba(34,211,238,.06);
+  border-color: rgba(34,211,238,.5);
+}
+.cursor-ring.hover-card {
+  width: 50px; height: 50px;
+  background: rgba(34,211,238,.04);
+  border-color: rgba(34,211,238,.15);
+}
+.cursor-ring.clicking {
+  width: 20px; height: 20px;
+  border-color: var(--magenta);
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot, .cursor-ring, .cursor-spotlight, .cursor-trail-container { display: none !important; }
+  body.custom-cursor, body.custom-cursor a, body.custom-cursor button { cursor: auto; }
+}
+
+/* ========================================================
+   CURSOR SPOTLIGHT
+   ======================================================== */
+.cursor-spotlight {
+  position: fixed; inset: 0; z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(600px circle at var(--spot-x, -200px) var(--spot-y, -200px),
+    rgba(34,211,238,0.04), transparent 60%);
+}
+
+/* ========================================================
+   CURSOR TRAIL
+   ======================================================== */
+.cursor-trail-container {
+  position: fixed; inset: 0; z-index: 9996;
+  pointer-events: none; overflow: hidden;
+}
+.trail-dot {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .6s ease-out, transform .6s ease-out;
+}
+
+/* ========================================================
+   AURORA SECTION DIVIDERS
+   ======================================================== */
+.aurora-divider {
+  position: relative; height: 80px;
+  overflow: hidden; z-index: 3;
+}
+.aurora-divider::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg,
+    transparent, var(--cyan), var(--magenta), var(--violet), var(--cyan), transparent);
+  background-size: 200% 100%;
+  opacity: .07;
+  animation: auroraFlow 8s linear infinite;
+  clip-path: polygon(
+    0% 30%, 10% 45%, 20% 25%, 30% 50%, 40% 35%, 50% 55%,
+    60% 30%, 70% 50%, 80% 35%, 90% 48%, 100% 25%,
+    100% 70%, 90% 55%, 80% 70%, 70% 50%, 60% 72%,
+    50% 48%, 40% 68%, 30% 52%, 20% 75%, 10% 55%, 0% 70%
+  );
+}
+.aurora-divider::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg,
+    transparent, var(--magenta), var(--violet), var(--cyan), var(--magenta), transparent);
+  background-size: 300% 100%;
+  opacity: .05;
+  animation: auroraFlow 12s linear infinite reverse;
+  clip-path: polygon(
+    0% 40%, 15% 55%, 25% 35%, 35% 58%, 45% 40%, 55% 60%,
+    65% 38%, 75% 55%, 85% 42%, 100% 50%,
+    100% 65%, 85% 58%, 75% 68%, 65% 52%, 55% 72%,
+    45% 55%, 35% 70%, 25% 50%, 15% 65%, 0% 55%
+  );
+}
+@keyframes auroraFlow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ========================================================
+   HERO GLITCH EFFECT
+   ======================================================== */
+.hero-name.glitch {
+  animation: glitchMain .2s steps(2) both;
+}
+.hero-name.glitch .hero-name-line:first-child {
+  animation: glitchSlice1 .2s steps(2) both;
+}
+.hero-name.glitch .hero-name-line:nth-child(2) {
+  animation: glitchSlice2 .2s steps(3) both;
+}
+@keyframes glitchMain {
+  0%   { transform: none; filter: none; }
+  25%  { transform: skew(-0.5deg); filter: hue-rotate(10deg); }
+  50%  { transform: skew(0.3deg, 0.2deg); filter: hue-rotate(-5deg); }
+  75%  { transform: skew(-0.2deg); filter: none; }
+  100% { transform: none; filter: none; }
+}
+@keyframes glitchSlice1 {
+  0%   { clip-path: inset(0); transform: none; }
+  25%  { clip-path: inset(20% 0 50% 0); transform: translateX(4px); }
+  50%  { clip-path: inset(40% 0 20% 0); transform: translateX(-3px); }
+  75%  { clip-path: inset(10% 0 60% 0); transform: translateX(2px); }
+  100% { clip-path: inset(0); transform: none; }
+}
+@keyframes glitchSlice2 {
+  0%   { clip-path: inset(0); transform: none; }
+  33%  { clip-path: inset(60% 0 10% 0); transform: translateX(-4px); }
+  66%  { clip-path: inset(30% 0 40% 0); transform: translateX(3px); }
+  100% { clip-path: inset(0); transform: none; }
+}
+
+/* ========================================================
+   UNIVERSAL CARD GLOW (cursor-following)
+   ======================================================== */
+.article-card,
+.contact-card,
+.education-card,
+.cert-card,
+.stat {
+  transform-style: preserve-3d;
 }
