@@ -39,8 +39,8 @@
   --bg-3: #1c2641;
   --text-0: #eef1f6;
   --text-1: #b0b8cc;
-  --text-2: #7080a0;
-  --text-3: #475068;
+  --text-2: #8a95b0;
+  --text-3: #6b7a96;
   --cyan: #22d3ee;
   --cyan-dim: rgba(34,211,238,.10);
   --cyan-glow: rgba(34,211,238,.35);
@@ -241,7 +241,7 @@ body::before {
 .nav-link {
   padding: 7px 16px; border-radius: 99px;
   font-size: .82rem; font-weight: 500;
-  color: var(--text-2) !important;
+  color: var(--text-1) !important;
   transition: all .3s var(--ease-expo);
   position: relative;
 }
@@ -449,7 +449,7 @@ body::before {
   background-clip: text;
 }
 .stat-label {
-  display: block; font-size: .68rem; color: var(--text-3);
+  display: block; font-size: .72rem; color: var(--text-2);
   text-transform: uppercase; letter-spacing: .1em; margin-top: 4px;
 }
 
@@ -627,19 +627,11 @@ body::before {
 .section-inner { max-width: var(--max-w); margin: 0 auto; }
 
 .section-label {
-  font-family: var(--font-mono); font-size: .72rem;
-  letter-spacing: .25em; text-transform: uppercase;
-  background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--violet), var(--cyan));
-  background-size: 300% 100%;
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-family: var(--font-mono); font-size: .8rem;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--cyan);
   margin-bottom: 14px;
   display: inline-block;
-  animation: labelShimmer 5s linear infinite;
-}
-@keyframes labelShimmer {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
 }
 .section-title {
   font-family: var(--font-display);
@@ -740,8 +732,8 @@ body::before {
 }
 .about-detail:last-child { border-bottom: none; }
 .about-detail-label {
-  font-family: var(--font-mono); font-size: .72rem;
-  color: var(--text-3); text-transform: uppercase; letter-spacing: .08em;
+  font-family: var(--font-mono); font-size: .75rem;
+  color: var(--text-2); text-transform: uppercase; letter-spacing: .08em;
 }
 .about-detail-value { font-size: .9rem; color: var(--text-0); text-align: right; }
 
@@ -1027,7 +1019,7 @@ body::before {
 .projects-more-label {
   font-family: var(--font-mono); font-size: .72rem;
   letter-spacing: .25em; text-transform: uppercase;
-  color: var(--text-3); margin: 56px 0 28px;
+  color: var(--text-2); margin: 56px 0 28px;
   display: flex; align-items: center; gap: 16px;
 }
 .projects-more-label::before, .projects-more-label::after {
@@ -1068,9 +1060,9 @@ body::before {
 }
 .article-badge {
   display: inline-block; padding: 4px 14px; border-radius: 99px;
-  font-family: var(--font-mono); font-size: .68rem;
-  background: rgba(167,139,250,.08); color: var(--violet);
-  border: 1px solid rgba(167,139,250,.15);
+  font-family: var(--font-mono); font-size: .72rem;
+  background: rgba(167,139,250,.12); color: var(--violet);
+  border: 1px solid rgba(167,139,250,.25);
   margin-bottom: 16px; width: fit-content;
 }
 .article-card h3 {
@@ -1097,7 +1089,7 @@ body::before {
 .certs-provider {
   font-family: var(--font-mono); font-size: .78rem;
   letter-spacing: .12em; text-transform: uppercase;
-  color: var(--text-3); margin-bottom: 16px;
+  color: var(--text-2); margin-bottom: 16px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--border);
   position: relative;
@@ -1369,7 +1361,6 @@ body::before {
   .reveal, .reveal.reveal-card, .reveal.reveal-timeline, .reveal.reveal-pop { opacity: 1; transform: none; }
   #bg-canvas { display: none; }
   .bg-orb { animation: none; }
-  .cursor-dot, .cursor-ring, .cursor-spotlight, .cursor-trail-container { display: none !important; }
   .aurora-divider { display: none; }
   .hero-name.glitch { animation: none; }
 }
@@ -1466,84 +1457,6 @@ a:focus-visible, .btn:focus-visible, .nav-link:focus-visible, .nav-icon:focus-vi
 }
 
 /* ========================================================
-   CUSTOM CURSOR
-   ======================================================== */
-.cursor-dot {
-  position: fixed; top: 0; left: 0;
-  width: 8px; height: 8px;
-  background: var(--cyan);
-  border-radius: 50%;
-  pointer-events: none; z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: opacity .15s, width .2s var(--ease-spring), height .2s var(--ease-spring), background .2s;
-  box-shadow: 0 0 6px var(--cyan), 0 0 12px var(--cyan-glow);
-  mix-blend-mode: screen;
-}
-.cursor-ring {
-  position: fixed; top: 0; left: 0;
-  width: 40px; height: 40px;
-  border: 2px solid rgba(34,211,238,.3);
-  border-radius: 50%;
-  pointer-events: none; z-index: 9997;
-  transform: translate(-50%, -50%);
-  transition: width .25s var(--ease-spring), height .25s var(--ease-spring),
-              border-color .25s, background .25s, border-radius .25s, opacity .2s;
-  box-shadow: 0 0 10px rgba(34,211,238,.08);
-}
-body.custom-cursor { cursor: none; }
-body.custom-cursor a,
-body.custom-cursor button,
-body.custom-cursor [role="button"],
-body.custom-cursor input,
-body.custom-cursor .tag,
-body.custom-cursor .tag-sm,
-body.custom-cursor .nav-link { cursor: none; }
-.cursor-dot.hidden { opacity: 0; }
-.cursor-ring.hover-link {
-  width: 60px; height: 60px;
-  background: rgba(34,211,238,.06);
-  border-color: rgba(34,211,238,.5);
-}
-.cursor-ring.hover-card {
-  width: 50px; height: 50px;
-  background: rgba(34,211,238,.04);
-  border-color: rgba(34,211,238,.15);
-}
-.cursor-ring.clicking {
-  width: 20px; height: 20px;
-  border-color: var(--magenta);
-}
-@media (hover: none), (pointer: coarse) {
-  .cursor-dot, .cursor-ring, .cursor-spotlight, .cursor-trail-container { display: none !important; }
-  body.custom-cursor, body.custom-cursor a, body.custom-cursor button { cursor: auto; }
-}
-
-/* ========================================================
-   CURSOR SPOTLIGHT
-   ======================================================== */
-.cursor-spotlight {
-  position: fixed; inset: 0; z-index: 2;
-  pointer-events: none;
-  background: radial-gradient(600px circle at var(--spot-x, -200px) var(--spot-y, -200px),
-    rgba(34,211,238,0.04), transparent 60%);
-}
-
-/* ========================================================
-   CURSOR TRAIL
-   ======================================================== */
-.cursor-trail-container {
-  position: fixed; inset: 0; z-index: 9996;
-  pointer-events: none; overflow: hidden;
-}
-.trail-dot {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity .6s ease-out, transform .6s ease-out;
-}
-
-/* ========================================================
    AURORA SECTION DIVIDERS
    ======================================================== */
 .aurora-divider {
@@ -1618,13 +1531,3 @@ body.custom-cursor .nav-link { cursor: none; }
   100% { clip-path: inset(0); transform: none; }
 }
 
-/* ========================================================
-   UNIVERSAL CARD GLOW (cursor-following)
-   ======================================================== */
-.article-card,
-.contact-card,
-.education-card,
-.cert-card,
-.stat {
-  transform-style: preserve-3d;
-}
