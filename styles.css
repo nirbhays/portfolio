@@ -912,9 +912,9 @@ body::before {
 .timeline-content li { font-size: .9rem; }
 .timeline-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
 .tag-sm {
-  padding: 3px 12px; border-radius: 99px; font-size: .68rem;
-  background: rgba(255,255,255,.04); border: 1px solid var(--border);
-  color: var(--text-2); font-family: var(--font-mono);
+  padding: 4px 12px; border-radius: 99px; font-size: .72rem;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10);
+  color: var(--text-1); font-family: var(--font-mono);
   transition: all .3s;
 }
 .tag-sm:hover {
@@ -931,10 +931,10 @@ body::before {
 }
 .project-card {
   position: relative; border-radius: var(--radius);
-  background: var(--glass);
+  background: var(--glass-strong);
   border: 1px solid var(--border);
   overflow: hidden;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(16px);
   transition: all .5s var(--ease-expo);
   transform-style: preserve-3d;
 }
@@ -985,7 +985,7 @@ body::before {
 .project-links a {
   display: flex; align-items: center; justify-content: center;
   width: 38px; height: 38px; border-radius: 10px;
-  color: var(--text-3) !important; border: 1px solid var(--border);
+  color: var(--text-2) !important; border: 1px solid var(--border);
   transition: all .35s var(--ease-expo);
 }
 .project-links a:hover {
@@ -1006,10 +1006,10 @@ body::before {
 .project-metrics {
   display: flex; gap: 20px; flex-wrap: wrap;
   margin-bottom: 18px; padding: 14px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  border-top: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
-.project-metrics span { font-size: .8rem; color: var(--text-2); }
+.project-metrics span { font-size: .82rem; color: var(--text-1); }
 .project-metrics strong { color: var(--cyan); font-size: .9rem; }
 .project-tech { display: flex; flex-wrap: wrap; gap: 6px; }
 
