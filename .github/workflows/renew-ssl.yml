@@ -1,0 +1,54 @@
+name: Renew SSL Certificate
+
+on:
+  schedule:
+    - cron: '0 8 1 * *'   # 1st of every month at 08:00 UTC
+  workflow_dispatch:        # allow manual trigger from GitHub UI
+
+jobs:
+  renew:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Install acme.sh
+        run: curl -fsSL https://get.acme.sh | sh -s email=sin.nirbhaysingh@gmail.com
+
+      - name: Issue certificate via Netlify DNS
+        env:
+          NETLIFY_ACCESS_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+        run: |
+          ~/.acme.sh/acme.sh --issue \
+            --dns dns_netlify \
+            -d cloudtoai.in \
+            -d '*.cloudtoai.in' \
+            --server letsencrypt
+
+      - name: Upload certificate to Netlify
+        env:
+          NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          python3 - <<'EOF'
+          import json, urllib.request, urllib.error, os
+
+          base = os.path.expanduser('~/.acme.sh/cloudtoai.in_ecc')
+          payload = json.dumps({
+              'certificate':    open(f'{base}/cloudtoai.in.cer').read(),
+              'key':            open(f'{base}/cloudtoai.in.key').read(),
+              'ca_certificates': open(f'{base}/ca.cer').read(),
+          }).encode()
+
+          req = urllib.request.Request(
+              f"https://api.netlify.com/api/v1/sites/{os.environ['NETLIFY_SITE_ID']}/ssl",
+              data=payload,
+              headers={
+                  'Authorization': f"Bearer {os.environ['NETLIFY_TOKEN']}",
+                  'Content-Type':  'application/json',
+              },
+              method='POST',
+          )
+          with urllib.request.urlopen(req) as r:
+              d = json.loads(r.read())
+              print(f"✓ Cert uploaded — state={d['state']} expires={d['expires_at']} domains={d['domains']}")
+          EOF
