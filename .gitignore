@@ -23,3 +23,13 @@ dist/
 
 # Local Copilot/Superpowers workspace output
 .superpowers/
+
+# Secrets
+.env
+
+# Image generation intermediates (raw output, not shipped)
+scripts/.raw_output/
+scripts/generation_log.json
+
+# Ad-hoc local audit/debug scratch space
+.audit-temp/

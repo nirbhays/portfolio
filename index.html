@@ -35,7 +35,7 @@
   <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
 
-  <link rel="stylesheet" href="styles.css?v=20260509a" />
+  <link rel="stylesheet" href="styles.css?v=20260907c" />
   <link rel="canonical" href="https://cloudtoai.in/" />
 
   <!-- Structured Data -->
@@ -87,6 +87,7 @@
     <div class="bg-orb bg-orb-1"></div>
     <div class="bg-orb bg-orb-2"></div>
     <div class="bg-orb bg-orb-3"></div>
+    <div class="bg-orb bg-orb-4"></div>
   </div>
 
   <!-- Background Canvas -->
@@ -130,6 +131,12 @@
   <main>
     <!-- ===================== HERO ===================== -->
     <section id="hero" class="hero" tabindex="-1">
+      <div class="hero-atmosphere" aria-hidden="true">
+        <video class="hero-atmosphere-video" id="hero-atmosphere-video" muted loop playsinline preload="none" poster="assets/generated/hero/hero-bg.jpg">
+          <source src="assets/generated/hero/hero-motion.webm" type="video/webm" />
+          <source src="assets/generated/hero/hero-motion.mp4" type="video/mp4" />
+        </video>
+      </div>
       <div class="hero-content">
         <div class="hero-badge">
           <span class="badge-dot"></span>
@@ -169,9 +176,9 @@
             </div>
             <span class="stat-label">Certifications</span>
           </div>
-          <div class="stat" data-target="4" data-suffix="M+">
+          <div class="stat" data-target="4" data-suffix="+">
             <div class="stat-value">
-              <span class="stat-number euro-prefix">4</span><span class="stat-suffix">M+</span>
+              <span class="stat-number euro-prefix">4</span><span class="stat-suffix">+</span>
             </div>
             <span class="stat-label">Saved via FinOps</span>
           </div>
@@ -219,7 +226,7 @@
     <section id="about" class="section">
       <div class="section-inner">
         <div class="section-label reveal" data-text="About Me">About Me</div>
-        <div class="about-grid">
+        <div class="about-grid about-grid-bento">
           <div class="about-text reveal">
             <h2>Building the infrastructure<br/>that powers AI at scale.</h2>
             <p>
@@ -240,6 +247,17 @@
               <a href="https://github.com/nirbhays/infracents">InfraCents</a> — solving real
               problems in cloud security, AI cost management, and infrastructure visibility.
             </p>
+          </div>
+          <div class="about-visual reveal reveal-card">
+            <picture>
+              <source srcset="assets/generated/about/about-hero.avif" type="image/avif" />
+              <source srcset="assets/generated/about/about-hero.webp" type="image/webp" />
+              <img src="assets/generated/about/about-hero.jpg" alt="" loading="lazy" decoding="async" width="480" height="600" />
+            </picture>
+            <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/about/about-hero.jpg">
+              <source src="assets/generated/about/about-hero-motion.webm" type="video/webm" />
+              <source src="assets/generated/about/about-hero-motion.mp4" type="video/mp4" />
+            </video>
           </div>
           <div class="about-details reveal">
             <div class="about-detail">
@@ -276,6 +294,17 @@
         <h2 class="section-title reveal">Skills &amp; Technologies</h2>
         <div class="skills-grid">
           <div class="skill-card reveal" data-delay="0">
+            <div class="skill-card-media">
+              <picture>
+                <source srcset="assets/generated/skills/cloud.avif" type="image/avif" />
+                <source srcset="assets/generated/skills/cloud.webp" type="image/webp" />
+                <img src="assets/generated/skills/cloud.jpg" alt="" loading="lazy" decoding="async" width="320" height="240" />
+              </picture>
+              <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/skills/cloud.jpg">
+                <source src="assets/generated/skills/cloud-motion.webm" type="video/webm" />
+                <source src="assets/generated/skills/cloud-motion.mp4" type="video/mp4" />
+              </video>
+            </div>
             <div class="skill-card-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9z"/></svg>
             </div>
@@ -290,6 +319,17 @@
           </div>
 
           <div class="skill-card reveal" data-delay="1">
+            <div class="skill-card-media">
+              <picture>
+                <source srcset="assets/generated/skills/iac.avif" type="image/avif" />
+                <source srcset="assets/generated/skills/iac.webp" type="image/webp" />
+                <img src="assets/generated/skills/iac.jpg" alt="" loading="lazy" decoding="async" width="320" height="240" />
+              </picture>
+              <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/skills/iac.jpg">
+                <source src="assets/generated/skills/iac-motion.webm" type="video/webm" />
+                <source src="assets/generated/skills/iac-motion.mp4" type="video/mp4" />
+              </video>
+            </div>
             <div class="skill-card-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25z"/></svg>
             </div>
@@ -304,6 +344,17 @@
           </div>
 
           <div class="skill-card reveal" data-delay="2">
+            <div class="skill-card-media">
+              <picture>
+                <source srcset="assets/generated/skills/containers.avif" type="image/avif" />
+                <source srcset="assets/generated/skills/containers.webp" type="image/webp" />
+                <img src="assets/generated/skills/containers.jpg" alt="" loading="lazy" decoding="async" width="320" height="240" />
+              </picture>
+              <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/skills/containers.jpg">
+                <source src="assets/generated/skills/containers-motion.webm" type="video/webm" />
+                <source src="assets/generated/skills/containers-motion.mp4" type="video/mp4" />
+              </video>
+            </div>
             <div class="skill-card-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
             </div>
@@ -319,6 +370,17 @@
           </div>
 
           <div class="skill-card reveal" data-delay="3">
+            <div class="skill-card-media">
+              <picture>
+                <source srcset="assets/generated/skills/cicd.avif" type="image/avif" />
+                <source srcset="assets/generated/skills/cicd.webp" type="image/webp" />
+                <img src="assets/generated/skills/cicd.jpg" alt="" loading="lazy" decoding="async" width="320" height="240" />
+              </picture>
+              <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/skills/cicd.jpg">
+                <source src="assets/generated/skills/cicd-motion.webm" type="video/webm" />
+                <source src="assets/generated/skills/cicd-motion.mp4" type="video/mp4" />
+              </video>
+            </div>
             <div class="skill-card-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87a6.997 6.997 0 0 1 .985.57c.292.197.667.292 1.038.169l1.234-.425c.512-.177 1.09.05 1.36.522l1.297 2.247c.27.472.146 1.08-.306 1.374l-1.02.856a1.12 1.12 0 0 0-.412.997 6.7 6.7 0 0 1 0 1.14 1.12 1.12 0 0 0 .412.997l1.02.856c.452.294.576.902.306 1.374l-1.297 2.247c-.27.472-.848.7-1.36.522l-1.234-.425c-.371-.123-.746-.028-1.038.169a6.997 6.997 0 0 1-.985.57c-.332.184-.582.496-.645.87l-.213 1.281c-.09.543-.56.941-1.11.941h-2.593c-.55 0-1.02-.398-1.11-.94l-.213-1.282a1.123 1.123 0 0 0-.645-.87 6.998 6.998 0 0 1-.985-.569 1.123 1.123 0 0 0-1.038-.17l-1.234.426c-.512.177-1.09-.05-1.36-.522L2.723 15.5c-.27-.472-.146-1.08.306-1.374l1.02-.856c.282-.237.432-.612.412-.997a6.7 6.7 0 0 1 0-1.14 1.12 1.12 0 0 0-.412-.997l-1.02-.857c-.452-.293-.576-.901-.306-1.373l1.297-2.247c.27-.472.848-.7 1.36-.522l1.234.425c.371.124.746.029 1.038-.169a6.997 6.997 0 0 1 .985-.57c.332-.183.582-.495.645-.869l.213-1.281z"/><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>
             </div>
@@ -333,6 +395,17 @@
           </div>
 
           <div class="skill-card reveal" data-delay="4">
+            <div class="skill-card-media">
+              <picture>
+                <source srcset="assets/generated/skills/aiml.avif" type="image/avif" />
+                <source srcset="assets/generated/skills/aiml.webp" type="image/webp" />
+                <img src="assets/generated/skills/aiml.jpg" alt="" loading="lazy" decoding="async" width="320" height="240" />
+              </picture>
+              <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/skills/aiml.jpg">
+                <source src="assets/generated/skills/aiml-motion.webm" type="video/webm" />
+                <source src="assets/generated/skills/aiml-motion.mp4" type="video/mp4" />
+              </video>
+            </div>
             <div class="skill-card-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 0 0-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423z"/></svg>
             </div>
@@ -349,6 +422,17 @@
           </div>
 
           <div class="skill-card reveal" data-delay="5">
+            <div class="skill-card-media">
+              <picture>
+                <source srcset="assets/generated/skills/security.avif" type="image/avif" />
+                <source srcset="assets/generated/skills/security.webp" type="image/webp" />
+                <img src="assets/generated/skills/security.jpg" alt="" loading="lazy" decoding="async" width="320" height="240" />
+              </picture>
+              <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/skills/security.jpg">
+                <source src="assets/generated/skills/security-motion.webm" type="video/webm" />
+                <source src="assets/generated/skills/security-motion.mp4" type="video/mp4" />
+              </video>
+            </div>
             <div class="skill-card-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.292 4.338 5.31 7.5 10.066 7.5.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 0 1-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"/></svg>
             </div>
@@ -364,6 +448,17 @@
           </div>
 
           <div class="skill-card reveal" data-delay="6">
+            <div class="skill-card-media">
+              <picture>
+                <source srcset="assets/generated/skills/languages.avif" type="image/avif" />
+                <source srcset="assets/generated/skills/languages.webp" type="image/webp" />
+                <img src="assets/generated/skills/languages.jpg" alt="" loading="lazy" decoding="async" width="320" height="240" />
+              </picture>
+              <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/skills/languages.jpg">
+                <source src="assets/generated/skills/languages-motion.webm" type="video/webm" />
+                <source src="assets/generated/skills/languages-motion.mp4" type="video/mp4" />
+              </video>
+            </div>
             <div class="skill-card-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg>
             </div>
@@ -379,6 +474,17 @@
           </div>
 
           <div class="skill-card reveal" data-delay="7">
+            <div class="skill-card-media">
+              <picture>
+                <source srcset="assets/generated/skills/data.avif" type="image/avif" />
+                <source srcset="assets/generated/skills/data.webp" type="image/webp" />
+                <img src="assets/generated/skills/data.jpg" alt="" loading="lazy" decoding="async" width="320" height="240" />
+              </picture>
+              <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/skills/data.jpg">
+                <source src="assets/generated/skills/data-motion.webm" type="video/webm" />
+                <source src="assets/generated/skills/data-motion.mp4" type="video/mp4" />
+              </video>
+            </div>
             <div class="skill-card-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
             </div>
@@ -467,7 +573,7 @@
               <div class="timeline-header">
                 <img src="assets/logos/deloitte.png" alt="Deloitte" class="timeline-logo" loading="lazy" />
                 <div>
-                  <h3>Senior DevOps Engineer / Data &amp; AI Architect</h3>
+                  <h3>Senior DevOps Engineer</h3>
                   <span class="timeline-company">Deloitte</span>
                 </div>
               </div>
@@ -552,6 +658,17 @@
           <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
+              <div class="project-card-media project-card-media--wide">
+                <picture>
+                  <source srcset="assets/generated/projects/shieldiac.avif" type="image/avif" />
+                  <source srcset="assets/generated/projects/shieldiac.webp" type="image/webp" />
+                  <img src="assets/generated/projects/shieldiac.jpg" alt="" loading="lazy" decoding="async" width="640" height="480" />
+                </picture>
+                <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/projects/shieldiac.jpg">
+                  <source src="assets/generated/projects/shieldiac-motion.webm" type="video/webm" />
+                  <source src="assets/generated/projects/shieldiac-motion.mp4" type="video/mp4" />
+                </video>
+              </div>
               <div class="project-header">
                 <div class="project-icon">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
@@ -590,6 +707,17 @@
           <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
+              <div class="project-card-media project-card-media--tall">
+                <picture>
+                  <source srcset="assets/generated/projects/tokenmeter.avif" type="image/avif" />
+                  <source srcset="assets/generated/projects/tokenmeter.webp" type="image/webp" />
+                  <img src="assets/generated/projects/tokenmeter.jpg" alt="" loading="lazy" decoding="async" width="480" height="640" />
+                </picture>
+                <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/projects/tokenmeter.jpg">
+                  <source src="assets/generated/projects/tokenmeter-motion.webm" type="video/webm" />
+                  <source src="assets/generated/projects/tokenmeter-motion.mp4" type="video/mp4" />
+                </video>
+              </div>
               <div class="project-header">
                 <div class="project-icon">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
@@ -628,6 +756,17 @@
           <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
+              <div class="project-card-media project-card-media--wide">
+                <picture>
+                  <source srcset="assets/generated/projects/infracents.avif" type="image/avif" />
+                  <source srcset="assets/generated/projects/infracents.webp" type="image/webp" />
+                  <img src="assets/generated/projects/infracents.jpg" alt="" loading="lazy" decoding="async" width="640" height="480" />
+                </picture>
+                <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/projects/infracents.jpg">
+                  <source src="assets/generated/projects/infracents-motion.webm" type="video/webm" />
+                  <source src="assets/generated/projects/infracents-motion.mp4" type="video/mp4" />
+                </video>
+              </div>
               <div class="project-header">
                 <div class="project-icon">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
@@ -671,6 +810,17 @@
           <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
+              <div class="project-card-media project-card-media--square">
+                <picture>
+                  <source srcset="assets/generated/projects/agentloom.avif" type="image/avif" />
+                  <source srcset="assets/generated/projects/agentloom.webp" type="image/webp" />
+                  <img src="assets/generated/projects/agentloom.jpg" alt="" loading="lazy" decoding="async" width="560" height="560" />
+                </picture>
+                <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/projects/agentloom.jpg">
+                  <source src="assets/generated/projects/agentloom-motion.webm" type="video/webm" />
+                  <source src="assets/generated/projects/agentloom-motion.mp4" type="video/mp4" />
+                </video>
+              </div>
               <div class="project-header">
                 <div class="project-icon">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
@@ -706,6 +856,17 @@
           <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
+              <div class="project-card-media project-card-media--tall">
+                <picture>
+                  <source srcset="assets/generated/projects/airlock.avif" type="image/avif" />
+                  <source srcset="assets/generated/projects/airlock.webp" type="image/webp" />
+                  <img src="assets/generated/projects/airlock.jpg" alt="" loading="lazy" decoding="async" width="480" height="640" />
+                </picture>
+                <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/projects/airlock.jpg">
+                  <source src="assets/generated/projects/airlock-motion.webm" type="video/webm" />
+                  <source src="assets/generated/projects/airlock-motion.mp4" type="video/mp4" />
+                </video>
+              </div>
               <div class="project-header">
                 <div class="project-icon">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25z"/></svg>
@@ -741,6 +902,17 @@
           <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
+              <div class="project-card-media project-card-media--square">
+                <picture>
+                  <source srcset="assets/generated/projects/datamint.avif" type="image/avif" />
+                  <source srcset="assets/generated/projects/datamint.webp" type="image/webp" />
+                  <img src="assets/generated/projects/datamint.jpg" alt="" loading="lazy" decoding="async" width="560" height="560" />
+                </picture>
+                <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/projects/datamint.jpg">
+                  <source src="assets/generated/projects/datamint-motion.webm" type="video/webm" />
+                  <source src="assets/generated/projects/datamint-motion.mp4" type="video/mp4" />
+                </video>
+              </div>
               <div class="project-header">
                 <div class="project-icon">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 1-6.23-.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
@@ -776,6 +948,17 @@
           <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
+              <div class="project-card-media project-card-media--wide">
+                <picture>
+                  <source srcset="assets/generated/projects/modelledger.avif" type="image/avif" />
+                  <source srcset="assets/generated/projects/modelledger.webp" type="image/webp" />
+                  <img src="assets/generated/projects/modelledger.jpg" alt="" loading="lazy" decoding="async" width="640" height="480" />
+                </picture>
+                <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/projects/modelledger.jpg">
+                  <source src="assets/generated/projects/modelledger-motion.webm" type="video/webm" />
+                  <source src="assets/generated/projects/modelledger-motion.mp4" type="video/mp4" />
+                </video>
+              </div>
               <div class="project-header">
                 <div class="project-icon">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"/></svg>
@@ -811,6 +994,17 @@
           <article class="project-card reveal reveal-card">
             <div class="project-card-glow"></div>
             <div class="project-card-inner">
+              <div class="project-card-media project-card-media--tall">
+                <picture>
+                  <source srcset="assets/generated/projects/tuneforge.avif" type="image/avif" />
+                  <source srcset="assets/generated/projects/tuneforge.webp" type="image/webp" />
+                  <img src="assets/generated/projects/tuneforge.jpg" alt="" loading="lazy" decoding="async" width="480" height="640" />
+                </picture>
+                <video class="ambient-video" muted loop playsinline preload="none" poster="assets/generated/projects/tuneforge.jpg">
+                  <source src="assets/generated/projects/tuneforge-motion.webm" type="video/webm" />
+                  <source src="assets/generated/projects/tuneforge-motion.mp4" type="video/mp4" />
+                </video>
+              </div>
               <div class="project-header">
                 <div class="project-icon">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z"/><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>
@@ -863,6 +1057,13 @@
         <div class="articles-grid">
 
           <a href="https://medium.com/@nirbhaysingh1/how-i-built-an-ai-powered-iac-security-scanner-from-scratch-100-rules-9-compliance-frameworks-ae4cbf114f2a" target="_blank" rel="noopener" class="article-card reveal reveal-card">
+            <div class="article-thumb">
+              <picture>
+                <source srcset="assets/generated/projects/article-shieldiac.avif" type="image/avif" />
+                <source srcset="assets/generated/projects/article-shieldiac.webp" type="image/webp" />
+                <img src="assets/generated/projects/article-shieldiac.jpg" alt="" loading="lazy" decoding="async" width="480" height="270" />
+              </picture>
+            </div>
             <div class="article-badge">ShieldIaC</div>
             <h3>How I Built an AI-Powered IaC Security Scanner from Scratch</h3>
             <p>
@@ -873,6 +1074,13 @@
           </a>
 
           <a href="https://medium.com/@nirbhaysingh1/our-ai-bill-was-4-800-last-month-nobody-knew-why-so-i-built-an-open-source-llm-cost-tracker-018cdbdf9a6b" target="_blank" rel="noopener" class="article-card reveal reveal-card">
+            <div class="article-thumb">
+              <picture>
+                <source srcset="assets/generated/projects/article-tokenmeter.avif" type="image/avif" />
+                <source srcset="assets/generated/projects/article-tokenmeter.webp" type="image/webp" />
+                <img src="assets/generated/projects/article-tokenmeter.jpg" alt="" loading="lazy" decoding="async" width="480" height="270" />
+              </picture>
+            </div>
             <div class="article-badge">TokenMeter</div>
             <h3>Our AI Bill Was $4,800 Last Month — Nobody Knew Why</h3>
             <p>
@@ -883,6 +1091,13 @@
           </a>
 
           <a href="https://medium.com/@nirbhaysingh1/i-built-a-bot-that-killed-147-000-in-wasted-cloud-spend-before-it-shipped-d25175df9e42" target="_blank" rel="noopener" class="article-card reveal reveal-card">
+            <div class="article-thumb">
+              <picture>
+                <source srcset="assets/generated/projects/article-infracents.avif" type="image/avif" />
+                <source srcset="assets/generated/projects/article-infracents.webp" type="image/webp" />
+                <img src="assets/generated/projects/article-infracents.jpg" alt="" loading="lazy" decoding="async" width="480" height="270" />
+              </picture>
+            </div>
             <div class="article-badge">InfraCents</div>
             <h3>I Built a Bot That Killed $147,000 in Wasted Cloud Spend Before It Shipped</h3>
             <p>
@@ -1017,8 +1232,12 @@
         <div class="education-grid">
 
           <div class="education-card reveal reveal-card">
-            <div class="education-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15v-3.75m0 0h-.008v.008H6.75v-.008z"/></svg>
+            <div class="education-icon education-icon-media">
+              <picture>
+                <source srcset="assets/generated/education/mtech.avif" type="image/avif" />
+                <source srcset="assets/generated/education/mtech.webp" type="image/webp" />
+                <img src="assets/generated/education/mtech.jpg" alt="" loading="lazy" decoding="async" width="56" height="56" />
+              </picture>
             </div>
             <div class="education-content">
               <h3>Master of Technology (M.Tech)</h3>
@@ -1028,8 +1247,12 @@
           </div>
 
           <div class="education-card reveal reveal-card">
-            <div class="education-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15v-3.75m0 0h-.008v.008H6.75v-.008z"/></svg>
+            <div class="education-icon education-icon-media">
+              <picture>
+                <source srcset="assets/generated/education/mca.avif" type="image/avif" />
+                <source srcset="assets/generated/education/mca.webp" type="image/webp" />
+                <img src="assets/generated/education/mca.jpg" alt="" loading="lazy" decoding="async" width="56" height="56" />
+              </picture>
             </div>
             <div class="education-content">
               <h3>Master of Computer Applications (MCA)</h3>
@@ -1038,8 +1261,12 @@
           </div>
 
           <div class="education-card reveal reveal-card">
-            <div class="education-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15v-3.75m0 0h-.008v.008H6.75v-.008z"/></svg>
+            <div class="education-icon education-icon-media">
+              <picture>
+                <source srcset="assets/generated/education/bscit.avif" type="image/avif" />
+                <source srcset="assets/generated/education/bscit.webp" type="image/webp" />
+                <img src="assets/generated/education/bscit.jpg" alt="" loading="lazy" decoding="async" width="56" height="56" />
+              </picture>
             </div>
             <div class="education-content">
               <h3>Bachelor of Science in IT (BSc IT)</h3>
@@ -1110,6 +1337,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20260509a"></script>
+  <script src="script.js?v=20260907c"></script>
 </body>
 </html>

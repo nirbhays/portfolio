@@ -56,6 +56,8 @@ DIVIDER     = (226, 232, 240)
 # ── Personal data ───────────────────────────────────────────────
 P = {
     "name": "Nirbhay Singh",
+    "phone": "+48 886 202 296",
+    "phone_url": "tel:+48886202296",
     "email": "nirbhaysingh1@live.com",
     "linkedin": "linkedin.com/in/nirbhaysingh1",
     "linkedin_url": "https://www.linkedin.com/in/nirbhaysingh1/",
@@ -134,6 +136,7 @@ class PremiumResume(FPDF):
         y = y_start
 
         links = [
+            ("T",  P["phone"],     P["phone_url"]),
             ("@",  P["email"],     f"mailto:{P['email']}"),
             ("in", P["linkedin"],  P["linkedin_url"]),
             ("GH", P["github"],    P["github_url"]),
@@ -371,7 +374,10 @@ class PremiumResume(FPDF):
             self.set_xy(self.MAIN_X + 6, y)
             self.set_font("Helvetica", "B", 9)
             self._text_color(DARK)
-            self.cell(title_max_w, 5.5, job["title"])
+            # Leading space keeps PDF text-extraction from concatenating this
+            # cell directly onto the preceding duration-pill text (both sit on
+            # the same content-stream line with no natural word break).
+            self.cell(title_max_w, 5.5, " " + job["title"])
 
             y += 7
 
@@ -680,13 +686,12 @@ def build_ml_ai_resume():
         title="Cloud & AI Architect  |  ML/AI & Generative AI Specialist",
         subtitle="Machine Learning | GenAI | LLMOps\nMLOps | Vertex AI | SageMaker",
         summary=(
-            "Cloud & AI Architect with 11+ years architecting production-grade ML/AI systems across AWS, GCP, and Azure. "
-            "Currently leading Generative AI and LLM integration at Bosch Europe -- designing enterprise search, "
-            "document intelligence, and Agentic AI automation platforms adopted across multiple business units. "
-            "Deep hands-on expertise in Vertex AI, SageMaker, RAG architectures, prompt engineering, and MLOps "
-            "pipeline design. Built open-source AI cost intelligence tools (TokenMeter) achieving 60% LLM spend "
-            "reduction. Google-certified Professional Machine Learning Engineer and Generative AI Leader with "
-            "a strong track record of translating ML research into production-ready enterprise systems."
+            "Cloud & AI Architect who has spent 11+ years turning ML research into production systems on AWS, GCP, "
+            "and Azure. At Bosch Europe, leads LLM and Agentic AI integration into enterprise search and document "
+            "intelligence, running on Vertex AI, BigQuery, and Cloud Run and adopted across multiple business units. "
+            "Builds the MLOps scaffolding underneath that work -- training pipelines, evaluation, model registries -- "
+            "and open-sources the cost-control layer: TokenMeter, which cut LLM spend 60% through provider-aware "
+            "routing. Google Cloud Certified Professional Machine Learning Engineer and Generative AI Leader."
         ),
         metrics=[
             ("11+", "Years Experience"),
@@ -696,11 +701,11 @@ def build_ml_ai_resume():
             ("60%", "AI Cost Reduction"),
         ],
         highlights=[
-            "Architected LLM-powered enterprise search platform serving 15+ Bosch Europe business units using Vertex AI, RAG, and Agentic AI",
-            "Designed end-to-end MLOps pipelines: training, evaluation, registry, deployment, monitoring with automated retraining and A/B testing",
-            "Built TokenMeter (open-source) -- LLM cost intelligence tracking tokens across OpenAI, Anthropic, Google with smart routing saving 60%",
-            "Deployed production ML serving on GKE, EKS, AKS with canary deployments, model versioning, and real-time inference at scale",
-            "Created ShieldIaC -- AI-powered security scanner using GPT-4.1 for intelligent fix suggestions across 9 compliance frameworks",
+            "Architected a RAG-based enterprise search platform on Vertex AI, grounding retrieval in Bosch's internal document corpus and rolling it out to 15+ business units",
+            "Built end-to-end MLOps pipelines -- training, evaluation, registry, deployment, drift monitoring -- with retraining triggered automatically on data-drift thresholds",
+            "Open-sourced TokenMeter, a cost-intelligence layer that meters tokens across OpenAI, Anthropic, and Google and routes by task complexity, cutting LLM spend 60%",
+            "Ran production ML inference on GKE, EKS, and AKS with canary rollouts and model versioning, keeping every deployment reversible at scale",
+            "Built ShieldIaC, an IaC scanner pairing 100+ static rules with GPT-4.1-generated fix suggestions across 9 compliance frameworks",
         ],
         sidebar_skills={
             "AI / ML / GenAI": "Vertex AI, SageMaker, LLMs (GPT-4, Claude, Gemini), RAG, Prompt Engineering, Agentic AI, LangChain, Vector DBs",
@@ -717,11 +722,11 @@ def build_ml_ai_resume():
                 "duration": "Dec 2022 - Present",
                 "location": "Warsaw, Poland",
                 "bullets": [
-                    "Spearheaded GenAI adoption across Bosch Europe: integrated LLMs and Agentic AI into enterprise search, deploying on Vertex AI, BigQuery, and Cloud Run",
-                    "Designed RAG-based document intelligence platform processing 500K+ documents with semantic search across 15+ business units",
-                    "Established LLMOps framework: prompt versioning, evaluation pipelines, cost tracking, and guardrails for production deployments",
-                    "Led strategic AI partnership between Google Cloud, AWS, and Bosch Poland -- defined AI/ML architecture standards",
-                    "Implemented FinOps for AI/ML workloads, contributing to EUR 4M+ total cloud savings through GPU scheduling and preemptible instances",
+                    "Led GenAI adoption across Bosch Europe, integrating LLMs and Agentic AI workflows into enterprise search on Vertex AI, BigQuery, and Cloud Run",
+                    "Built a RAG-based document intelligence platform indexing 500K+ documents with semantic search, deployed across 15+ business units",
+                    "Established the LLMOps framework Bosch now runs on: prompt versioning, evaluation pipelines, cost tracking, and production guardrails",
+                    "Set AI/ML architecture standards for Bosch Poland's joint initiative with Google Cloud and AWS",
+                    "Drove GPU scheduling and preemptible-instance strategy for AI/ML workloads, part of a EUR 4M+ FinOps programme",
                 ],
             },
             {
@@ -730,20 +735,20 @@ def build_ml_ai_resume():
                 "duration": "Jun 2021 - Nov 2022",
                 "location": "",
                 "bullets": [
-                    "Deployed production ML serving on GKE and EKS with auto-scaling, canary deployments, and real-time inference",
-                    "Built ML monitoring: performance tracking, data drift detection, and automated alerting with Prometheus and Grafana",
-                    "Automated ML infrastructure with Terraform IaC, reducing deployment time from days to hours (50%+ improvement)",
+                    "Ran ML inference on GKE and EKS with autoscaling and canary rollouts for real-time serving",
+                    "Built drift detection and alerting on Prometheus and Grafana to catch model degradation before it hit production",
+                    "Automated ML infrastructure with Terraform, cutting deployment time from days to hours",
                 ],
             },
             {
-                "title": "Senior DevOps Engineer / Data & AI Architect",
+                "title": "Senior DevOps Engineer",
                 "company": "Deloitte",
                 "duration": "Dec 2018 - Jun 2021",
                 "location": "",
                 "bullets": [
-                    "Built data & AI platforms on SageMaker, EMR, and Redshift for model training, batch inference, and Fortune 500 analytics",
-                    "Orchestrated 1,000+ containers using AWS Batch, Spot Instances, and EKS for distributed ML training",
-                    "Reduced ML infrastructure costs by $45,000 through Spot Instance optimisation and GPU right-sizing",
+                    "Built data and AI platforms on SageMaker, EMR, and Redshift for model training and Fortune 500-scale batch inference",
+                    "Orchestrated 1,000+ containers on AWS Batch and EKS with Spot Instances for distributed ML training",
+                    "Cut ML infrastructure cost $45,000 through Spot Instance optimisation and GPU right-sizing",
                 ],
             },
             {
@@ -752,8 +757,8 @@ def build_ml_ai_resume():
                 "duration": "Nov 2015 - Dec 2018",
                 "location": "",
                 "bullets": [
-                    "Designed fault-tolerant AWS architectures (EC2, RDS, S3, VPC) supporting data ingestion pipelines and early ML workloads",
-                    "Led cloud migration of 11,000+ server infrastructure, enabling data teams to adopt cloud-native ML and analytics tooling",
+                    "Designed fault-tolerant AWS architectures (EC2, RDS, S3, VPC) for data ingestion pipelines and early ML workloads",
+                    "Led migration of 11,000+ servers to the cloud, unlocking cloud-native ML and analytics tooling for data teams",
                 ],
             },
             {
@@ -762,7 +767,7 @@ def build_ml_ai_resume():
                 "duration": "Mar 2013 - Jul 2014",
                 "location": "",
                 "bullets": [
-                    "Infrastructure operations, P1/P2 incident response, and root cause analysis for production enterprise systems",
+                    "Handled P1/P2 incident response and root cause analysis for production enterprise systems",
                 ],
             },
         ],
@@ -771,21 +776,21 @@ def build_ml_ai_resume():
                 "name": "TokenMeter -- Cost Intelligence Layer for LLM Apps",
                 "url": "github.com/nirbhays/tokenmeter",
                 "link": "https://github.com/nirbhays/tokenmeter",
-                "desc": "One-line Python integration tracking cost, latency, and tokens across OpenAI, Anthropic, Google. Smart routing saves up to 60% on AI spend. <5ms overhead.",
+                "desc": "Cuts AI spend up to 60% with a one-line Python integration that tracks cost, latency, and tokens across OpenAI, Anthropic, and Google, then routes by task complexity. <5ms overhead.",
                 "techs": "Python, OpenAI API, Anthropic API, Google AI, Smart Routing, PyPI",
             },
             {
                 "name": "ShieldIaC -- AI-Powered IaC Security Scanner",
                 "url": "github.com/nirbhays/shieldiac",
                 "link": "https://github.com/nirbhays/shieldiac",
-                "desc": "100+ security rules, 9 compliance frameworks (CIS, SOC2, HIPAA, PCI-DSS, NIST). GPT-4.1 fix suggestions for Terraform and CloudFormation misconfigurations.",
+                "desc": "Flags Terraform and CloudFormation misconfigurations against 100+ rules across 9 compliance frameworks (CIS, SOC2, HIPAA, PCI-DSS, NIST), then suggests fixes via GPT-4.1.",
                 "techs": "Python, Terraform, CloudFormation, GPT-4.1, GitHub Actions",
             },
             {
                 "name": "InfraCents -- Terraform Cost Estimates on Every PR",
                 "url": "github.com/nirbhays/infracents",
                 "link": "https://github.com/nirbhays/infracents",
-                "desc": "Open-source GitHub App posting real-time AWS+GCP cost estimates directly on pull requests. Zero configuration -- parses Terraform changes and queries live pricing APIs.",
+                "desc": "Posts real-time AWS+GCP cost estimates directly on pull requests by parsing Terraform diffs against live pricing APIs -- zero configuration.",
                 "techs": "Python, Next.js, Terraform, GitHub App, AWS/GCP Pricing APIs",
             },
         ],
@@ -804,7 +809,7 @@ def build_ml_ai_resume():
         articles=[
             {
                 "title": '"Our AI Bill Was $4,800 Last Month -- Nobody Knew Why" | "How I Built an AI-Powered IaC Security Scanner"',
-                "desc": "Published on Medium -- deep dives into LLM cost intelligence (TokenMeter) and AI-powered security scanning (ShieldIaC).",
+                "desc": "Medium deep-dives into building TokenMeter (LLM cost intelligence) and ShieldIaC (AI-powered security scanning).",
                 "link": "https://medium.com/@nirbhaysingh1",
             },
         ],
@@ -825,12 +830,11 @@ def build_cloud_devops_resume():
         title="Cloud & DevOps Architect  |  Multi-Cloud Platform Engineer",
         subtitle="Multi-Cloud | Kubernetes | Terraform\nCI/CD | GitOps | Platform Engineering",
         summary=(
-            "Cloud & DevOps Architect with 11+ years designing, automating, and operating production infrastructure "
-            "across AWS, GCP, and Azure simultaneously. Expert in Terraform IaC, Kubernetes multi-cluster management "
-            "(EKS, GKE, AKS), and GitOps-driven deployment workflows. Proven record of reducing deployment time by "
-            "50%+, accelerating CI/CD pipelines by 30x, and orchestrating 1,000+ container workloads. Delivered "
-            "EUR 4M+ in cloud cost savings through FinOps governance at Bosch Europe. Currently architecting "
-            "multi-cloud strategy and platform engineering for one of Europe's largest industrial conglomerates."
+            "Cloud & DevOps Architect with 11+ years running production infrastructure across AWS, GCP, and Azure "
+            "at once -- not as three separate stacks, but as one governed platform built on shared Terraform "
+            "modules, landing zones, and GitOps deployment. Cut deployment time 50%+, rebuilt a CI/CD pipeline to "
+            "run 30x faster, and now orchestrates 1,000+ containers in production. Leads multi-cloud platform "
+            "strategy at Bosch Europe, where FinOps governance under this remit has returned EUR 4M+ in savings."
         ),
         metrics=[
             ("11+", "Years Experience"),
@@ -840,12 +844,11 @@ def build_cloud_devops_resume():
             ("14+", "Certifications"),
         ],
         highlights=[
-            "Architected multi-cloud platform strategy across GCP and AWS for Bosch Europe -- unified governance, networking, and security across 15+ business units",
-            "Automated infrastructure with Terraform IaC (1,500+ resources), achieving 50%+ reduction in deployment time and near-zero configuration drift",
-            "Accelerated CI/CD pipeline speed by 30x at Deloitte through parallel execution, caching strategies, and pipeline-as-code architecture redesign",
-            "Orchestrated 1,000+ containers using AWS Batch, Spot Instances, and EKS with automated scaling, health monitoring, and self-healing",
-            "Deployed and managed production Kubernetes clusters across GKE, EKS, AKS, and ECS simultaneously with GitOps (ArgoCD) workflows",
-            "Implemented FinOps governance delivering EUR 4M+ in savings through tagging strategies, right-sizing, and reserved capacity planning",
+            "Architected multi-cloud platform strategy across GCP and AWS for Bosch Europe, unifying governance, networking, and security across 15+ business units",
+            "Codified 1,500+ infrastructure resources in Terraform, cutting deployment time 50%+ and driving configuration drift to near zero",
+            "Redesigned a CI/CD pipeline at Deloitte around parallel execution and caching, taking it 30x faster",
+            "Ran multi-cluster Kubernetes (GKE, EKS, AKS, ECS) with GitOps via ArgoCD, orchestrating 1,000+ containers with automated scaling and self-healing",
+            "Built the FinOps governance model behind EUR 4M+ in savings: tagging standards, right-sizing cadence, and reserved-capacity planning",
         ],
         sidebar_skills={
             "Cloud Platforms": "AWS, GCP, Azure, VMware, Multi-Cloud Architecture, Landing Zones",
@@ -863,11 +866,11 @@ def build_cloud_devops_resume():
                 "duration": "Dec 2022 - Present",
                 "location": "Warsaw, Poland",
                 "bullets": [
-                    "Architected multi-cloud infrastructure strategy across GCP and AWS for Bosch Europe business units -- defined landing zones, networking, identity, and governance",
-                    "Led strategic partnership between Google Cloud, AWS, and Bosch Poland -- unified cloud tooling, established architecture review boards, and standardised deployment patterns",
-                    "Designed GKE and Cloud Run microservices platforms for enterprise AI workloads with autoscaling, service mesh, and zero-trust security",
-                    "Implemented FinOps at enterprise scale, delivering EUR 4M+ in savings through optimisation, tagging governance, and cost-aware architecture reviews",
-                    "Mentored 20+ senior developers and architects on multi-cloud strategy, IaC best practices, and Kubernetes operations across global teams",
+                    "Defined landing zones, networking, identity, and governance for Bosch Europe's multi-cloud strategy across GCP and AWS",
+                    "Led the joint Google Cloud/AWS/Bosch Poland partnership, standing up architecture review boards and standardised deployment patterns",
+                    "Designed GKE and Cloud Run microservices platforms for enterprise AI workloads, with autoscaling, service mesh, and zero-trust security",
+                    "Built the FinOps practice behind EUR 4M+ in savings: optimisation, tagging governance, and cost-aware architecture reviews",
+                    "Mentored 20+ senior developers and architects on multi-cloud strategy, IaC, and Kubernetes operations across global teams",
                 ],
             },
             {
@@ -876,10 +879,10 @@ def build_cloud_devops_resume():
                 "duration": "Jun 2021 - Nov 2022",
                 "location": "",
                 "bullets": [
-                    "Automated infrastructure provisioning with Terraform IaC across AWS, GCP, and Azure -- 50%+ reduction in deployment time, near-zero drift",
-                    "Deployed and managed production container platforms across GKE, EKS, AKS, and ECS with GitOps workflows and automated rollbacks",
-                    "Built comprehensive observability stack: Prometheus, Grafana, and ELK for metrics, logging, alerting, and distributed tracing",
-                    "Developed Python and Bash automation for infrastructure lifecycle management, secret rotation, and compliance scanning",
+                    "Automated infrastructure provisioning with Terraform across AWS, GCP, and Azure, cutting deployment time 50%+ with near-zero drift",
+                    "Ran production container platforms across GKE, EKS, AKS, and ECS with GitOps workflows and automated rollbacks",
+                    "Built an observability stack on Prometheus, Grafana, and ELK covering metrics, logging, alerting, and distributed tracing",
+                    "Wrote Python and Bash automation for infrastructure lifecycle management, secret rotation, and compliance scanning",
                 ],
             },
             {
@@ -888,10 +891,10 @@ def build_cloud_devops_resume():
                 "duration": "Dec 2018 - Jun 2021",
                 "location": "",
                 "bullets": [
-                    "Reduced AWS costs by $45,000 and accelerated CI/CD pipeline speed by 30x through architecture redesign, caching, and parallel execution",
-                    "Orchestrated 1,000+ containers using AWS Batch, Spot Instances, and EKS for distributed batch processing and analytics",
-                    "Implemented multi-cloud security controls and networking spanning GCP, AWS, Azure, and OCI with unified IAM and audit logging",
-                    "Built data platform infrastructure on EMR, Redshift, and BigQuery with automated ETL pipelines and data governance",
+                    "Cut AWS costs $45,000 and sped up CI/CD 30x through architecture redesign, caching, and parallel execution",
+                    "Orchestrated 1,000+ containers on AWS Batch, Spot Instances, and EKS for distributed batch processing and analytics",
+                    "Unified security controls and networking across GCP, AWS, Azure, and OCI under a single IAM and audit-logging model",
+                    "Built data platform infrastructure on EMR, Redshift, and BigQuery with automated ETL and data governance",
                 ],
             },
             {
@@ -900,10 +903,10 @@ def build_cloud_devops_resume():
                 "duration": "Nov 2015 - Dec 2018",
                 "location": "",
                 "bullets": [
-                    "Designed secure, fault-tolerant AWS architectures (EC2, RDS, S3, VPC) with multi-AZ deployments and automated failover",
-                    "Built disaster recovery strategies for hybrid cloud and on-premise environments with RTO/RPO guarantees",
+                    "Designed fault-tolerant AWS architectures (EC2, RDS, S3, VPC) with multi-AZ deployments and automated failover",
+                    "Built disaster recovery strategies for hybrid and on-premise environments with defined RTO/RPO guarantees",
                     "Managed 11,000+ server Windows infrastructure with Active Directory, Group Policy, and operations automation",
-                    "Led large-scale cloud migration planning and execution using PowerShell, Ansible, and custom migration tooling",
+                    "Led cloud migration planning and execution with PowerShell, Ansible, and custom migration tooling",
                 ],
             },
             {
@@ -912,7 +915,7 @@ def build_cloud_devops_resume():
                 "duration": "Mar 2013 - Jul 2014",
                 "location": "",
                 "bullets": [
-                    "Infrastructure operations, migrations, and P1/P2 incident response for enterprise production environments",
+                    "Handled infrastructure operations, migrations, and P1/P2 incident response for enterprise production environments",
                 ],
             },
         ],
@@ -921,21 +924,21 @@ def build_cloud_devops_resume():
                 "name": "ShieldIaC -- AI-Powered IaC Security Scanner",
                 "url": "github.com/nirbhays/shieldiac",
                 "link": "https://github.com/nirbhays/shieldiac",
-                "desc": "Catches security misconfigurations in Terraform and CloudFormation before they reach production. 100+ rules, 9 compliance frameworks (CIS, SOC2, HIPAA, PCI-DSS, NIST), AI-powered fix suggestions via GPT-4.1.",
+                "desc": "Catches Terraform and CloudFormation misconfigurations before production, checking 100+ rules across 9 compliance frameworks (CIS, SOC2, HIPAA, PCI-DSS, NIST) and suggesting fixes via GPT-4.1.",
                 "techs": "Python, Terraform, CloudFormation, GPT-4.1, GitHub Actions",
             },
             {
                 "name": "InfraCents -- Terraform Cost Estimates on Every PR",
                 "url": "github.com/nirbhays/infracents",
                 "link": "https://github.com/nirbhays/infracents",
-                "desc": "GitHub App posting real-time AWS+GCP cost estimates on pull requests before merge. Zero config, automatic Terraform parsing, live pricing APIs.",
+                "desc": "Posts real-time AWS+GCP cost estimates on pull requests before merge, parsing Terraform automatically against live pricing APIs -- zero config.",
                 "techs": "Python, Next.js, Terraform, GitHub App, AWS/GCP Pricing APIs",
             },
             {
                 "name": "TokenMeter -- LLM Cost Intelligence Layer",
                 "url": "github.com/nirbhays/tokenmeter",
                 "link": "https://github.com/nirbhays/tokenmeter",
-                "desc": "Tracks token usage, cost, and latency across OpenAI, Anthropic, Google. Smart routing saves up to 60% on AI spend. <5ms overhead.",
+                "desc": "Tracks token usage, cost, and latency across OpenAI, Anthropic, and Google, routing by task complexity to cut AI spend up to 60%. <5ms overhead.",
                 "techs": "Python, OpenAI, Anthropic, Google AI, Smart Routing, PyPI",
             },
         ],
@@ -968,12 +971,11 @@ def build_aws_devops_resume():
         title="AWS DevOps Architect  |  AWS Solutions Architect - Professional",
         subtitle="AWS | EKS | Terraform | CI/CD\nCloudFormation | SageMaker | Cost Optimisation",
         summary=(
-            "AWS-certified DevOps Architect (Solutions Architect Professional) with 11+ years designing, "
-            "automating, and operating production-grade AWS infrastructure at enterprise scale. Deep expertise "
-            "across the full AWS stack: EKS, EC2, RDS, S3, VPC, Batch, Spot Instances, SageMaker, Lambda, and "
-            "CloudFormation. Proven record of reducing AWS costs by $45K+, accelerating CI/CD by 30x, orchestrating "
-            "1,000+ containers on EKS, and migrating 11,000+ servers to AWS. Currently leading AWS architecture "
-            "strategy at Bosch Europe with EUR 4M+ in documented cloud savings."
+            "AWS Solutions Architect Professional with 11+ years designing and operating production AWS "
+            "infrastructure at enterprise scale -- EKS, EC2, RDS, S3, VPC, Batch, SageMaker, Lambda, "
+            "CloudFormation. Cut AWS costs $45K+, took a CI/CD pipeline 30x faster, orchestrated 1,000+ containers "
+            "on EKS, and migrated 11,000+ servers into AWS. Now leads AWS architecture strategy at Bosch Europe, "
+            "where FinOps governance has returned EUR 4M+ in documented savings."
         ),
         metrics=[
             ("11+", "Years Experience"),
@@ -983,13 +985,11 @@ def build_aws_devops_resume():
             ("14+", "Certifications"),
         ],
         highlights=[
-            "AWS Solutions Architect Professional certified with 8+ years of continuous AWS production experience across 4 enterprises",
-            "Reduced AWS costs by $45,000 at Deloitte through Spot Instance strategies, Reserved Instances, right-sizing, and pipeline optimisation",
-            "Orchestrated 1,000+ containers using AWS Batch, Spot Instances, and EKS for distributed analytics and ML workloads",
-            "Migrated 11,000+ server on-premise infrastructure to AWS with zero-downtime cutover and automated rollback strategies",
-            "Designed fault-tolerant AWS architectures (multi-AZ, cross-region) with 99.99% uptime SLAs across production environments",
-            "Built data & AI platforms on SageMaker, EMR, and Redshift serving Fortune 500 analytics workloads",
-            "Created InfraCents (open-source): real-time AWS cost estimation on every Terraform pull request",
+            "Cut AWS costs $45,000 at Deloitte through Spot Instance strategy, Reserved Instances, right-sizing, and pipeline optimisation",
+            "Orchestrated 1,000+ containers on AWS Batch, Spot Instances, and EKS for distributed analytics and ML workloads",
+            "Migrated 11,000+ on-premise servers into AWS with zero-downtime cutover and automated rollback",
+            "Designed fault-tolerant, multi-AZ, cross-region AWS architectures holding 99.99% uptime SLAs in production",
+            "Open-sourced InfraCents, posting real-time AWS cost estimates on every Terraform pull request",
         ],
         sidebar_skills={
             "AWS Compute": "EC2, EKS, ECS, Lambda, Batch, Spot Instances, ASG, Fargate",
@@ -1009,10 +1009,10 @@ def build_aws_devops_resume():
                 "duration": "Dec 2022 - Present",
                 "location": "Warsaw, Poland",
                 "bullets": [
-                    "Led strategic AWS partnership for Bosch Poland -- defined AWS architecture standards, landing zone design, and multi-account governance using AWS Organizations and SCPs",
+                    "Defined AWS architecture standards, landing zone design, and multi-account governance (Organizations, SCPs) for Bosch Poland's AWS partnership",
                     "Designed AWS-native AI/ML infrastructure: SageMaker pipelines, EKS model serving, S3 data lake, and Glue ETL for enterprise workloads",
-                    "Implemented FinOps governance for 50+ AWS accounts, contributing to EUR 4M+ total savings through Savings Plans, right-sizing, and automated cleanup",
-                    "Established AWS Well-Architected reviews as standard practice -- mentored architects on security, reliability, and cost optimisation pillars",
+                    "Built the FinOps governance model across 50+ AWS accounts behind EUR 4M+ in savings: Savings Plans, right-sizing, automated cleanup",
+                    "Made AWS Well-Architected reviews standard practice, mentoring architects on security, reliability, and cost optimisation",
                 ],
             },
             {
@@ -1021,23 +1021,22 @@ def build_aws_devops_resume():
                 "duration": "Jun 2021 - Nov 2022",
                 "location": "",
                 "bullets": [
-                    "Automated AWS infrastructure with Terraform (300+ resources), achieving 50%+ reduction in deployment time with near-zero configuration drift",
-                    "Deployed and operated production EKS and ECS clusters with auto-scaling, spot integration, and GitOps-driven deployments via ArgoCD",
-                    "Built AWS observability: CloudWatch dashboards, custom metrics, Prometheus, and Grafana for real-time infrastructure and application monitoring",
-                    "Implemented AWS security best practices: IAM least-privilege, KMS encryption, VPC flow logs, and automated compliance scanning",
+                    "Codified 300+ AWS resources in Terraform, cutting deployment time 50%+ with near-zero configuration drift",
+                    "Ran production EKS and ECS clusters with autoscaling, Spot integration, and GitOps deployments via ArgoCD",
+                    "Built AWS observability on CloudWatch, Prometheus, and Grafana for real-time infrastructure and application monitoring",
+                    "Enforced AWS security best practices: IAM least-privilege, KMS encryption, VPC flow logs, automated compliance scanning",
                 ],
             },
             {
-                "title": "Senior DevOps Engineer / Data & AI Architect",
+                "title": "Senior DevOps Engineer",
                 "company": "Deloitte",
                 "duration": "Dec 2018 - Jun 2021",
                 "location": "",
                 "bullets": [
-                    "Reduced AWS costs by $45,000 through Spot Instance fleet management, Reserved Instances, Savings Plans, and workload right-sizing",
-                    "Accelerated CI/CD pipeline speed by 30x through CodePipeline architecture redesign, parallel stages, and artefact caching",
-                    "Orchestrated 1,000+ containers using AWS Batch, Spot Instances, and EKS for distributed data processing and ML training",
-                    "Built data & AI platforms on EMR, Redshift, and SageMaker -- serving analytics and model training for Fortune 500 clients",
-                    "Implemented AWS security controls: IAM policies, KMS encryption, CloudTrail auditing, GuardDuty threat detection, and Config rules",
+                    "Cut AWS costs $45,000 through Spot Instance fleet management, Reserved Instances, Savings Plans, and right-sizing",
+                    "Redesigned CodePipeline around parallel stages and artefact caching, taking CI/CD 30x faster",
+                    "Orchestrated 1,000+ containers on AWS Batch, Spot Instances, and EKS for distributed data processing and ML training",
+                    "Built data and AI platforms on EMR, Redshift, and SageMaker for Fortune 500-scale analytics and model training",
                 ],
             },
             {
@@ -1046,10 +1045,10 @@ def build_aws_devops_resume():
                 "duration": "Nov 2015 - Dec 2018",
                 "location": "",
                 "bullets": [
-                    "Designed secure, fault-tolerant AWS architectures (EC2, RDS Multi-AZ, S3, VPC) for production SaaS workloads",
-                    "Led migration of 11,000+ server on-premise infrastructure to AWS -- zero-downtime cutover with automated rollback",
-                    "Built disaster recovery with cross-region replication, automated failover, and RTO/RPO validation testing",
-                    "Managed AWS networking: VPC design, subnets, security groups, NACLs, Transit Gateway for multi-tier applications",
+                    "Designed fault-tolerant AWS architectures (EC2, RDS Multi-AZ, S3, VPC) for production SaaS workloads",
+                    "Led migration of 11,000+ on-premise servers into AWS with zero-downtime cutover and automated rollback",
+                    "Built disaster recovery with cross-region replication, automated failover, and validated RTO/RPO testing",
+                    "Designed AWS networking (VPC, subnets, security groups, NACLs, Transit Gateway) for multi-tier applications",
                 ],
             },
             {
@@ -1058,7 +1057,7 @@ def build_aws_devops_resume():
                 "duration": "Mar 2013 - Jul 2014",
                 "location": "",
                 "bullets": [
-                    "Infrastructure operations, P1/P2 incident response, and root cause analysis for enterprise production environments",
+                    "Handled P1/P2 incident response and root cause analysis for enterprise production environments",
                 ],
             },
         ],
@@ -1067,21 +1066,21 @@ def build_aws_devops_resume():
                 "name": "InfraCents -- AWS Cost Estimates on Every Terraform PR",
                 "url": "github.com/nirbhays/infracents",
                 "link": "https://github.com/nirbhays/infracents",
-                "desc": "GitHub App posting real-time AWS cost estimates on Terraform pull requests. Parses TF changes, queries live AWS Pricing API. Zero config, native PR integration.",
+                "desc": "Posts real-time AWS cost estimates on Terraform pull requests by parsing diffs against the live AWS Pricing API -- zero config, native PR integration.",
                 "techs": "Python, Next.js, Terraform, GitHub App, AWS Pricing API",
             },
             {
                 "name": "ShieldIaC -- AI-Powered IaC Security Scanner",
                 "url": "github.com/nirbhays/shieldiac",
                 "link": "https://github.com/nirbhays/shieldiac",
-                "desc": "Scans Terraform/CloudFormation for AWS security misconfigs pre-production. 100+ rules, 9 compliance frameworks (CIS AWS Benchmark, SOC2, HIPAA, PCI-DSS), GPT-4.1 fix suggestions.",
+                "desc": "Scans Terraform and CloudFormation for AWS security misconfigurations pre-production against 100+ rules across 9 compliance frameworks (CIS AWS Benchmark, SOC2, HIPAA, PCI-DSS), with GPT-4.1 fix suggestions.",
                 "techs": "Python, Terraform, CloudFormation, GPT-4.1, GitHub Actions",
             },
             {
                 "name": "TokenMeter -- LLM Cost Intelligence",
                 "url": "github.com/nirbhays/tokenmeter",
                 "link": "https://github.com/nirbhays/tokenmeter",
-                "desc": "Tracks token cost and latency across LLM providers. Smart routing saves up to 60% on AI spend with <5ms overhead.",
+                "desc": "Tracks token cost and latency across LLM providers and routes by task complexity, cutting AI spend up to 60% with <5ms overhead.",
                 "techs": "Python, OpenAI, Anthropic, Google AI, Smart Routing, PyPI",
             },
         ],
@@ -1114,12 +1113,11 @@ def build_gcp_devops_resume():
         title="GCP Cloud Architect & DevOps Engineer  |  5x Google Cloud Certified",
         subtitle="GCP | GKE | Vertex AI | BigQuery\nCloud Build | Anthos | Terraform",
         summary=(
-            "5x Google Cloud certified Cloud & DevOps Architect with 11+ years of production experience. "
-            "Deep expertise in GKE, Vertex AI, BigQuery, Cloud Run, Cloud Build, and Anthos for enterprise-scale "
-            "platform engineering. Currently leading the strategic Google Cloud partnership at Bosch Europe -- "
-            "designing GKE platforms, Vertex AI pipelines, and BigQuery analytics adopted across 15+ business units. "
-            "Proven ability to architect scalable, secure GCP infrastructure with FinOps governance, delivering "
-            "EUR 4M+ in documented cloud savings."
+            "5x Google Cloud certified Cloud & DevOps Architect with 11+ years running GCP at enterprise scale -- "
+            "GKE, Vertex AI, BigQuery, Cloud Run, Cloud Build, Anthos. Leads the strategic Google Cloud partnership "
+            "at Bosch Europe, where GKE platforms, Vertex AI pipelines, and BigQuery analytics now run across 15+ "
+            "business units. Pairs that platform work with FinOps governance that has returned EUR 4M+ in "
+            "documented cloud savings."
         ),
         metrics=[
             ("5x", "GCP Certified"),
@@ -1129,13 +1127,11 @@ def build_gcp_devops_resume():
             ("14+", "Total Certs"),
         ],
         highlights=[
-            "5x Google Cloud Certified: Professional ML Engineer, Cloud DevOps Engineer, Cloud Architect, Generative AI Leader, Associate Cloud Engineer",
-            "Leading strategic Google Cloud partnership for Bosch Poland -- GCP architecture standards, governance, and platform engineering",
+            "Leading strategic Google Cloud partnership for Bosch Poland: GCP architecture standards, governance, and platform engineering",
             "Designed Vertex AI and GKE-based ML/AI platforms adopted across 15+ Bosch Europe business units for enterprise search and automation",
             "Architected production GKE clusters with Anthos service mesh, Binary Authorization, and Workload Identity for zero-trust security",
-            "Built BigQuery analytics pipelines processing petabyte-scale enterprise data with optimised partitioning and materialised views",
-            "Deployed Cloud Run microservices for serverless AI inference with auto-scaling, traffic splitting, and canary deployments",
-            "Implemented GCP FinOps: committed use discounts, preemptible VMs, BigQuery slot reservations, contributing to EUR 4M+ savings",
+            "Built BigQuery analytics pipelines at petabyte scale with optimised partitioning and materialised views",
+            "Built the GCP FinOps model behind EUR 4M+ in savings: committed use discounts, preemptible VMs, BigQuery slot reservations",
         ],
         sidebar_skills={
             "GCP Compute": "GKE, Cloud Run, Compute Engine, Cloud Functions, App Engine, Anthos",
@@ -1154,13 +1150,11 @@ def build_gcp_devops_resume():
                 "duration": "Dec 2022 - Present",
                 "location": "Warsaw, Poland",
                 "bullets": [
-                    "Led strategic Google Cloud partnership for Bosch Poland -- defined GCP landing zones, architecture standards, and governance policies",
-                    "Designed Vertex AI and BigQuery-powered ML/AI solutions adopted across 15+ Bosch Europe business units for enterprise search and process automation",
+                    "Defined GCP landing zones, architecture standards, and governance policies for Bosch Poland's Google Cloud partnership",
+                    "Designed Vertex AI and BigQuery-powered ML/AI platforms -- including petabyte-scale analytics pipelines with optimised partitioning and materialised views -- adopted across 15+ Bosch Europe business units",
                     "Architected production GKE platforms with Anthos service mesh, Workload Identity, Binary Authorization, and namespace-level multi-tenancy",
-                    "Built BigQuery analytics pipelines with optimised partitioning, clustering, and materialised views for petabyte-scale data processing",
-                    "Deployed Cloud Run microservices for serverless LLM inference with traffic splitting, auto-scaling, and canary rollouts",
-                    "Implemented GCP FinOps governance: committed use discounts, preemptible VMs, slot reservations, contributing to EUR 4M+ total savings",
-                    "Mentored teams on GCP Well-Architected Framework, GKE operations, Vertex AI best practices, and Cloud Build pipeline design",
+                    "Built the GCP FinOps model behind EUR 4M+ in savings: committed use discounts, preemptible VMs, slot reservations",
+                    "Mentored teams on the GCP Well-Architected Framework, GKE operations, Vertex AI best practices, and Cloud Build pipeline design",
                 ],
             },
             {
@@ -1169,22 +1163,22 @@ def build_gcp_devops_resume():
                 "duration": "Jun 2021 - Nov 2022",
                 "location": "",
                 "bullets": [
-                    "Deployed and managed production GKE clusters with node auto-provisioning, pod auto-scaling, and automated security patching",
-                    "Built CI/CD pipelines using Cloud Build and GitHub Actions for GKE deployments with automated testing and canary analysis",
-                    "Automated GCP infrastructure with Terraform (GCP provider), achieving 50%+ reduction in deployment time",
-                    "Implemented comprehensive observability with Cloud Monitoring, Cloud Logging, Prometheus, and Grafana dashboards",
+                    "Ran production GKE clusters with node auto-provisioning, pod autoscaling, and automated security patching",
+                    "Built CI/CD pipelines on Cloud Build and GitHub Actions for GKE deployments with automated testing and canary analysis",
+                    "Automated GCP infrastructure with Terraform, cutting deployment time 50%+",
+                    "Built observability on Cloud Monitoring, Cloud Logging, Prometheus, and Grafana",
                 ],
             },
             {
-                "title": "Senior DevOps Engineer / Data Architect",
+                "title": "Senior DevOps Engineer",
                 "company": "Deloitte",
                 "duration": "Dec 2018 - Jun 2021",
                 "location": "",
                 "bullets": [
-                    "Built BigQuery data platforms for enterprise analytics with automated ETL using Dataflow and Cloud Composer",
-                    "Implemented multi-cloud security controls spanning GCP, AWS, Azure, and OCI with unified audit logging and IAM",
+                    "Built BigQuery data platforms for enterprise analytics with automated ETL via Dataflow and Cloud Composer",
+                    "Unified security controls across GCP, AWS, Azure, and OCI under a single IAM and audit-logging model",
                     "Orchestrated containerised workloads across GKE and EKS for distributed data processing at scale",
-                    "Accelerated CI/CD pipeline speed by 30x through Cloud Build optimisation, caching, and parallel execution",
+                    "Redesigned Cloud Build around caching and parallel execution, taking CI/CD 30x faster",
                 ],
             },
             {
@@ -1193,7 +1187,7 @@ def build_gcp_devops_resume():
                 "duration": "Nov 2015 - Dec 2018",
                 "location": "",
                 "bullets": [
-                    "Designed cloud architectures for production workloads -- established patterns later applied to GCP migrations",
+                    "Designed cloud architectures for production workloads, establishing patterns later reused in GCP migrations",
                     "Built disaster recovery strategies with cross-region replication and automated failover testing",
                 ],
             },
@@ -1203,7 +1197,7 @@ def build_gcp_devops_resume():
                 "duration": "Mar 2013 - Jul 2014",
                 "location": "",
                 "bullets": [
-                    "Infrastructure operations, P1/P2 incident response, and root cause analysis for enterprise production systems",
+                    "Handled P1/P2 incident response and root cause analysis for enterprise production systems",
                 ],
             },
         ],
@@ -1212,21 +1206,21 @@ def build_gcp_devops_resume():
                 "name": "InfraCents -- GCP Cost Estimates on Every Terraform PR",
                 "url": "github.com/nirbhays/infracents",
                 "link": "https://github.com/nirbhays/infracents",
-                "desc": "GitHub App posting real-time GCP cost estimates on Terraform pull requests. Queries live GCP Pricing API, parses Terraform changes automatically. Zero config.",
+                "desc": "Posts real-time GCP cost estimates on Terraform pull requests by parsing diffs against the live GCP Pricing API -- zero config.",
                 "techs": "Python, Next.js, Terraform, GitHub App, GCP Pricing API",
             },
             {
                 "name": "ShieldIaC -- AI-Powered IaC Security Scanner",
                 "url": "github.com/nirbhays/shieldiac",
                 "link": "https://github.com/nirbhays/shieldiac",
-                "desc": "Scans Terraform for GCP security misconfigurations pre-production. 100+ rules across CIS GCP Benchmark, SOC2, HIPAA, PCI-DSS, NIST. GPT-4.1 fix suggestions.",
+                "desc": "Scans Terraform for GCP security misconfigurations pre-production against 100+ rules across CIS GCP Benchmark, SOC2, HIPAA, PCI-DSS, and NIST, with GPT-4.1 fix suggestions.",
                 "techs": "Python, Terraform, GPT-4.1, GitHub Actions",
             },
             {
                 "name": "TokenMeter -- LLM Cost Intelligence (Google AI Support)",
                 "url": "github.com/nirbhays/tokenmeter",
                 "link": "https://github.com/nirbhays/tokenmeter",
-                "desc": "Tracks token cost across Google AI (Gemini), OpenAI, Anthropic. Smart routing matches tasks to optimal models, saving up to 60% on AI spend.",
+                "desc": "Tracks token cost across Google AI (Gemini), OpenAI, and Anthropic, matching tasks to the optimal model to cut AI spend up to 60%.",
                 "techs": "Python, Google AI, OpenAI, Anthropic, Smart Routing, PyPI",
             },
         ],
@@ -1259,13 +1253,13 @@ def build_finops_resume():
         title="FinOps & Cloud Cost Optimisation Architect  |  EUR 4M+ Documented Savings",
         subtitle="FinOps | Cloud Cost Governance\nSavings Plans | Right-Sizing | AI Cost Mgmt",
         summary=(
-            "Cloud & FinOps Architect with 11+ years of experience and EUR 4M+ in documented cloud cost savings "
-            "at Bosch Europe. Expert in FinOps governance, cloud cost optimisation across AWS, GCP, and Azure, "
-            "and building open-source cost intelligence tools. Created TokenMeter (LLM cost tracker achieving 60% "
-            "AI spend reduction) and InfraCents (Terraform cost estimation on every PR). Combines deep cloud "
-            "architecture expertise with strategic cost governance -- helping organisations maximise cloud ROI "
-            "through data-driven decisions, cultural change, and automated cost controls without sacrificing "
-            "performance, security, or innovation velocity."
+            "Cloud & FinOps Architect with 11+ years of cloud engineering and EUR 4M+ in documented cost savings "
+            "at Bosch Europe. Treats FinOps as a governance discipline, not a one-time cost-cutting exercise -- "
+            "unit economics, tagging standards, and, as AI workloads scale, token-level cost accountability. Built "
+            "two open-source tools that operationalise that discipline: TokenMeter, which cut LLM spend 60% "
+            "through provider-aware routing, and InfraCents, which prices Terraform changes on every pull request "
+            "before they merge. Pairs deep multi-cloud architecture experience with the governance needed to keep "
+            "the savings sustainable."
         ),
         metrics=[
             ("EUR 4M+", "Total Savings"),
@@ -1276,12 +1270,10 @@ def build_finops_resume():
         ],
         highlights=[
             "Delivered EUR 4M+ in documented cloud savings at Bosch Europe through FinOps governance, optimisation, and cost-aware architecture",
-            "Reduced AWS costs by $45,000 at Deloitte through Spot Instance fleet management, Reserved Instances, workload right-sizing, and pipeline efficiency",
-            "Built TokenMeter (open-source): LLM cost intelligence layer providing per-feature/per-team breakdowns with smart routing saving 60% on AI spend",
-            "Built InfraCents (open-source): GitHub App posting real-time cloud cost estimates (AWS+GCP) on every Terraform PR before merge",
-            "Established enterprise FinOps practice: chargeback/showback models, tagging strategies, budget automation, anomaly detection, and executive reporting",
-            "Optimised AI/ML workload costs through GPU scheduling, preemptible instances, Spot Instance strategies, and model right-sizing",
-            "Led FinOps culture transformation -- trained 50+ engineers on cost-conscious architecture and cloud spending accountability",
+            "Cut AWS costs $45,000 at Deloitte through Spot Instance fleet management, Reserved Instances, and workload right-sizing",
+            "Open-sourced TokenMeter, a token-economics layer giving per-feature and per-team cost breakdowns, with smart routing cutting AI spend 60%",
+            "Open-sourced InfraCents, pricing AWS+GCP cost impact on every Terraform pull request before it merges",
+            "Built the enterprise FinOps practice behind that programme: chargeback/showback models, tagging standards, anomaly detection, and executive reporting",
         ],
         sidebar_skills={
             "FinOps": "FinOps Framework, Cloud Cost Allocation, Chargeback/Showback, Unit Economics, Cloud Billing APIs",
@@ -1299,12 +1291,11 @@ def build_finops_resume():
                 "duration": "Dec 2022 - Present",
                 "location": "Warsaw, Poland",
                 "bullets": [
-                    "Implemented enterprise FinOps programme at Bosch Europe, delivering EUR 4M+ in documented savings through optimisation, governance, and cost-aware architecture",
+                    "Built the FinOps programme behind EUR 4M+ in documented Bosch Europe savings: governance, optimisation, and cost-aware architecture",
                     "Established chargeback/showback models, tagging strategies, and automated budget alerts across 50+ AWS and GCP accounts serving 15+ business units",
-                    "Built real-time cost dashboards and anomaly detection systems providing cloud spend visibility to engineering and executive stakeholders",
-                    "Defined resource lifecycle policies, right-sizing cadence, and reserved/committed capacity purchasing strategies based on usage analysis",
-                    "Led FinOps culture transformation: trained 50+ engineers on cost-conscious architecture, established cost reviews in architecture governance",
-                    "Optimised AI/ML workload costs on Vertex AI and GKE through GPU scheduling, preemptible instances, and workload bin-packing strategies",
+                    "Built real-time cost dashboards and anomaly detection giving engineering and executive stakeholders shared visibility into spend",
+                    "Extended FinOps to AI workloads on Vertex AI and GKE: GPU scheduling, preemptible instances, and token-level cost tracking for LLM usage",
+                    "Trained 50+ engineers on cost-conscious architecture, embedding cost reviews directly into architecture governance",
                 ],
             },
             {
@@ -1313,22 +1304,22 @@ def build_finops_resume():
                 "duration": "Jun 2021 - Nov 2022",
                 "location": "",
                 "bullets": [
-                    "Automated infrastructure with Terraform IaC, eliminating resource waste from manual provisioning and reducing deployment overhead by 50%+",
-                    "Implemented cost-aware container orchestration across GKE, EKS, and AKS with cluster auto-scaling, pod resource limits, and spot integration",
-                    "Built monitoring dashboards correlating infrastructure costs with performance metrics for data-driven optimisation decisions",
-                    "Identified and eliminated $100K+ in unused resources through automated cleanup scripts and resource lifecycle policies",
+                    "Automated infrastructure with Terraform, cutting deployment overhead 50%+ and eliminating waste from manual provisioning",
+                    "Built cost-aware container orchestration across GKE, EKS, and AKS with autoscaling, pod resource limits, and Spot integration",
+                    "Built dashboards correlating infrastructure cost with performance metrics for data-driven optimisation",
+                    "Eliminated $100K+ in unused resources through automated cleanup scripts and lifecycle policies",
                 ],
             },
             {
-                "title": "Senior DevOps Engineer / Data & AI Architect",
+                "title": "Senior DevOps Engineer",
                 "company": "Deloitte",
                 "duration": "Dec 2018 - Jun 2021",
                 "location": "",
                 "bullets": [
-                    "Reduced AWS costs by $45,000 through Spot Instance fleet management, Reserved Instances, Savings Plans, and workload right-sizing",
-                    "Orchestrated 1,000+ containers using AWS Batch with Spot Instances -- maximised cost efficiency for distributed batch processing at 70% compute savings",
-                    "Accelerated CI/CD pipeline speed by 30x, reducing build/test compute costs and improving developer productivity",
-                    "Implemented cost monitoring, anomaly detection, and budget alerting for multi-cloud environments (AWS, GCP, Azure, OCI)",
+                    "Cut AWS costs $45,000 through Spot Instance fleet management, Reserved Instances, Savings Plans, and right-sizing",
+                    "Ran 1,000+ containers on AWS Batch with Spot Instances, cutting compute cost 70% for distributed batch processing",
+                    "Sped up CI/CD 30x, cutting build/test compute cost while improving developer productivity",
+                    "Built cost monitoring, anomaly detection, and budget alerting across AWS, GCP, Azure, and OCI",
                 ],
             },
             {
@@ -1337,9 +1328,9 @@ def build_finops_resume():
                 "duration": "Nov 2015 - Dec 2018",
                 "location": "",
                 "bullets": [
-                    "Designed cost-optimised AWS architectures: Auto Scaling policies, Spot Instances for non-critical workloads, Reserved Instances for baseline",
-                    "Managed 11,000+ server infrastructure -- identified and executed consolidation opportunities saving significant operational costs",
-                    "Led cloud migration planning with detailed TCO analysis, cost projection models, and ROI justification for executive stakeholders",
+                    "Designed cost-optimised AWS architectures: Auto Scaling, Spot Instances for non-critical workloads, Reserved Instances for baseline",
+                    "Managed 11,000+ server infrastructure, identifying and executing consolidation opportunities that cut operational cost",
+                    "Led cloud migration planning with TCO analysis, cost projection models, and ROI justification for executive stakeholders",
                 ],
             },
             {
@@ -1348,7 +1339,7 @@ def build_finops_resume():
                 "duration": "Mar 2013 - Jul 2014",
                 "location": "",
                 "bullets": [
-                    "Infrastructure operations and capacity planning for production environments -- early exposure to cost/capacity optimisation",
+                    "Handled infrastructure operations and capacity planning for production environments",
                 ],
             },
         ],
@@ -1357,21 +1348,21 @@ def build_finops_resume():
                 "name": "TokenMeter -- Cost Intelligence Layer for LLM Apps",
                 "url": "github.com/nirbhays/tokenmeter",
                 "link": "https://github.com/nirbhays/tokenmeter",
-                "desc": "One-line integration tracking every token, cost, and latency across OpenAI, Anthropic, Google. Per-feature and per-team breakdowns. Smart routing saves up to 60% by matching task complexity to model capability. <5ms overhead.",
+                "desc": "One-line integration giving per-feature and per-team cost breakdowns across OpenAI, Anthropic, and Google -- tracks every token and routes by task complexity to cut AI spend up to 60%, at <5ms overhead.",
                 "techs": "Python, OpenAI API, Anthropic API, Google AI, Smart Routing, PyPI",
             },
             {
                 "name": "InfraCents -- Terraform Cost Estimates on Every PR",
                 "url": "github.com/nirbhays/infracents",
                 "link": "https://github.com/nirbhays/infracents",
-                "desc": "GitHub App posting real-time AWS+GCP cost estimates on Terraform PRs before merge. Engineers see exact cost impact of infrastructure changes. Zero config, live pricing APIs.",
+                "desc": "Posts real-time AWS+GCP cost estimates on Terraform PRs before merge, so engineers see the exact cost impact of a change before it ships. Zero config.",
                 "techs": "Python, Next.js, Terraform, GitHub App, AWS/GCP Pricing APIs",
             },
             {
                 "name": "ShieldIaC -- AI-Powered IaC Security Scanner",
                 "url": "github.com/nirbhays/shieldiac",
                 "link": "https://github.com/nirbhays/shieldiac",
-                "desc": "Prevents costly security incidents by catching IaC misconfigs pre-production. 100+ rules, 9 compliance frameworks, AI fix suggestions.",
+                "desc": "Prevents costly security incidents by catching IaC misconfigurations pre-production across 100+ rules and 9 compliance frameworks, with AI-generated fix suggestions.",
                 "techs": "Python, Terraform, CloudFormation, GPT-4.1, GitHub Actions",
             },
         ],
@@ -1409,12 +1400,12 @@ def build_sre_resume():
         title="Site Reliability Engineer  |  Cloud Infrastructure & Observability Architect",
         subtitle="SRE | Observability | Kubernetes\nIncident Response | Disaster Recovery",
         summary=(
-            "Site Reliability Engineer and Cloud Architect with 11+ years ensuring production reliability across "
-            "AWS, GCP, and Azure. Expert in observability (Prometheus, Grafana, ELK), Kubernetes operations "
-            "(EKS, GKE, AKS), SLO/SLI-driven engineering, incident response, and disaster recovery. Managed "
-            "infrastructure serving 11,000+ endpoints at PTC, orchestrated 1,000+ containers at Deloitte, and "
-            "currently architects multi-cloud platforms at Bosch Europe. Builds open-source tools for proactive "
-            "reliability: security scanning (ShieldIaC) and cost anomaly detection (InfraCents, TokenMeter)."
+            "Site Reliability Engineer and Cloud Architect with 11+ years keeping production systems up across "
+            "AWS, GCP, and Azure -- observability (Prometheus, Grafana, ELK), Kubernetes operations (EKS, GKE, "
+            "AKS), SLO/SLI-driven engineering, incident response, and disaster recovery. Managed 11,000+ server "
+            "infrastructure at PTC, orchestrated 1,000+ containers at Deloitte, and now architects multi-cloud "
+            "platforms at Bosch Europe. Builds open-source tools for reliability before an incident happens: "
+            "ShieldIaC for security scanning, InfraCents and TokenMeter for cost anomaly detection."
         ),
         metrics=[
             ("11+", "Years Experience"),
@@ -1424,13 +1415,11 @@ def build_sre_resume():
             ("14+", "Certifications"),
         ],
         highlights=[
-            "11+ years ensuring production reliability across AWS, GCP, and Azure in enterprise environments (Bosch, McAfee, Deloitte, PTC, IBM)",
-            "Built comprehensive observability stacks: Prometheus, Grafana, ELK, CloudWatch -- unified metrics, logging, alerting, and distributed tracing",
-            "Managed production Kubernetes clusters (EKS, GKE, AKS) -- orchestrated 1,000+ containers with automated scaling, health monitoring, and self-healing",
-            "Designed disaster recovery strategies with cross-region replication, automated failover, and validated RTO/RPO testing",
-            "Managed 11,000+ server infrastructure at PTC with Active Directory, high availability, and automated failover -- 99.99% uptime SLA",
-            "P1/P2 incident response leadership across entire career: escalation management, root cause analysis, blameless post-mortems",
-            "Built ShieldIaC (open-source): proactive IaC security scanning preventing production incidents at the infrastructure-as-code layer",
+            "Built observability stacks on Prometheus, Grafana, ELK, and CloudWatch: unified metrics, logging, alerting, and distributed tracing",
+            "Ran production Kubernetes (EKS, GKE, AKS), orchestrating 1,000+ containers with automated scaling, health monitoring, and self-healing",
+            "Designed disaster recovery with cross-region replication, automated failover, and validated RTO/RPO testing",
+            "Managed 11,000+ server infrastructure at PTC with Active Directory and automated failover, holding a 99.99% uptime SLA",
+            "Led P1/P2 incident response across every role: escalation management, root cause analysis, blameless post-mortems",
         ],
         sidebar_skills={
             "Observability": "Prometheus, Grafana, ELK Stack, CloudWatch, Cloud Monitoring, X-Ray, Datadog",
@@ -1449,12 +1438,11 @@ def build_sre_resume():
                 "duration": "Dec 2022 - Present",
                 "location": "Warsaw, Poland",
                 "bullets": [
-                    "Architected reliable multi-cloud platforms on GCP and AWS for Bosch Europe with 99.99% uptime targets and automated incident detection",
-                    "Designed GKE and Cloud Run platforms with pod disruption budgets, autoscaling, health probes, liveness checks, and automated rollback",
-                    "Established observability standards: structured logging, distributed tracing (Cloud Trace), SLO-based alerting, and error budget tracking",
-                    "Implemented proactive reliability: FinOps anomaly detection, security scanning (ShieldIaC), and infrastructure drift monitoring",
-                    "Mentored 20+ engineers on SRE best practices, incident response processes, blameless post-mortems, and reliability culture",
-                    "Defined SLO/SLI framework for platform services -- error budget-driven release management and change velocity governance",
+                    "Architected multi-cloud platforms on GCP and AWS for Bosch Europe with 99.99% uptime targets and automated incident detection",
+                    "Designed GKE and Cloud Run platforms with pod disruption budgets, autoscaling, health probes, and automated rollback",
+                    "Defined the SLO/SLI framework for platform services, plus structured logging and distributed tracing (Cloud Trace), driving error-budget-based release decisions",
+                    "Built proactive reliability tooling: anomaly detection, IaC security scanning (ShieldIaC), and infrastructure drift monitoring",
+                    "Mentored 20+ engineers on SRE practices, incident response, and blameless post-mortems",
                 ],
             },
             {
@@ -1463,10 +1451,10 @@ def build_sre_resume():
                 "duration": "Jun 2021 - Nov 2022",
                 "location": "",
                 "bullets": [
-                    "Built production observability stack: Prometheus metrics, Grafana dashboards, ELK logging, custom alerting rules, and on-call runbooks",
-                    "Deployed and operated production Kubernetes clusters across GKE, EKS, AKS, and ECS with automated node patching and security updates",
-                    "Automated infrastructure with Terraform, reducing manual toil by 50%+ and eliminating configuration drift as a reliability risk",
-                    "Developed incident response runbooks, automated remediation scripts, and escalation procedures for common failure modes",
+                    "Built a production observability stack: Prometheus metrics, Grafana dashboards, ELK logging, and on-call runbooks",
+                    "Ran production Kubernetes across GKE, EKS, AKS, and ECS with automated node patching and security updates",
+                    "Automated infrastructure with Terraform, cutting manual toil 50%+ and removing configuration drift as a reliability risk",
+                    "Wrote incident response runbooks and automated remediation scripts for common failure modes",
                 ],
             },
             {
@@ -1475,10 +1463,10 @@ def build_sre_resume():
                 "duration": "Dec 2018 - Jun 2021",
                 "location": "",
                 "bullets": [
-                    "Orchestrated 1,000+ containers using AWS Batch, Spot Instances, and EKS with automated health monitoring, restart policies, and graceful degradation",
-                    "Accelerated CI/CD pipeline speed by 30x while implementing reliability gates: automated testing, security scanning, and canary analysis",
-                    "Implemented multi-cloud security controls and monitoring spanning GCP, AWS, Azure, and OCI with centralised audit logging",
-                    "Reduced AWS infrastructure costs by $45,000 while maintaining SLO compliance through smart resource optimisation",
+                    "Orchestrated 1,000+ containers on AWS Batch, Spot Instances, and EKS with automated health monitoring and graceful degradation",
+                    "Sped up CI/CD 30x while adding reliability gates: automated testing, security scanning, and canary analysis",
+                    "Unified security controls and monitoring across GCP, AWS, Azure, and OCI under centralised audit logging",
+                    "Cut AWS infrastructure cost $45,000 while holding SLO compliance through resource optimisation",
                 ],
             },
             {
@@ -1487,11 +1475,10 @@ def build_sre_resume():
                 "duration": "Nov 2015 - Dec 2018",
                 "location": "",
                 "bullets": [
-                    "Managed 11,000+ server Windows infrastructure with Active Directory, high availability clustering, and 99.99% uptime SLA",
-                    "Designed disaster recovery: cross-region replication, automated failover, backup validation, and regular DR testing with documented RTO/RPO",
-                    "Built fault-tolerant AWS architectures (EC2, RDS Multi-AZ, S3, VPC) for production workloads with multi-AZ deployments",
-                    "Led zero-downtime cloud migrations with automated rollback strategies, canary traffic shifting, and comprehensive smoke testing",
-                    "Built operations automation using PowerShell and Ansible, reducing MTTR for common incidents by 60%+",
+                    "Managed 11,000+ server Windows infrastructure with Active Directory and high-availability clustering, holding a 99.99% uptime SLA",
+                    "Designed disaster recovery with cross-region replication, automated failover, and documented RTO/RPO testing",
+                    "Led zero-downtime cloud migrations with automated rollback and canary traffic shifting",
+                    "Built operations automation in PowerShell and Ansible, cutting MTTR for common incidents 60%+",
                 ],
             },
             {
@@ -1500,8 +1487,8 @@ def build_sre_resume():
                 "duration": "Mar 2013 - Jul 2014",
                 "location": "",
                 "bullets": [
-                    "P1/P2 incident response, escalation management, and root cause analysis for enterprise production systems",
-                    "Infrastructure operations, change management, and migration planning in high-availability environments",
+                    "Handled P1/P2 incident response, escalation management, and root cause analysis for enterprise production systems",
+                    "Ran infrastructure operations, change management, and migration planning in high-availability environments",
                 ],
             },
         ],
@@ -1510,21 +1497,21 @@ def build_sre_resume():
                 "name": "ShieldIaC -- Proactive IaC Security Scanner",
                 "url": "github.com/nirbhays/shieldiac",
                 "link": "https://github.com/nirbhays/shieldiac",
-                "desc": "Prevents production security incidents at the IaC layer. Scans Terraform/CloudFormation for misconfigs. 100+ rules, 9 compliance frameworks (CIS, SOC2, HIPAA, PCI-DSS, NIST). GPT-4.1 fix suggestions.",
+                "desc": "Prevents production security incidents at the IaC layer, scanning Terraform and CloudFormation against 100+ rules across 9 compliance frameworks (CIS, SOC2, HIPAA, PCI-DSS, NIST), with GPT-4.1 fix suggestions.",
                 "techs": "Python, Terraform, CloudFormation, GPT-4.1, GitHub Actions",
             },
             {
                 "name": "InfraCents -- Infrastructure Cost Anomaly Prevention",
                 "url": "github.com/nirbhays/infracents",
                 "link": "https://github.com/nirbhays/infracents",
-                "desc": "Prevents cost-related reliability issues by showing exact infrastructure cost impact of Terraform changes before merge. Catches unintended resource scaling.",
+                "desc": "Catches unintended resource scaling before it becomes a reliability issue, showing the exact cost impact of a Terraform change before merge.",
                 "techs": "Python, Next.js, Terraform, GitHub App, AWS/GCP Pricing APIs",
             },
             {
                 "name": "TokenMeter -- LLM Performance & Cost Monitoring",
                 "url": "github.com/nirbhays/tokenmeter",
                 "link": "https://github.com/nirbhays/tokenmeter",
-                "desc": "Monitors LLM latency, token usage, and costs across providers. Smart routing ensures performance SLOs while reducing spend by 60%. <5ms overhead.",
+                "desc": "Monitors LLM latency, token usage, and cost across providers, routing to keep performance SLOs intact while cutting spend 60%, at <5ms overhead.",
                 "techs": "Python, OpenAI, Anthropic, Google AI, Smart Routing, PyPI",
             },
         ],

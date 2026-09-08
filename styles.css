@@ -33,10 +33,10 @@
 
 /* --- Design Tokens --- */
 :root {
-  --bg-0: #060b18;
-  --bg-1: #0c1224;
-  --bg-2: #121a30;
-  --bg-3: #1c2641;
+  --bg-0: #0a090e;
+  --bg-1: #10101a;
+  --bg-2: #161826;
+  --bg-3: #202437;
   --text-0: #eef1f6;
   --text-1: #b0b8cc;
   --text-2: #8a95b0;
@@ -53,8 +53,8 @@
   --amber: #fbbf24;
   --border: rgba(255,255,255,.06);
   --border-hover: rgba(255,255,255,.12);
-  --glass: rgba(12,18,36,.55);
-  --glass-strong: rgba(12,18,36,.82);
+  --glass: rgba(16,16,26,.55);
+  --glass-strong: rgba(16,16,26,.82);
   --radius: 18px;
   --radius-sm: 12px;
   --radius-xs: 6px;
@@ -121,11 +121,72 @@ strong { color: var(--text-0); font-weight: 600; }
   animation-duration: 24s;
   animation-delay: -16s;
 }
+.bg-orb-4 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--amber) 0%, transparent 70%);
+  opacity: .07;
+  top: 60%; left: 55%;
+  animation-duration: 36s;
+  animation-delay: -6s;
+}
 @keyframes orbFloat {
   0%   { transform: translate(0, 0) scale(1); }
   33%  { transform: translate(40px, -50px) scale(1.08); }
   66%  { transform: translate(-30px, 30px) scale(0.94); }
   100% { transform: translate(20px, -20px) scale(1.04); }
+}
+
+/* --- Hero Atmosphere: looping ambient video, scoped to .hero only, never bleeds into other sections --- */
+.hero-atmosphere {
+  position: absolute; inset: 0; z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+  background-image: image-set(
+    url("assets/generated/hero/hero-bg.avif") type("image/avif"),
+    url("assets/generated/hero/hero-bg.webp") type("image/webp"),
+    url("assets/generated/hero/hero-bg.jpg") type("image/jpeg")
+  );
+  background-size: cover;
+  background-position: center 30%;
+}
+.hero-atmosphere-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  opacity: .55;
+  filter: saturate(.75) brightness(1.02);
+  transform-origin: 60% 40%;
+  animation: heroAtmosphereDrift 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes heroAtmosphereDrift {
+  from { transform: scale(1); }
+  to   { transform: scale(1.09); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-atmosphere-video { animation: none; }
+}
+.hero-atmosphere::after {
+  content: '';
+  position: absolute; inset: 0;
+  /* Keeps hero copy legible no matter how bright the underlying frame gets:
+     strong, constant darkening behind the text column (left) and edges,
+     lighter over the photo/terminal side (right) so the art still reads. */
+  background:
+    linear-gradient(90deg, rgba(10,9,14,.82) 0%, rgba(10,9,14,.6) 38%, rgba(10,9,14,.22) 62%, rgba(10,9,14,.1) 100%),
+    linear-gradient(to bottom, var(--bg-0) 0%, rgba(10,9,14,.25) 24%, rgba(10,9,14,.35) 70%, var(--bg-0) 100%),
+    linear-gradient(180deg, rgba(34,211,238,.08), rgba(244,114,182,.05) 55%, rgba(10,9,14,0) 100%);
+}
+@media (max-width: 1024px) {
+  .hero-atmosphere::after {
+    background:
+      linear-gradient(to bottom, var(--bg-0) 0%, rgba(10,9,14,.55) 20%, rgba(10,9,14,.6) 75%, var(--bg-0) 100%),
+      linear-gradient(180deg, rgba(34,211,238,.08), rgba(244,114,182,.05) 55%, rgba(10,9,14,0) 100%);
+  }
+}
+@media (max-width: 768px) {
+  .hero-atmosphere-video { display: none; }
 }
 
 /* --- Canvas Background --- */
@@ -209,16 +270,28 @@ body::before {
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 clamp(24px, 5vw, 60px);
   height: 68px;
-  background: rgba(6,11,24,.4);
-  backdrop-filter: blur(24px) saturate(1.5);
-  -webkit-backdrop-filter: blur(24px) saturate(1.5);
   border-bottom: 1px solid var(--border);
   transition: all .5s var(--ease-expo);
 }
+/* Glass background lives on a pseudo-element (not on .nav itself) so that
+   backdrop-filter doesn't turn .nav into a containing block for its
+   position:fixed children (.nav-links.mobile-open / .nav-end.mobile-open) --
+   that would confine their fixed positioning to this 68px bar instead of
+   the viewport, breaking the full-screen mobile menu overlay. */
+.nav::before {
+  content: '';
+  position: absolute; inset: 0; z-index: -1;
+  background: rgba(10,9,14,.4);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  transition: background .5s var(--ease-expo);
+}
 .nav.scrolled {
-  background: rgba(6,11,24,.88);
   box-shadow: 0 4px 40px rgba(0,0,0,.4), 0 0 40px rgba(34,211,238,.03);
   border-color: rgba(34,211,238,.08);
+}
+.nav.scrolled::before {
+  background: rgba(10,9,14,.88);
 }
 
 .nav-logo {
@@ -347,7 +420,9 @@ body::before {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 7px 18px; border-radius: 999px;
   font-size: .78rem; font-weight: 500; color: var(--cyan);
-  background: var(--cyan-dim);
+  /* Solid enough to stay legible over the hero video without needing
+     backdrop-filter (which would re-blur the video every frame). */
+  background: linear-gradient(var(--cyan-dim), var(--cyan-dim)), rgba(12,11,16,.72);
   border: 1px solid rgba(34,211,238,.2);
   margin-bottom: 24px;
   box-shadow: 0 0 12px rgba(34,211,238,.08);
@@ -411,10 +486,11 @@ body::before {
 .stat {
   text-align: center;
   padding: 16px 20px;
-  background: var(--glass);
+  /* Solid instead of backdrop-blurred: these sit over the hero video, and
+     blurring a changing video frame every tick is expensive for little gain. */
+  background: rgba(12,11,16,.75);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  backdrop-filter: blur(12px);
   transition: all .45s var(--ease-expo);
   position: relative; overflow: hidden;
 }
@@ -440,6 +516,9 @@ body::before {
 .euro-prefix::before {
   content: '\20AC'; font-size: .7em; margin-right: 2px;
   -webkit-text-fill-color: initial; background: none;
+}
+.euro-prefix::after {
+  content: 'M';
 }
 .stat-suffix {
   font-family: var(--font-display); font-weight: 700;
@@ -562,11 +641,11 @@ body::before {
 /* Terminal */
 .hero-terminal {
   width: 100%; max-width: 380px;
-  background: rgba(12,18,36,.72);
+  /* Solid instead of backdrop-blurred (sits over the moving hero video). */
+  background: rgba(11,9,12,.88);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  backdrop-filter: blur(16px);
   box-shadow: 0 12px 40px rgba(0,0,0,.34), 0 0 24px rgba(34,211,238,.03);
   transition: all .5s var(--ease-expo);
 }
@@ -737,6 +816,28 @@ body::before {
 }
 .about-detail-value { font-size: .9rem; color: var(--text-0); text-align: right; }
 
+.about-grid-bento {
+  grid-template-columns: 1.15fr .85fr 1fr;
+}
+.about-visual {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  min-height: 320px;
+}
+.about-visual::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(10,9,14,.6) 100%);
+  pointer-events: none;
+}
+.about-visual picture, .about-visual img, .about-visual video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.about-visual img { animation: ambientDrift 24s ease-in-out infinite alternate; }
+.about-visual video { position: absolute; inset: 0; }
+
 /* ========================================================
    SKILLS — Bento Grid
    ======================================================== */
@@ -769,6 +870,9 @@ body::before {
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+@keyframes ripple {
+  to { transform: scale(1); opacity: 0; }
+}
 .skill-card:hover::before { opacity: 1; }
 .skill-card:hover {
   transform: translateY(-6px);
@@ -792,6 +896,44 @@ body::before {
 .skill-card:nth-child(6) .skill-card-icon { background: rgba(251,191,36,.10); color: var(--amber); }
 .skill-card:nth-child(7) .skill-card-icon { background: var(--cyan-dim); color: var(--cyan); }
 .skill-card:nth-child(8) .skill-card-icon { background: var(--magenta-dim); color: var(--magenta); }
+
+.skill-card-media {
+  margin: -26px -26px 18px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  position: relative;
+  transition: transform .6s var(--ease-expo);
+}
+@keyframes ambientDrift {
+  from { transform: scale(1); }
+  to   { transform: scale(1.1); }
+}
+.skill-card:nth-child(2) .skill-card-media img,
+.project-card:nth-child(2n) .project-card-media img { animation-duration: 22s; }
+.skill-card:nth-child(3) .skill-card-media img,
+.project-card:nth-child(3n) .project-card-media img { animation-duration: 15s; }
+.skill-card:nth-child(4) .skill-card-media img { animation-duration: 20s; }
+.skill-card:nth-child(5) .skill-card-media img { animation-duration: 26s; }
+.skill-card:nth-child(6) .skill-card-media img { animation-duration: 17s; }
+.skill-card:nth-child(7) .skill-card-media img { animation-duration: 24s; }
+.skill-card:nth-child(8) .skill-card-media img { animation-duration: 19s; }
+.skill-card-media img,
+.skill-card-media video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.skill-card-media img { animation: ambientDrift 18s ease-in-out infinite alternate; }
+.skill-card-media video { position: absolute; inset: 0; }
+.skill-card:hover .skill-card-media { transform: scale(1.06); }
+.skill-card-media + .skill-card-icon {
+  position: relative;
+  margin-top: -44px;
+  background: var(--glass-strong) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 20px rgba(0,0,0,.35);
+  z-index: 2;
+}
 
 .skill-card h3 {
   font-family: var(--font-display); font-size: 1rem;
@@ -1013,6 +1155,31 @@ body::before {
 .project-metrics strong { color: var(--cyan); font-size: .9rem; }
 .project-tech { display: flex; flex-wrap: wrap; gap: 6px; }
 
+.project-card-media {
+  margin: -30px -30px 20px;
+  overflow: hidden;
+  position: relative;
+  transition: transform .6s var(--ease-expo);
+}
+.project-card-media img,
+.project-card-media video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.project-card-media img { animation: ambientDrift 20s ease-in-out infinite alternate; }
+.project-card-media video {
+  position: absolute; inset: 0;
+}
+.project-card:hover .project-card-media { transform: scale(1.05); }
+.project-card-media::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(10,9,14,.35) 100%);
+  pointer-events: none;
+}
+.project-card-media--wide { aspect-ratio: 4 / 3; }
+.project-card-media--tall { aspect-ratio: 3 / 4; }
+.project-card-media--square { aspect-ratio: 1 / 1; }
+
 .projects-cta, .articles-cta, .certs-cta {
   text-align: center; margin-top: 48px;
 }
@@ -1071,6 +1238,18 @@ body::before {
   line-height: 1.4;
 }
 .article-card p { font-size: .9rem; color: var(--text-1); flex: 1; }
+.article-thumb {
+  margin: -30px -30px 20px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  position: relative;
+  transition: transform .6s var(--ease-expo);
+}
+.article-thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  animation: ambientDrift 21s ease-in-out infinite alternate;
+}
+.article-card:hover .article-thumb { transform: scale(1.05); }
 .article-read {
   display: inline-block; margin-top: 18px;
   font-size: .85rem; font-weight: 500;
@@ -1176,6 +1355,10 @@ body::before {
   background: rgba(167,139,250,.10);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; color: var(--violet);
+}
+.education-icon-media { overflow: hidden; padding: 0; background: transparent; }
+.education-icon-media img {
+  width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;
 }
 .education-content h3 {
   font-family: var(--font-display); font-size: 1.05rem;
@@ -1301,7 +1484,7 @@ body::before {
   .nav-links.mobile-open {
     display: flex; flex-direction: column;
     position: fixed; inset: 0; top: 68px;
-    background: rgba(6,11,24,.97);
+    background: rgba(10,9,14,.97);
     backdrop-filter: blur(24px);
     padding: 40px 30px;
     gap: 8px; z-index: 99;

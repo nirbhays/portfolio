@@ -2,6 +2,43 @@
   'use strict';
 
   var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ------------------------------------------------
+     HERO ATMOSPHERE VIDEO (desktop + motion-ok only)
+  ------------------------------------------------ */
+  var heroAtmosphereVideo = document.getElementById('hero-atmosphere-video');
+  if (heroAtmosphereVideo && !prefersReducedMotion && window.innerWidth > 768) {
+    heroAtmosphereVideo.preload = 'auto';
+    heroAtmosphereVideo.play().catch(function () {});
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        heroAtmosphereVideo.pause();
+      } else {
+        heroAtmosphereVideo.play().catch(function () {});
+      }
+    });
+  }
+
+  /* ------------------------------------------------
+     AMBIENT CARD VIDEOS (about/project illustrations) --
+     play only while scrolled into view, to save bandwidth/battery
+  ------------------------------------------------ */
+  if (!prefersReducedMotion && window.innerWidth > 768 && 'IntersectionObserver' in window) {
+    var ambientVideos = document.querySelectorAll('.ambient-video');
+    var ambientObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var v = entry.target;
+        if (entry.isIntersecting) {
+          if (v.preload !== 'auto') v.preload = 'auto';
+          v.play().catch(function () {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    ambientVideos.forEach(function (v) { ambientObserver.observe(v); });
+  }
 
   /* ------------------------------------------------
      LOADER
@@ -413,11 +450,6 @@
     });
   }
 
-  window.addEventListener('scroll', function () {
-    updateProgress();
-    updateNav();
-  }, { passive: true });
-
   /* ------------------------------------------------
      MOBILE NAV TOGGLE
   ------------------------------------------------ */
@@ -475,6 +507,11 @@
   function scrambleReveal(el) {
     var finalText = el.getAttribute('data-text');
     if (!finalText) return;
+
+    if (prefersReducedMotion) {
+      el.textContent = finalText;
+      return;
+    }
 
     var length = finalText.length;
     var resolved = 0;
@@ -611,7 +648,11 @@
     typingPaused = document.hidden;
   });
 
-  typeRole();
+  if (prefersReducedMotion) {
+    typedEl.textContent = roles[0];
+  } else {
+    typeRole();
+  }
 
   /* ------------------------------------------------
      TERMINAL TYPING with colored output
@@ -670,27 +711,27 @@
     }
   }
 
-  setTimeout(typeTerminal, 1400);
+  if (prefersReducedMotion) {
+    terminalBody.textContent = terminalLines.map(function (l) {
+      return l.prompt + '\n' + l.response;
+    }).join('\n') + '\n_';
+  } else {
+    setTimeout(typeTerminal, 1400);
+  }
 
   /* ------------------------------------------------
      PARALLAX EFFECT on background orbs
   ------------------------------------------------ */
   var orbs = document.querySelectorAll('.bg-orb');
-  var ticking = false;
 
-  window.addEventListener('scroll', function () {
-    if (!ticking) {
-      requestAnimationFrame(function () {
-        var scroll = window.scrollY;
-        orbs.forEach(function (orb, i) {
-          var speed = (i + 1) * 0.05;
-          orb.style.transform = 'translateY(' + (scroll * speed) + 'px)';
-        });
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
+  function updateOrbParallax() {
+    if (prefersReducedMotion) return;
+    var scroll = window.scrollY;
+    orbs.forEach(function (orb, i) {
+      var speed = (i + 1) * 0.05;
+      orb.style.transform = 'translateY(' + (scroll * speed) + 'px)';
+    });
+  }
 
   /* ------------------------------------------------
      SMOOTH SCROLL for anchor links
@@ -757,12 +798,12 @@
     });
   }
 
-  window.addEventListener('scroll', function () {
+  function updateHeroFade() {
     if (window.scrollY < window.innerHeight) {
       var scroll = window.scrollY;
       if (heroContent) heroContent.style.opacity = 1 - scroll / (window.innerHeight * 0.8);
     }
-  }, { passive: true });
+  }
 
   /* ------------------------------------------------
      SKILL CARD TILT on hover
@@ -791,35 +832,37 @@
   var experienceSection = document.getElementById('experience');
   var timeline = experienceSection ? experienceSection.querySelector('.timeline') : null;
 
+  var timelineAfterStyle = null;
   if (timeline) {
-    var timelineAfterStyle = document.createElement('style');
+    timelineAfterStyle = document.createElement('style');
     timelineAfterStyle.id = 'timeline-scroll-style';
     document.head.appendChild(timelineAfterStyle);
+  }
 
-    window.addEventListener('scroll', function () {
-      var rect = experienceSection.getBoundingClientRect();
-      var sectionTop = rect.top;
-      var sectionHeight = rect.height;
-      var viewH = window.innerHeight;
+  function updateTimelineGlow() {
+    if (!timeline) return;
+    var rect = experienceSection.getBoundingClientRect();
+    var sectionTop = rect.top;
+    var sectionHeight = rect.height;
+    var viewH = window.innerHeight;
 
-      var progress = Math.max(0, Math.min(1, (viewH - sectionTop) / (sectionHeight + viewH)));
-      var topPercent = progress * 100;
+    var progress = Math.max(0, Math.min(1, (viewH - sectionTop) / (sectionHeight + viewH)));
+    var topPercent = progress * 100;
 
-      timelineAfterStyle.textContent =
-        '.timeline::after { animation: none !important; top: ' + topPercent + '% !important; opacity: 1 !important; }';
-    }, { passive: true });
+    timelineAfterStyle.textContent =
+      '.timeline::after { animation: none !important; top: ' + topPercent + '% !important; opacity: 1 !important; }';
   }
 
   /* ------------------------------------------------
      BACKGROUND SCROLL COLOR SHIFT
   ------------------------------------------------ */
   var bgColors = [
-    { pos: 0, r: 6, g: 11, b: 24 },
-    { pos: 0.2, r: 6, g: 13, b: 30 },
-    { pos: 0.4, r: 10, g: 11, b: 24 },
-    { pos: 0.6, r: 8, g: 9, b: 30 },
-    { pos: 0.8, r: 6, g: 11, b: 28 },
-    { pos: 1.0, r: 6, g: 11, b: 24 }
+    { pos: 0, r: 10, g: 9, b: 14 },
+    { pos: 0.2, r: 10, g: 11, b: 20 },
+    { pos: 0.4, r: 14, g: 9, b: 14 },
+    { pos: 0.6, r: 12, g: 7, b: 20 },
+    { pos: 0.8, r: 10, g: 9, b: 18 },
+    { pos: 1.0, r: 10, g: 9, b: 14 }
   ];
 
   function lerpColor(a, b, t) {
@@ -830,7 +873,7 @@
     };
   }
 
-  window.addEventListener('scroll', function () {
+  function updateBgColorShift() {
     var scrollFraction = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
     scrollFraction = Math.max(0, Math.min(1, scrollFraction));
 
@@ -847,13 +890,34 @@
     var t = range > 0 ? (scrollFraction - lower.pos) / range : 0;
     var c = lerpColor(lower, upper, t);
     document.body.style.background = 'rgb(' + c.r + ',' + c.g + ',' + c.b + ')';
+  }
+
+  /* ------------------------------------------------
+     CONSOLIDATED SCROLL LISTENER (single rAF per frame)
+  ------------------------------------------------ */
+  var scrollTicking = false;
+  function onScrollRaf() {
+    updateProgress();
+    updateNav();
+    updateOrbParallax();
+    updateHeroFade();
+    updateTimelineGlow();
+    updateBgColorShift();
+    scrollTicking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      requestAnimationFrame(onScrollRaf);
+      scrollTicking = true;
+    }
   }, { passive: true });
+  onScrollRaf();
 
   /* ------------------------------------------------
      HERO NAME GLITCH EFFECT
   ------------------------------------------------ */
   var heroNameEl = document.querySelector('.hero-name');
-  if (heroNameEl) {
+  if (heroNameEl && !prefersReducedMotion) {
     function triggerGlitch() {
       heroNameEl.classList.add('glitch');
       setTimeout(function () {
